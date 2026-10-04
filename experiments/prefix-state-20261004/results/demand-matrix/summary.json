@@ -1,0 +1,1212 @@
+{
+  "matrix": [
+    {
+      "worlds": 2,
+      "field": 0,
+      "roots": 6,
+      "selected": [
+        962004,
+        962012,
+        962015,
+        962016,
+        962020,
+        962023
+      ],
+      "variants": {
+        "full": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 840,
+          "stats": {
+            "actor_demands_by_level": [
+              117
+            ],
+            "avoided_record_calls": 565,
+            "cache_entries": 123,
+            "cache_hits": 0,
+            "cache_key_bytes": 16224,
+            "cache_lookup_us": 24,
+            "completed_actor_queries": 117,
+            "demand_grouping_us": 28,
+            "fold_us": 142,
+            "forward_us": 116,
+            "generated_actor_queries": 117,
+            "inner_worlds_by_level": [
+              468
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 52880,
+            "peak_layer_rows": 139,
+            "peak_retained_array_bytes": 52288,
+            "prefix_lookup_probes": 4369,
+            "preparation_us": 9,
+            "public_coordinates": 8697,
+            "public_record_calls": 1409,
+            "public_step_calls": 6045,
+            "query_lookups": 123,
+            "raw_policy_consultations_by_level": [
+              118
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 1372,
+            "row_edges": 10837,
+            "sample_us": 26,
+            "unique_actor_misses_by_level": [
+              117
+            ]
+          },
+          "completed_cache_entries": null
+        },
+        "hybrid": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 335,
+          "stats": {
+            "actor_demands_by_level": [
+              117
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 123,
+            "cache_hits": 0,
+            "cache_key_bytes": 16224,
+            "cache_lookup_us": 3,
+            "completed_actor_queries": 117,
+            "demand_grouping_us": 3,
+            "fold_us": 16,
+            "forward_us": 2,
+            "generated_actor_queries": 117,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 117,
+            "native_choice_declared_budget_sum_by_level": [
+              468
+            ],
+            "native_choice_us": 102,
+            "native_core_nodes": 2372,
+            "native_core_pi_misses_by_level": [
+              117,
+              0,
+              0,
+              0
+            ],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [
+              468,
+              0,
+              0,
+              0
+            ],
+            "peak_counted_live_array_bytes": 4216,
+            "peak_layer_rows": 12,
+            "peak_retained_array_bytes": 4216,
+            "prefix_lookup_probes": 103,
+            "preparation_us": 8,
+            "public_coordinates": 444,
+            "public_record_calls": 0,
+            "public_step_calls": 328,
+            "query_lookups": 123,
+            "raw_policy_consultations_by_level": [
+              118
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 31,
+            "row_edges": 475,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              117
+            ]
+          },
+          "completed_cache_entries": null
+        }
+      },
+      "reference_us": 241
+    },
+    {
+      "worlds": 2,
+      "field": 1,
+      "roots": 6,
+      "selected": [
+        962004,
+        962012,
+        962015,
+        962016,
+        962020,
+        962023
+      ],
+      "variants": {
+        "full": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 3787,
+          "stats": {
+            "actor_demands_by_level": [
+              936,
+              122
+            ],
+            "avoided_record_calls": 2780,
+            "cache_entries": 1057,
+            "cache_hits": 7,
+            "cache_key_bytes": 135776,
+            "cache_lookup_us": 230,
+            "completed_actor_queries": 1051,
+            "demand_grouping_us": 341,
+            "fold_us": 550,
+            "forward_us": 744,
+            "generated_actor_queries": 1051,
+            "inner_worlds_by_level": [
+              3716,
+              244
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 143990,
+            "peak_layer_rows": 416,
+            "peak_retained_array_bytes": 140350,
+            "prefix_lookup_probes": 30259,
+            "preparation_us": 80,
+            "public_coordinates": 46101,
+            "public_record_calls": 4806,
+            "public_step_calls": 32589,
+            "query_lookups": 1064,
+            "raw_policy_consultations_by_level": [
+              985,
+              123
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 10899,
+            "row_edges": 63164,
+            "sample_us": 236,
+            "unique_actor_misses_by_level": [
+              929,
+              122
+            ]
+          },
+          "completed_cache_entries": null
+        },
+        "hybrid": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 590,
+          "stats": {
+            "actor_demands_by_level": [
+              0,
+              122
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 128,
+            "cache_hits": 0,
+            "cache_key_bytes": 16864,
+            "cache_lookup_us": 2,
+            "completed_actor_queries": 122,
+            "demand_grouping_us": 4,
+            "fold_us": 19,
+            "forward_us": 3,
+            "generated_actor_queries": 122,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 122,
+            "native_choice_declared_budget_sum_by_level": [
+              0,
+              244
+            ],
+            "native_choice_us": 343,
+            "native_core_nodes": 8895,
+            "native_core_pi_misses_by_level": [
+              667,
+              122,
+              0,
+              0
+            ],
+            "native_core_policy_cache_entries": 122,
+            "native_core_reported_inner_worlds_by_level": [
+              2668,
+              244,
+              0,
+              0
+            ],
+            "peak_counted_live_array_bytes": 4263,
+            "peak_layer_rows": 12,
+            "peak_retained_array_bytes": 4263,
+            "prefix_lookup_probes": 103,
+            "preparation_us": 8,
+            "public_coordinates": 461,
+            "public_record_calls": 0,
+            "public_step_calls": 361,
+            "query_lookups": 128,
+            "raw_policy_consultations_by_level": [
+              0,
+              123
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 29,
+            "row_edges": 490,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              0,
+              122
+            ]
+          },
+          "completed_cache_entries": null
+        }
+      },
+      "reference_us": 515
+    },
+    {
+      "worlds": 2,
+      "field": 2,
+      "roots": 6,
+      "selected": [
+        962004,
+        962012,
+        962015,
+        962016,
+        962020,
+        962023
+      ],
+      "variants": {
+        "full": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 13570,
+          "stats": {
+            "actor_demands_by_level": [
+              4268,
+              1045,
+              124
+            ],
+            "avoided_record_calls": 9550,
+            "cache_entries": 5358,
+            "cache_hits": 59,
+            "cache_key_bytes": 686304,
+            "cache_lookup_us": 1260,
+            "completed_actor_queries": 5352,
+            "demand_grouping_us": 1735,
+            "fold_us": 1782,
+            "forward_us": 3059,
+            "generated_actor_queries": 5352,
+            "inner_worlds_by_level": [
+              16752,
+              2080,
+              248
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 515192,
+            "peak_layer_rows": 1488,
+            "peak_retained_array_bytes": 505540,
+            "prefix_lookup_probes": 131617,
+            "preparation_us": 485,
+            "public_coordinates": 175332,
+            "public_record_calls": 13688,
+            "public_step_calls": 122420,
+            "query_lookups": 5443,
+            "raw_policy_consultations_by_level": [
+              4393,
+              1058,
+              125
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 48996,
+            "row_edges": 255392,
+            "sample_us": 1258,
+            "unique_actor_misses_by_level": [
+              4188,
+              1040,
+              124
+            ]
+          },
+          "completed_cache_entries": null
+        },
+        "hybrid": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 1192,
+          "stats": {
+            "actor_demands_by_level": [
+              0,
+              0,
+              124
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 130,
+            "cache_hits": 0,
+            "cache_key_bytes": 17120,
+            "cache_lookup_us": 3,
+            "completed_actor_queries": 124,
+            "demand_grouping_us": 6,
+            "fold_us": 15,
+            "forward_us": 9,
+            "generated_actor_queries": 124,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 124,
+            "native_choice_declared_budget_sum_by_level": [
+              0,
+              0,
+              248
+            ],
+            "native_choice_us": 935,
+            "native_core_nodes": 21639,
+            "native_core_pi_misses_by_level": [
+              2023,
+              693,
+              124,
+              0
+            ],
+            "native_core_policy_cache_entries": 817,
+            "native_core_reported_inner_worlds_by_level": [
+              8092,
+              1386,
+              248,
+              0
+            ],
+            "peak_counted_live_array_bytes": 4263,
+            "peak_layer_rows": 12,
+            "peak_retained_array_bytes": 4263,
+            "prefix_lookup_probes": 104,
+            "preparation_us": 9,
+            "public_coordinates": 481,
+            "public_record_calls": 0,
+            "public_step_calls": 389,
+            "query_lookups": 130,
+            "raw_policy_consultations_by_level": [
+              0,
+              0,
+              125
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 27,
+            "row_edges": 508,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              0,
+              0,
+              124
+            ]
+          },
+          "completed_cache_entries": null
+        }
+      },
+      "reference_us": 1065
+    },
+    {
+      "worlds": 8,
+      "field": 0,
+      "roots": 6,
+      "selected": [
+        962004,
+        962012,
+        962015,
+        962016,
+        962020,
+        962023
+      ],
+      "variants": {
+        "full": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 2259,
+          "stats": {
+            "actor_demands_by_level": [
+              447
+            ],
+            "avoided_record_calls": 2298,
+            "cache_entries": 452,
+            "cache_hits": 0,
+            "cache_key_bytes": 58912,
+            "cache_lookup_us": 120,
+            "completed_actor_queries": 446,
+            "demand_grouping_us": 326,
+            "fold_us": 393,
+            "forward_us": 630,
+            "generated_actor_queries": 446,
+            "inner_worlds_by_level": [
+              1784
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 151480,
+            "peak_layer_rows": 398,
+            "peak_retained_array_bytes": 149224,
+            "prefix_lookup_probes": 17451,
+            "preparation_us": 45,
+            "public_coordinates": 32613,
+            "public_record_calls": 5056,
+            "public_step_calls": 22285,
+            "query_lookups": 453,
+            "raw_policy_consultations_by_level": [
+              467
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 5394,
+            "row_edges": 41483,
+            "sample_us": 122,
+            "unique_actor_misses_by_level": [
+              446
+            ]
+          },
+          "completed_cache_entries": null
+        },
+        "hybrid": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 766,
+          "stats": {
+            "actor_demands_by_level": [
+              447
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 452,
+            "cache_hits": 1,
+            "cache_key_bytes": 58912,
+            "cache_lookup_us": 3,
+            "completed_actor_queries": 446,
+            "demand_grouping_us": 35,
+            "fold_us": 37,
+            "forward_us": 19,
+            "generated_actor_queries": 446,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 446,
+            "native_choice_declared_budget_sum_by_level": [
+              1784
+            ],
+            "native_choice_us": 167,
+            "native_core_nodes": 8901,
+            "native_core_pi_misses_by_level": [
+              446,
+              0,
+              0,
+              0
+            ],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [
+              1784,
+              0,
+              0,
+              0
+            ],
+            "peak_counted_live_array_bytes": 15151,
+            "peak_layer_rows": 43,
+            "peak_retained_array_bytes": 15151,
+            "prefix_lookup_probes": 806,
+            "preparation_us": 8,
+            "public_coordinates": 1699,
+            "public_record_calls": 0,
+            "public_step_calls": 1239,
+            "query_lookups": 453,
+            "raw_policy_consultations_by_level": [
+              467
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 258,
+            "row_edges": 2013,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              446
+            ]
+          },
+          "completed_cache_entries": null
+        }
+      },
+      "reference_us": 473
+    },
+    {
+      "worlds": 8,
+      "field": 1,
+      "roots": 6,
+      "selected": [
+        962004,
+        962012,
+        962015,
+        962016,
+        962020,
+        962023
+      ],
+      "variants": {
+        "full": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 12580,
+          "stats": {
+            "actor_demands_by_level": [
+              3681,
+              470
+            ],
+            "avoided_record_calls": 11500,
+            "cache_entries": 4081,
+            "cache_hits": 37,
+            "cache_key_bytes": 523424,
+            "cache_lookup_us": 1015,
+            "completed_actor_queries": 4075,
+            "demand_grouping_us": 2007,
+            "fold_us": 2041,
+            "forward_us": 3396,
+            "generated_actor_queries": 4075,
+            "inner_worlds_by_level": [
+              14428,
+              936
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 541923,
+            "peak_layer_rows": 1564,
+            "peak_retained_array_bytes": 530015,
+            "prefix_lookup_probes": 121227,
+            "preparation_us": 407,
+            "public_coordinates": 181922,
+            "public_record_calls": 19161,
+            "public_step_calls": 126966,
+            "query_lookups": 4157,
+            "raw_policy_consultations_by_level": [
+              3813,
+              490
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 42731,
+            "row_edges": 251201,
+            "sample_us": 1038,
+            "unique_actor_misses_by_level": [
+              3607,
+              468
+            ]
+          },
+          "completed_cache_entries": null
+        },
+        "hybrid": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 1744,
+          "stats": {
+            "actor_demands_by_level": [
+              0,
+              470
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 474,
+            "cache_hits": 2,
+            "cache_key_bytes": 61728,
+            "cache_lookup_us": 4,
+            "completed_actor_queries": 468,
+            "demand_grouping_us": 39,
+            "fold_us": 42,
+            "forward_us": 22,
+            "generated_actor_queries": 468,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 468,
+            "native_choice_declared_budget_sum_by_level": [
+              0,
+              936
+            ],
+            "native_choice_us": 1044,
+            "native_core_nodes": 36366,
+            "native_core_pi_misses_by_level": [
+              2656,
+              468,
+              0,
+              0
+            ],
+            "native_core_policy_cache_entries": 468,
+            "native_core_reported_inner_worlds_by_level": [
+              10624,
+              936,
+              0,
+              0
+            ],
+            "peak_counted_live_array_bytes": 15484,
+            "peak_layer_rows": 44,
+            "peak_retained_array_bytes": 15484,
+            "prefix_lookup_probes": 809,
+            "preparation_us": 8,
+            "public_coordinates": 1749,
+            "public_record_calls": 0,
+            "public_step_calls": 1341,
+            "query_lookups": 476,
+            "raw_policy_consultations_by_level": [
+              0,
+              490
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 270,
+            "row_edges": 2059,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              0,
+              468
+            ]
+          },
+          "completed_cache_entries": null
+        }
+      },
+      "reference_us": 1381
+    },
+    {
+      "worlds": 8,
+      "field": 2,
+      "roots": 6,
+      "selected": [
+        962004,
+        962012,
+        962015,
+        962016,
+        962020,
+        962023
+      ],
+      "variants": {
+        "full": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 46092,
+          "stats": {
+            "actor_demands_by_level": [
+              15914,
+              3772,
+              471
+            ],
+            "avoided_record_calls": 36498,
+            "cache_entries": 19636,
+            "cache_hits": 331,
+            "cache_key_bytes": 2514464,
+            "cache_lookup_us": 4753,
+            "completed_actor_queries": 19630,
+            "demand_grouping_us": 7832,
+            "fold_us": 6715,
+            "forward_us": 11893,
+            "generated_actor_queries": 19630,
+            "inner_worlds_by_level": [
+              61808,
+              7416,
+              940
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 1629182,
+            "peak_layer_rows": 4675,
+            "peak_retained_array_bytes": 1594114,
+            "prefix_lookup_probes": 493928,
+            "preparation_us": 1905,
+            "public_coordinates": 646154,
+            "public_record_calls": 51444,
+            "public_step_calls": 446310,
+            "query_lookups": 20163,
+            "raw_policy_consultations_by_level": [
+              16412,
+              3855,
+              488
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 179426,
+            "row_edges": 949728,
+            "sample_us": 4902,
+            "unique_actor_misses_by_level": [
+              15452,
+              3708,
+              470
+            ]
+          },
+          "completed_cache_entries": null
+        },
+        "hybrid": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 4070,
+          "stats": {
+            "actor_demands_by_level": [
+              0,
+              0,
+              471
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 476,
+            "cache_hits": 1,
+            "cache_key_bytes": 61984,
+            "cache_lookup_us": 4,
+            "completed_actor_queries": 470,
+            "demand_grouping_us": 39,
+            "fold_us": 37,
+            "forward_us": 30,
+            "generated_actor_queries": 470,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 470,
+            "native_choice_declared_budget_sum_by_level": [
+              0,
+              0,
+              940
+            ],
+            "native_choice_us": 3390,
+            "native_core_nodes": 90599,
+            "native_core_pi_misses_by_level": [
+              8297,
+              2582,
+              470,
+              0
+            ],
+            "native_core_policy_cache_entries": 3052,
+            "native_core_reported_inner_worlds_by_level": [
+              33188,
+              5164,
+              940,
+              0
+            ],
+            "peak_counted_live_array_bytes": 17044,
+            "peak_layer_rows": 44,
+            "peak_retained_array_bytes": 17044,
+            "prefix_lookup_probes": 810,
+            "preparation_us": 8,
+            "public_coordinates": 1708,
+            "public_record_calls": 0,
+            "public_step_calls": 1388,
+            "query_lookups": 477,
+            "raw_policy_consultations_by_level": [
+              0,
+              0,
+              488
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 268,
+            "row_edges": 2004,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              0,
+              0,
+              470
+            ]
+          },
+          "completed_cache_entries": null
+        }
+      },
+      "reference_us": 3664
+    },
+    {
+      "worlds": 40,
+      "field": 0,
+      "roots": 6,
+      "selected": [
+        962004,
+        962012,
+        962015,
+        962016,
+        962020,
+        962023
+      ],
+      "variants": {
+        "full": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 7278,
+          "stats": {
+            "actor_demands_by_level": [
+              1784
+            ],
+            "avoided_record_calls": 8689,
+            "cache_entries": 1744,
+            "cache_hits": 0,
+            "cache_key_bytes": 227360,
+            "cache_lookup_us": 437,
+            "completed_actor_queries": 1738,
+            "demand_grouping_us": 1536,
+            "fold_us": 1255,
+            "forward_us": 2503,
+            "generated_actor_queries": 1738,
+            "inner_worlds_by_level": [
+              6952
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 666213,
+            "peak_layer_rows": 1763,
+            "peak_retained_array_bytes": 655461,
+            "prefix_lookup_probes": 74468,
+            "preparation_us": 180,
+            "public_coordinates": 129051,
+            "public_record_calls": 19458,
+            "public_step_calls": 86855,
+            "query_lookups": 1790,
+            "raw_policy_consultations_by_level": [
+              2412
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 23755,
+            "row_edges": 167230,
+            "sample_us": 441,
+            "unique_actor_misses_by_level": [
+              1738
+            ]
+          },
+          "completed_cache_entries": null
+        },
+        "hybrid": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 2333,
+          "stats": {
+            "actor_demands_by_level": [
+              1784
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 1744,
+            "cache_hits": 46,
+            "cache_key_bytes": 227360,
+            "cache_lookup_us": 6,
+            "completed_actor_queries": 1738,
+            "demand_grouping_us": 183,
+            "fold_us": 105,
+            "forward_us": 140,
+            "generated_actor_queries": 1738,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 1738,
+            "native_choice_declared_budget_sum_by_level": [
+              6952
+            ],
+            "native_choice_us": 353,
+            "native_core_nodes": 34302,
+            "native_core_pi_misses_by_level": [
+              1738,
+              0,
+              0,
+              0
+            ],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [
+              6952,
+              0,
+              0,
+              0
+            ],
+            "peak_counted_live_array_bytes": 71535,
+            "peak_layer_rows": 208,
+            "peak_retained_array_bytes": 71535,
+            "prefix_lookup_probes": 7992,
+            "preparation_us": 9,
+            "public_coordinates": 6111,
+            "public_record_calls": 0,
+            "public_step_calls": 4583,
+            "query_lookups": 1790,
+            "raw_policy_consultations_by_level": [
+              2412
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 2980,
+            "row_edges": 10087,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              1738
+            ]
+          },
+          "completed_cache_entries": null
+        }
+      },
+      "reference_us": 1934
+    },
+    {
+      "worlds": 40,
+      "field": 1,
+      "roots": 6,
+      "selected": [
+        962004,
+        962012,
+        962015,
+        962016,
+        962020,
+        962023
+      ],
+      "variants": {
+        "full": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 42633,
+          "stats": {
+            "actor_demands_by_level": [
+              14065,
+              1823
+            ],
+            "avoided_record_calls": 42965,
+            "cache_entries": 15119,
+            "cache_hits": 314,
+            "cache_key_bytes": 1939360,
+            "cache_lookup_us": 3762,
+            "completed_actor_queries": 15113,
+            "demand_grouping_us": 8269,
+            "fold_us": 6920,
+            "forward_us": 12613,
+            "generated_actor_queries": 15113,
+            "inner_worlds_by_level": [
+              53464,
+              3494
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 2384142,
+            "peak_layer_rows": 6950,
+            "peak_retained_array_bytes": 2330378,
+            "prefix_lookup_probes": 460104,
+            "preparation_us": 1441,
+            "public_coordinates": 671068,
+            "public_record_calls": 70972,
+            "public_step_calls": 457684,
+            "query_lookups": 15894,
+            "raw_policy_consultations_by_level": [
+              14376,
+              2470
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 159026,
+            "row_edges": 937314,
+            "sample_us": 3753,
+            "unique_actor_misses_by_level": [
+              13366,
+              1747
+            ]
+          },
+          "completed_cache_entries": null
+        },
+        "hybrid": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 5638,
+          "stats": {
+            "actor_demands_by_level": [
+              0,
+              1823
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 1753,
+            "cache_hits": 76,
+            "cache_key_bytes": 228512,
+            "cache_lookup_us": 6,
+            "completed_actor_queries": 1747,
+            "demand_grouping_us": 189,
+            "fold_us": 100,
+            "forward_us": 135,
+            "generated_actor_queries": 1747,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 1747,
+            "native_choice_declared_budget_sum_by_level": [
+              0,
+              3494
+            ],
+            "native_choice_us": 3456,
+            "native_core_nodes": 136698,
+            "native_core_pi_misses_by_level": [
+              9929,
+              1747,
+              0,
+              0
+            ],
+            "native_core_policy_cache_entries": 1747,
+            "native_core_reported_inner_worlds_by_level": [
+              39716,
+              3494,
+              0,
+              0
+            ],
+            "peak_counted_live_array_bytes": 72943,
+            "peak_layer_rows": 215,
+            "peak_retained_array_bytes": 72943,
+            "prefix_lookup_probes": 8039,
+            "preparation_us": 8,
+            "public_coordinates": 6144,
+            "public_record_calls": 0,
+            "public_step_calls": 4764,
+            "query_lookups": 1829,
+            "raw_policy_consultations_by_level": [
+              0,
+              2470
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 3170,
+            "row_edges": 10198,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              0,
+              1747
+            ]
+          },
+          "completed_cache_entries": null
+        }
+      },
+      "reference_us": 5055
+    },
+    {
+      "worlds": 40,
+      "field": 2,
+      "roots": 6,
+      "selected": [
+        962004,
+        962012,
+        962015,
+        962016,
+        962020,
+        962023
+      ],
+      "variants": {
+        "full": {
+          "completed": false,
+          "error": "actor query cap",
+          "cold_or_refusal_us": 112637,
+          "stats": {
+            "actor_demands_by_level": [
+              41294,
+              10257,
+              1429
+            ],
+            "avoided_record_calls": 93438,
+            "cache_entries": 49202,
+            "cache_hits": 1293,
+            "cache_key_bytes": 6297856,
+            "cache_lookup_us": 12181,
+            "completed_actor_queries": 49202,
+            "demand_grouping_us": 21361,
+            "fold_us": 16909,
+            "forward_us": 30676,
+            "generated_actor_queries": 49534,
+            "inner_worlds_by_level": [
+              153484,
+              19572,
+              2754
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 7758837,
+            "peak_layer_rows": 22135,
+            "peak_retained_array_bytes": 7591977,
+            "prefix_lookup_probes": 1254419,
+            "preparation_us": 4663,
+            "public_coordinates": 1659457,
+            "public_record_calls": 134884,
+            "public_step_calls": 1167471,
+            "query_lookups": 52986,
+            "raw_policy_consultations_by_level": [
+              42572,
+              10421,
+              2034
+            ],
+            "refused_batches": 4,
+            "reused_public_steps": 458792,
+            "row_edges": 2425277,
+            "sample_us": 11949,
+            "unique_actor_misses_by_level": [
+              38371,
+              9786,
+              1377
+            ]
+          },
+          "completed_cache_entries": 49202
+        },
+        "hybrid": {
+          "completed": true,
+          "error": null,
+          "cold_or_refusal_us": 14023,
+          "stats": {
+            "actor_demands_by_level": [
+              0,
+              0,
+              1839
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 1788,
+            "cache_hits": 57,
+            "cache_key_bytes": 232992,
+            "cache_lookup_us": 6,
+            "completed_actor_queries": 1782,
+            "demand_grouping_us": 192,
+            "fold_us": 103,
+            "forward_us": 141,
+            "generated_actor_queries": 1782,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 1782,
+            "native_choice_declared_budget_sum_by_level": [
+              0,
+              0,
+              3564
+            ],
+            "native_choice_us": 11793,
+            "native_core_nodes": 324085,
+            "native_core_pi_misses_by_level": [
+              28940,
+              9298,
+              1782,
+              0
+            ],
+            "native_core_policy_cache_entries": 11080,
+            "native_core_reported_inner_worlds_by_level": [
+              115760,
+              18596,
+              3564,
+              0
+            ],
+            "peak_counted_live_array_bytes": 74524,
+            "peak_layer_rows": 202,
+            "peak_retained_array_bytes": 74524,
+            "prefix_lookup_probes": 8040,
+            "preparation_us": 8,
+            "public_coordinates": 6282,
+            "public_record_calls": 0,
+            "public_step_calls": 4910,
+            "query_lookups": 1845,
+            "raw_policy_consultations_by_level": [
+              0,
+              0,
+              2463
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 3089,
+            "row_edges": 10231,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              0,
+              0,
+              1782
+            ]
+          },
+          "completed_cache_entries": null
+        }
+      },
+      "reference_us": 13294
+    }
+  ],
+  "elapsed_s": 0.47289066599999996,
+  "scope": "One observed run per cell, six late roots; same budgets[4,2,2,2], one worker and50000-query allowance. Refusals publish no root vector. Declared hybrid budget and native-reported samples stay separate. Full eager schedule demand is not a minimum or linear-k theorem."
+}

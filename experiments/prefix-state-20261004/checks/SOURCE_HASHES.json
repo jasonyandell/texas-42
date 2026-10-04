@@ -1,0 +1,13 @@
+{
+  "experiments/prefix-state-20261004/native/src/lib.rs": "148556dd072d0642af74ad85207375356f6856f5df9281b8a58d5830cc514627",
+  "experiments/prefix-state-20261004/checks/runner/src/main.rs": "bc4bee9e83eb8f1b8baf33b1104ee0c0382dc294a3e206c23055adc4f143a0c9",
+  "experiments/prefix-state-20261004/checks/runner/Cargo.toml": "256d6df9ce36d936161651e4a915d293d6fe35c21244d9c7a7e2d241859e9ae4",
+  "experiments/prefix-state-20261004/checks/prefix_counts.py": "d7d8ea6d46d94b77867cd4a88e6d054fa3395c2f7e8d36221ae8cb03cf98214a",
+  "experiments/native-frontier-20261004/checks/independent-panel.json": "1c13c61858263f683369487eac44307790adb2c11cb465414c16b5990bcfe152",
+  "experiments/native-frontier-20261004/checks/scalar_oracle.py": "8e13990f65b34dfd04c5e8fe1cb110a200092d7af010143e40af38c581e719df",
+  "experiments/prefix-state-20261004/checks/audit_timings.py": "8def0f69e6960035f731d6e8c9d5f39e9e0b4891fa9e874679e4163b0a4a8cf4",
+  "experiments/prefix-state-20261004/compare.py": "ea16e89461efe9bdfaa7d6a06219abf6150bf739521c2d6f05b77884be4d7eb3",
+  "experiments/prefix-state-20261004/checks/audit_demand.py": "5a664d4e9ccd7dc9654db389049712c378caa85db799a1e756b21036b9eb3a8b",
+  "experiments/prefix-state-20261004/math/PrefixState.lean": "56dfa0e3bc22e47dfa49af4508854bcf0ce3912d09fcc7ff0f528a80a07f42ff",
+  "experiments/prefix-state-20261004/demand.py": "91be51939e144f074bfa91353c3dfd5bc533065a7a118320a80c7c4735b01506"
+}

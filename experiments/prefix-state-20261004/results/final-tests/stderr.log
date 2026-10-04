@@ -1,0 +1,5 @@
+   Compiling native-frontier v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-4/research-worktree/experiments/prefix-state-20261004/native)
+    Finished `release` profile [optimized] target(s) in 0.36s
+     Running unittests src/lib.rs (experiments/prefix-state-20261004/native/target/release/deps/native_frontier-f8118a41ec031e62)
+     Running unittests src/main.rs (experiments/prefix-state-20261004/native/target/release/deps/native_frontier-1ba266f9f029fda2)
+   Doc-tests native_frontier

@@ -1,0 +1,28 @@
+{"worlds": 8, "repeat": 0, "roots": 47, "cold_us": {"factored": 31218, "factored-hash": 44594, "predecessor": 55970, "recursive": 2658}}
+{"worlds": 8, "repeat": 1, "roots": 47, "cold_us": {"factored-hash": 44654, "predecessor": 52822, "recursive": 2560, "factored": 31254}}
+{"worlds": 8, "repeat": 2, "roots": 47, "cold_us": {"predecessor": 55167, "recursive": 2709, "factored": 31560, "factored-hash": 44506}}
+{"worlds": 8, "repeat": 3, "roots": 47, "cold_us": {"recursive": 2623, "factored": 31905, "factored-hash": 44572, "predecessor": 53956}}
+{"worlds": 40, "repeat": 0, "roots": 47, "cold_us": {"factored": 132364, "factored-hash": 195727, "predecessor": 232760, "recursive": 19003}}
+{"worlds": 40, "repeat": 1, "roots": 47, "cold_us": {"factored-hash": 197036, "predecessor": 229919, "recursive": 18851, "factored": 131613}}
+{"worlds": 40, "repeat": 2, "roots": 47, "cold_us": {"predecessor": 247607, "recursive": 15308, "factored": 133015, "factored-hash": 198060}}
+{"worlds": 40, "repeat": 3, "roots": 47, "cold_us": {"recursive": 18994, "factored": 131426, "factored-hash": 195455, "predecessor": 234369}}
+{
+  "vector_checks": 1128,
+  "elapsed_s": 3.4532775,
+  "panels": [
+    {
+      "worlds": 8,
+      "roots": 47,
+      "predecessor_over_factored": 1.7372401057089184,
+      "recursive_over_factored": 0.08407361416244787,
+      "standalone_recursive_over_factored": 0.18074376422669206
+    },
+    {
+      "worlds": 40,
+      "roots": 47,
+      "predecessor_over_factored": 1.7695821984491074,
+      "recursive_over_factored": 0.14336476283918673,
+      "standalone_recursive_over_factored": 0.18103425049598235
+    }
+  ]
+}

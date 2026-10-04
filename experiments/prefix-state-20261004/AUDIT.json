@@ -1,0 +1,360 @@
+{
+  "base_checkpoint": "c2ab1eb138ed5d19afbd9e9ec9262e0594e6e6a4",
+  "unchanged_predecessor_paths": true,
+  "production_identity": {
+    "production_commit": "a0d9fa806166b0e63fe016bb49d93f91f47b1af8",
+    "source_commit": "cb1ef3b23072e4c268f31f625f2b61d5facc1929",
+    "source_files": 202,
+    "source_sha256": "5bedf14af0e5a5ef354acca4765f67843469d074d163e8e4786631aa23436e32",
+    "wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+    "source_inputs_match": true,
+    "production_git_blobs_match": true,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "machine": "arm64"
+  },
+  "final_binary_sha256": "6d1e94223caa3ac9589e24185bf6871b536ab82421218d85f3a7891369effbe8",
+  "control_binary_sha256": "f8f01726abb9f6494bae8b165f8f7da24153f2e1e980d0d1b126f8b9e6171085",
+  "measured_repeated_vector_comparisons": 9336,
+  "historical_tape_repeated_vectors": 282,
+  "demand_matrix_completed_vectors": 102,
+  "demand_matrix_refusals": 1,
+  "panels": [
+    {
+      "name": "final-one-v2",
+      "roots": 47,
+      "vector_checks": 2256
+    },
+    {
+      "name": "final-four-v2",
+      "roots": 47,
+      "vector_checks": 2256
+    },
+    {
+      "name": "holdout-four",
+      "roots": 49,
+      "vector_checks": 2352
+    },
+    {
+      "name": "final-policy0-four",
+      "roots": 47,
+      "vector_checks": 1128
+    },
+    {
+      "name": "final-hybrid0-four",
+      "roots": 47,
+      "vector_checks": 1128
+    },
+    {
+      "name": "rung0-one",
+      "roots": 6,
+      "vector_checks": 72
+    },
+    {
+      "name": "rung1-one",
+      "roots": 6,
+      "vector_checks": 72
+    },
+    {
+      "name": "rung2-one",
+      "roots": 6,
+      "vector_checks": 72
+    }
+  ],
+  "receipts": [
+    {
+      "path": "checks/demand-audit/run.json",
+      "status": "completed",
+      "elapsed_s": 0.02417,
+      "allowance_s": 60.0
+    },
+    {
+      "path": "checks/demand-audit-compressed-final/run.json",
+      "status": "completed",
+      "elapsed_s": 0.023835,
+      "allowance_s": 60.0
+    },
+    {
+      "path": "checks/independent-build/run.json",
+      "status": "completed",
+      "elapsed_s": 8.288013,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/independent-build-counts/run.json",
+      "status": "completed",
+      "elapsed_s": 0.372855,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/independent-build-final/run.json",
+      "status": "completed",
+      "elapsed_s": 1.156234,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/independent-build-linked/run.json",
+      "status": "completed",
+      "elapsed_s": 1.103251,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/independent-parity/run.json",
+      "status": "completed",
+      "elapsed_s": 0.317399,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/independent-parity-counts/run.json",
+      "status": "completed",
+      "elapsed_s": 0.430608,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/independent-parity-final/run.json",
+      "status": "completed",
+      "elapsed_s": 0.44338,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/independent-parity-linked/run.json",
+      "status": "completed",
+      "elapsed_s": 0.427326,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/lean-prefix-independent/run.json",
+      "status": "completed",
+      "elapsed_s": 0.260926,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/prefix-counts/run.json",
+      "status": "completed",
+      "elapsed_s": 0.086446,
+      "allowance_s": 60.0
+    },
+    {
+      "path": "checks/timing-audit-compressed-final/run.json",
+      "status": "completed",
+      "elapsed_s": 0.441863,
+      "allowance_s": 60.0
+    },
+    {
+      "path": "checks/timing-audit-final-with-holdout/run.json",
+      "status": "completed",
+      "elapsed_s": 0.322542,
+      "allowance_s": 60.0
+    },
+    {
+      "path": "checks/timing-audit-policy-rungs/run.json",
+      "status": "completed",
+      "elapsed_s": 0.140111,
+      "allowance_s": 60.0
+    },
+    {
+      "path": "checks/timing-audit-primary/run.json",
+      "status": "completed",
+      "elapsed_s": 0.150268,
+      "allowance_s": 60.0
+    },
+    {
+      "path": "checks/timing-audit-primary-identity/run.json",
+      "status": "completed",
+      "elapsed_s": 0.200821,
+      "allowance_s": 60.0
+    },
+    {
+      "path": "checks/timing-audit-primary-v2/run.json",
+      "status": "completed",
+      "elapsed_s": 0.20269,
+      "allowance_s": 60.0
+    },
+    {
+      "path": "results/build-first/run.json",
+      "status": "completed",
+      "elapsed_s": 8.27281,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/build-hash/run.json",
+      "status": "completed",
+      "elapsed_s": 1.620054,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/build-linked/run.json",
+      "status": "completed",
+      "elapsed_s": 1.395069,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/compress/run.json",
+      "status": "completed",
+      "elapsed_s": 7.194254,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/control-build/run.json",
+      "status": "completed",
+      "elapsed_s": 7.976642,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/demand-matrix-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.557215,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-build/run.json",
+      "status": "completed",
+      "elapsed_s": 1.333485,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/final-four-log/run.json",
+      "status": "completed",
+      "elapsed_s": 6.399372,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-four-v2-log/run.json",
+      "status": "completed",
+      "elapsed_s": 6.371657,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-hybrid0-four-log/run.json",
+      "status": "completed",
+      "elapsed_s": 1.26416,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-one-log/run.json",
+      "status": "completed",
+      "elapsed_s": 8.490206,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-one-v2-log/run.json",
+      "status": "completed",
+      "elapsed_s": 8.205645,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-policy0-four-log/run.json",
+      "status": "completed",
+      "elapsed_s": 3.560378,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-tape-log/run.json",
+      "status": "completed",
+      "elapsed_s": 3.18249,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-tests/run.json",
+      "status": "completed",
+      "elapsed_s": 1.031071,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/hash-four-log/run.json",
+      "status": "completed",
+      "elapsed_s": 5.701766,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/hash-one-2-log/run.json",
+      "status": "completed",
+      "elapsed_s": 7.542452,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/hash-one-log/run.json",
+      "status": "failed",
+      "elapsed_s": 0.430908,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/holdout-four-log/run.json",
+      "status": "completed",
+      "elapsed_s": 7.538058,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/identity/run.json",
+      "status": "completed",
+      "elapsed_s": 0.08724,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "results/lean-prefix/run.json",
+      "status": "failed",
+      "elapsed_s": 0.805901,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/lean-prefix-fixed/run.json",
+      "status": "completed",
+      "elapsed_s": 0.262713,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/linked-four-log/run.json",
+      "status": "completed",
+      "elapsed_s": 6.401763,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/linked-one-log/run.json",
+      "status": "completed",
+      "elapsed_s": 8.497305,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/policy0-four-log/run.json",
+      "status": "completed",
+      "elapsed_s": 3.624912,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/rung0-one-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.198091,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/rung1-one-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.388156,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/rung2-one-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.904784,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/verify/run.json",
+      "status": "completed",
+      "elapsed_s": 1.387115,
+      "allowance_s": 295.0
+    }
+  ],
+  "failed_receipts": [
+    "results/hash-one-log/run.json",
+    "results/lean-prefix/run.json"
+  ],
+  "source_sha256": {
+    "experiments/prefix-state-20261004/native/src/lib.rs": "148556dd072d0642af74ad85207375356f6856f5df9281b8a58d5830cc514627",
+    "experiments/prefix-state-20261004/native/src/main.rs": "efa04350665af49a013283906a9deb68ad52a0d775c1e4558151c3045d7dcc98",
+    "experiments/prefix-state-20261004/compare.py": "ea16e89461efe9bdfaa7d6a06219abf6150bf739521c2d6f05b77884be4d7eb3",
+    "experiments/prefix-state-20261004/demand.py": "91be51939e144f074bfa91353c3dfd5bc533065a7a118320a80c7c4735b01506",
+    "experiments/prefix-state-20261004/math/PrefixState.lean": "56dfa0e3bc22e47dfa49af4508854bcf0ce3912d09fcc7ff0f528a80a07f42ff",
+    "experiments/prefix-state-20261004/verify.py": "7da3347566fe6f34a6c6bd44e54e3a2ccda5cf5253d637367380385202f7c63b"
+  },
+  "scope": "Finite component parity and retained local performance; repeated vectors are not independent deals. Six Lean lemmas are conditional representation results, not Rust refinement. No phone/strength/general-k claim."
+}

@@ -1,0 +1,103 @@
+experiments/prefix-state-20261004/math/PrefixState.lean:9:58: error: unexpected token 'prefix'; expected '_' or identifier
+experiments/prefix-state-20261004/math/PrefixState.lean:9:66: error: unexpected identifier; expected prec
+experiments/prefix-state-20261004/math/PrefixState.lean:15:10: error: unexpected identifier; expected prec
+experiments/prefix-state-20261004/math/PrefixState.lean:19:12: error(lean.unknownIdentifier): Unknown identifier `replay`
+experiments/prefix-state-20261004/math/PrefixState.lean:22:46: error: unexpected token 'prefix'; expected '}'
+experiments/prefix-state-20261004/math/PrefixState.lean:22:53: error: unexpected token ':='; expected ':'
+experiments/prefix-state-20261004/math/PrefixState.lean:25:5: error: unexpected token 'prefix'; expected '_' or identifier
+experiments/prefix-state-20261004/math/PrefixState.lean:25:13: error: unexpected identifier; expected prec
+experiments/prefix-state-20261004/math/PrefixState.lean:26:30: error: unexpected token '++'; expected ':'
+experiments/prefix-state-20261004/math/PrefixState.lean:26:77: error: unexpected token ')'; expected ':'
+experiments/prefix-state-20261004/math/PrefixState.lean:33:22: error(lean.unknownIdentifier): Unknown identifier `replay_child`
+experiments/prefix-state-20261004/math/PrefixState.lean:38:37: error(lean.invalidField): Invalid field `prefix`: The environment does not contain `WaltResearch.PrefixState.Row.prefix`, so it is not possible to project the field `prefix` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:38:48: error(lean.invalidField): Invalid field `prefix`: The environment does not contain `WaltResearch.PrefixState.Row.prefix`, so it is not possible to project the field `prefix` from an expression
+  t
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:39:19: error(lean.unknownIdentifier): Unknown identifier `congrArg₂`
+experiments/prefix-state-20261004/math/PrefixState.lean:42:26: error(lean.invalidField): Invalid field `world`: The environment does not contain `WaltResearch.PrefixState.Row.world`, so it is not possible to project the field `world` from an expression
+  advance step r tile
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:42:36: error(lean.invalidField): Invalid field `world`: The environment does not contain `WaltResearch.PrefixState.Row.world`, so it is not possible to project the field `world` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:47:21: error(lean.invalidField): Invalid field `prefix`: The environment does not contain `WaltResearch.PrefixState.Row.prefix`, so it is not possible to project the field `prefix` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:47:44: error(lean.invalidField): Invalid field `world`: The environment does not contain `WaltResearch.PrefixState.Row.world`, so it is not possible to project the field `world` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:48:23: error(lean.invalidField): Invalid field `prefix`: The environment does not contain `WaltResearch.PrefixState.Row.prefix`, so it is not possible to project the field `prefix` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:48:74: error(lean.invalidField): Invalid field `world`: The environment does not contain `WaltResearch.PrefixState.Row.world`, so it is not possible to project the field `world` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:48:31: error: Function expected at
+  replay
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  root
+
+Hint: The identifier `replay` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+experiments/prefix-state-20261004/math/PrefixState.lean:49:48: error(lean.invalidField): Invalid field `prefix`: The environment does not contain `WaltResearch.PrefixState.Row.prefix`, so it is not possible to project the field `prefix` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:49:69: error(lean.invalidField): Invalid field `world`: The environment does not contain `WaltResearch.PrefixState.Row.world`, so it is not possible to project the field `world` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:57:40: error(lean.invalidField): Invalid field `prefix`: The environment does not contain `WaltResearch.PrefixState.Row.prefix`, so it is not possible to project the field `prefix` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:57:57: error(lean.invalidField): Invalid field `world`: The environment does not contain `WaltResearch.PrefixState.Row.world`, so it is not possible to project the field `world` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:58:42: error(lean.invalidField): Invalid field `prefix`: The environment does not contain `WaltResearch.PrefixState.Row.prefix`, so it is not possible to project the field `prefix` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:58:87: error(lean.invalidField): Invalid field `world`: The environment does not contain `WaltResearch.PrefixState.Row.world`, so it is not possible to project the field `world` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:58:50: error: Function expected at
+  replay
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  root
+
+Hint: The identifier `replay` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+experiments/prefix-state-20261004/math/PrefixState.lean:59:76: error(lean.invalidField): Invalid field `prefix`: The environment does not contain `WaltResearch.PrefixState.Row.prefix`, so it is not possible to project the field `prefix` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:59:93: error(lean.invalidField): Invalid field `world`: The environment does not contain `WaltResearch.PrefixState.Row.world`, so it is not possible to project the field `world` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:60:37: error(lean.invalidField): Invalid field `prefix`: The environment does not contain `WaltResearch.PrefixState.Row.prefix`, so it is not possible to project the field `prefix` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:60:45: error: Function expected at
+  replay
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  root
+experiments/prefix-state-20261004/math/PrefixState.lean:60:82: error(lean.invalidField): Invalid field `world`: The environment does not contain `WaltResearch.PrefixState.Row.world`, so it is not possible to project the field `world` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:61:58: error(lean.invalidField): Invalid field `prefix`: The environment does not contain `WaltResearch.PrefixState.Row.prefix`, so it is not possible to project the field `prefix` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:61:73: error(lean.invalidField): Invalid field `world`: The environment does not contain `WaltResearch.PrefixState.Row.world`, so it is not possible to project the field `world` from an expression
+  r
+of type `Row Q S A W`
+experiments/prefix-state-20261004/math/PrefixState.lean:64:14: error(lean.unknownIdentifier): Unknown constant `replay_child`
+'WaltResearch.PrefixState.advance_consistent' depends on axioms: [sorryAx]
+experiments/prefix-state-20261004/math/PrefixState.lean:66:14: error(lean.unknownIdentifier): Unknown constant `one_state_per_coordinate`
+experiments/prefix-state-20261004/math/PrefixState.lean:67:14: error(lean.unknownIdentifier): Unknown constant `advance_preserves_world`
+'WaltResearch.PrefixState.actor_view_preserved' depends on axioms: [sorryAx]
+'WaltResearch.PrefixState.shared_sum_preserved' depends on axioms: [propext, sorryAx, Quot.sound]

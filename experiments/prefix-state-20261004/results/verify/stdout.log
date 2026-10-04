@@ -1,0 +1,12 @@
+{
+  "base_checkpoint": "c2ab1eb138ed5d19afbd9e9ec9262e0594e6e6a4",
+  "unchanged_predecessor_paths": true,
+  "measured_repeated_vector_comparisons": 9336,
+  "historical_tape_repeated_vectors": 282,
+  "demand_matrix_completed_vectors": 102,
+  "demand_matrix_refusals": 1,
+  "failed_receipts": [
+    "results/hash-one-log/run.json",
+    "results/lean-prefix/run.json"
+  ]
+}

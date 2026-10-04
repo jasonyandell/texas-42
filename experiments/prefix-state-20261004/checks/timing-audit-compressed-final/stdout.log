@@ -1,0 +1,196 @@
+{
+  "all_arithmetic_and_vector_checks_pass": true,
+  "panels": [
+    {
+      "directory": "final-one-v2",
+      "worlds": 8,
+      "roots": 47,
+      "factored_cold_ms": 1.802,
+      "recursive_cold_ms": 0.6695,
+      "predecessor_over_factored": 1.7672031076581576,
+      "recursive_over_factored": 0.3715316315205327,
+      "standalone_recursive_over_factored": 0.7556092194424758
+    },
+    {
+      "directory": "final-one-v2",
+      "worlds": 40,
+      "roots": 47,
+      "factored_cold_ms": 7.844500000000001,
+      "recursive_cold_ms": 10.67,
+      "predecessor_over_factored": 1.8124800815858242,
+      "recursive_over_factored": 1.3601886672190706,
+      "standalone_recursive_over_factored": 1.1594290153387785
+    },
+    {
+      "directory": "final-one-v2",
+      "worlds": 128,
+      "roots": 47,
+      "factored_cold_ms": 23.2635,
+      "recursive_cold_ms": 34.9,
+      "predecessor_over_factored": 1.8742020762138114,
+      "recursive_over_factored": 1.500204182517678,
+      "standalone_recursive_over_factored": 1.2903625264317915
+    },
+    {
+      "directory": "final-one-v2",
+      "worlds": 512,
+      "roots": 47,
+      "factored_cold_ms": 89.2375,
+      "recursive_cold_ms": 131.45999999999998,
+      "predecessor_over_factored": 1.9041714525843958,
+      "recursive_over_factored": 1.4731474996498108,
+      "standalone_recursive_over_factored": 1.2805222501770233
+    },
+    {
+      "directory": "final-four-v2",
+      "worlds": 8,
+      "roots": 47,
+      "factored_cold_ms": 1.0645,
+      "recursive_cold_ms": 0.339,
+      "predecessor_over_factored": 1.4142790042273368,
+      "recursive_over_factored": 0.31845937059652424,
+      "standalone_recursive_over_factored": 0.7761887515858886
+    },
+    {
+      "directory": "final-four-v2",
+      "worlds": 40,
+      "roots": 47,
+      "factored_cold_ms": 3.198,
+      "recursive_cold_ms": 4.4704999999999995,
+      "predecessor_over_factored": 1.7973733583489682,
+      "recursive_over_factored": 1.3979049405878674,
+      "standalone_recursive_over_factored": 1.0711253802973917
+    },
+    {
+      "directory": "final-four-v2",
+      "worlds": 128,
+      "roots": 47,
+      "factored_cold_ms": 8.8735,
+      "recursive_cold_ms": 12.262,
+      "predecessor_over_factored": 1.9677128528765426,
+      "recursive_over_factored": 1.381867357863301,
+      "standalone_recursive_over_factored": 1.1018257925980555
+    },
+    {
+      "directory": "final-four-v2",
+      "worlds": 512,
+      "roots": 47,
+      "factored_cold_ms": 32.349000000000004,
+      "recursive_cold_ms": 43.7085,
+      "predecessor_over_factored": 2.027326965284862,
+      "recursive_over_factored": 1.351154595196142,
+      "standalone_recursive_over_factored": 1.1070505509191186
+    },
+    {
+      "directory": "holdout-four",
+      "worlds": 8,
+      "roots": 49,
+      "factored_cold_ms": 0.8450000000000001,
+      "recursive_cold_ms": 0.3495,
+      "predecessor_over_factored": 1.8207100591715975,
+      "recursive_over_factored": 0.41360946745562127,
+      "standalone_recursive_over_factored": 0.8493483436697237
+    },
+    {
+      "directory": "holdout-four",
+      "worlds": 40,
+      "roots": 49,
+      "factored_cold_ms": 2.9445,
+      "recursive_cold_ms": 4.5605,
+      "predecessor_over_factored": 2.511631856002717,
+      "recursive_over_factored": 1.5488198335880456,
+      "standalone_recursive_over_factored": 1.082976961937931
+    },
+    {
+      "directory": "holdout-four",
+      "worlds": 128,
+      "roots": 49,
+      "factored_cold_ms": 7.4925,
+      "recursive_cold_ms": 13.528,
+      "predecessor_over_factored": 2.0664664664664665,
+      "recursive_over_factored": 1.8055388722055388,
+      "standalone_recursive_over_factored": 1.2360648150916067
+    },
+    {
+      "directory": "holdout-four",
+      "worlds": 512,
+      "roots": 49,
+      "factored_cold_ms": 27.444,
+      "recursive_cold_ms": 45.201499999999996,
+      "predecessor_over_factored": 2.0980177816644803,
+      "recursive_over_factored": 1.6470448914152456,
+      "standalone_recursive_over_factored": 1.2030281793798203
+    },
+    {
+      "directory": "final-policy0-four",
+      "worlds": 8,
+      "roots": 47,
+      "factored_cold_ms": 31.406999999999996,
+      "recursive_cold_ms": 2.6405,
+      "predecessor_over_factored": 1.7372401057089184,
+      "recursive_over_factored": 0.08407361416244787,
+      "standalone_recursive_over_factored": 0.18074376422669206
+    },
+    {
+      "directory": "final-policy0-four",
+      "worlds": 40,
+      "roots": 47,
+      "factored_cold_ms": 131.98850000000002,
+      "recursive_cold_ms": 18.9225,
+      "predecessor_over_factored": 1.7695821984491074,
+      "recursive_over_factored": 0.14336476283918673,
+      "standalone_recursive_over_factored": 0.18103425049598235
+    },
+    {
+      "directory": "final-hybrid0-four",
+      "worlds": 8,
+      "roots": 47,
+      "factored_cold_ms": 8.145,
+      "recursive_cold_ms": 2.5295,
+      "predecessor_over_factored": 1.0440761203192142,
+      "recursive_over_factored": 0.31055862492326586,
+      "standalone_recursive_over_factored": 0.5055750658073543
+    },
+    {
+      "directory": "final-hybrid0-four",
+      "worlds": 40,
+      "roots": 47,
+      "factored_cold_ms": 32.942,
+      "recursive_cold_ms": 18.7615,
+      "predecessor_over_factored": 1.1132444903163135,
+      "recursive_over_factored": 0.5695312974318499,
+      "standalone_recursive_over_factored": 0.6235485248690892
+    },
+    {
+      "directory": "rung0-one",
+      "worlds": 8,
+      "roots": 6,
+      "factored_cold_ms": 2.2005000000000003,
+      "recursive_cold_ms": 0.4575,
+      "predecessor_over_factored": 1.5616905248807087,
+      "recursive_over_factored": 0.20790729379686435,
+      "standalone_recursive_over_factored": 0.6333659160302204
+    },
+    {
+      "directory": "rung1-one",
+      "worlds": 8,
+      "roots": 6,
+      "factored_cold_ms": 12.424,
+      "recursive_cold_ms": 1.3825,
+      "predecessor_over_factored": 1.6210962652929812,
+      "recursive_over_factored": 0.11127656149388282,
+      "standalone_recursive_over_factored": 0.2706677478409721
+    },
+    {
+      "directory": "rung2-one",
+      "worlds": 8,
+      "roots": 6,
+      "factored_cold_ms": 45.656,
+      "recursive_cold_ms": 3.832,
+      "predecessor_over_factored": 1.6731754862449622,
+      "recursive_over_factored": 0.08393201331697914,
+      "standalone_recursive_over_factored": 0.1422496400279118
+    }
+  ],
+  "note": "Ratios are medians on retained local finite workloads, not inferential confidence intervals. Current standalone includes JSON, child lifetime, output parsing and measured harness overhead; historical panels lacking overhead retain their narrower metric."
+}

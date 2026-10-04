@@ -1,0 +1,50 @@
+{"worlds": 8, "repeat": 0, "roots": 47, "cold_us": {"factored": 2750, "predecessor": 6379, "recursive": 4454}}
+{"worlds": 8, "repeat": 1, "roots": 47, "cold_us": {"factored": 4406, "recursive": 998, "predecessor": 4144}}
+{"worlds": 8, "repeat": 2, "roots": 47, "cold_us": {"predecessor": 3906, "factored": 3299, "recursive": 792}}
+{"worlds": 8, "repeat": 3, "roots": 47, "cold_us": {"predecessor": 3623, "recursive": 694, "factored": 2868}}
+{"worlds": 40, "repeat": 0, "roots": 47, "cold_us": {"factored": 12198, "predecessor": 14074, "recursive": 10552}}
+{"worlds": 40, "repeat": 1, "roots": 47, "cold_us": {"factored": 12091, "recursive": 10563, "predecessor": 14285}}
+{"worlds": 40, "repeat": 2, "roots": 47, "cold_us": {"predecessor": 14203, "factored": 12210, "recursive": 10790}}
+{"worlds": 40, "repeat": 3, "roots": 47, "cold_us": {"predecessor": 14247, "recursive": 10457, "factored": 12162}}
+{"worlds": 128, "repeat": 0, "roots": 47, "cold_us": {"factored": 36739, "predecessor": 43598, "recursive": 34475}}
+{"worlds": 128, "repeat": 1, "roots": 47, "cold_us": {"factored": 36640, "recursive": 34766, "predecessor": 43957}}
+{"worlds": 128, "repeat": 2, "roots": 47, "cold_us": {"predecessor": 43910, "factored": 36613, "recursive": 35040}}
+{"worlds": 128, "repeat": 3, "roots": 47, "cold_us": {"predecessor": 42931, "recursive": 34624, "factored": 36665}}
+{"worlds": 512, "repeat": 0, "roots": 47, "cold_us": {"factored": 140385, "predecessor": 170375, "recursive": 132885}}
+{"worlds": 512, "repeat": 1, "roots": 47, "cold_us": {"factored": 139298, "recursive": 131229, "predecessor": 171443}}
+{"worlds": 512, "repeat": 2, "roots": 47, "cold_us": {"predecessor": 169178, "factored": 139879, "recursive": 130080}}
+{"worlds": 512, "repeat": 3, "roots": 47, "cold_us": {"predecessor": 168948, "recursive": 131667, "factored": 140000}}
+{
+  "vector_checks": 1504,
+  "elapsed_s": 7.426808374999999,
+  "panels": [
+    {
+      "worlds": 8,
+      "roots": 47,
+      "predecessor_over_factored": 1.3053348467650399,
+      "recursive_over_factored": 0.29025458083346845,
+      "standalone_recursive_over_factored": 0.7056608283005503
+    },
+    {
+      "worlds": 40,
+      "roots": 47,
+      "predecessor_over_factored": 1.1678981937602628,
+      "recursive_over_factored": 0.8667898193760262,
+      "standalone_recursive_over_factored": 0.8956560240088268
+    },
+    {
+      "worlds": 128,
+      "roots": 47,
+      "predecessor_over_factored": 1.1937521315053545,
+      "recursive_over_factored": 0.9465930018416207,
+      "standalone_recursive_over_factored": 0.940836845109242
+    },
+    {
+      "worlds": 512,
+      "roots": 47,
+      "predecessor_over_factored": 1.2132135672915796,
+      "recursive_over_factored": 0.9393202062319789,
+      "standalone_recursive_over_factored": 0.9394522695246725
+    }
+  ]
+}

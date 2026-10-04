@@ -1,0 +1,76 @@
+{
+  "all_arithmetic_and_vector_checks_pass": true,
+  "panels": [
+    {
+      "directory": "final-policy0-four",
+      "worlds": 8,
+      "roots": 47,
+      "factored_cold_ms": 31.406999999999996,
+      "recursive_cold_ms": 2.6405,
+      "predecessor_over_factored": 1.7372401057089184,
+      "recursive_over_factored": 0.08407361416244787,
+      "standalone_recursive_over_factored": 0.18074376422669206
+    },
+    {
+      "directory": "final-policy0-four",
+      "worlds": 40,
+      "roots": 47,
+      "factored_cold_ms": 131.98850000000002,
+      "recursive_cold_ms": 18.9225,
+      "predecessor_over_factored": 1.7695821984491074,
+      "recursive_over_factored": 0.14336476283918673,
+      "standalone_recursive_over_factored": 0.18103425049598235
+    },
+    {
+      "directory": "final-hybrid0-four",
+      "worlds": 8,
+      "roots": 47,
+      "factored_cold_ms": 8.145,
+      "recursive_cold_ms": 2.5295,
+      "predecessor_over_factored": 1.0440761203192142,
+      "recursive_over_factored": 0.31055862492326586,
+      "standalone_recursive_over_factored": 0.5055750658073543
+    },
+    {
+      "directory": "final-hybrid0-four",
+      "worlds": 40,
+      "roots": 47,
+      "factored_cold_ms": 32.942,
+      "recursive_cold_ms": 18.7615,
+      "predecessor_over_factored": 1.1132444903163135,
+      "recursive_over_factored": 0.5695312974318499,
+      "standalone_recursive_over_factored": 0.6235485248690892
+    },
+    {
+      "directory": "rung0-one",
+      "worlds": 8,
+      "roots": 6,
+      "factored_cold_ms": 2.2005000000000003,
+      "recursive_cold_ms": 0.4575,
+      "predecessor_over_factored": 1.5616905248807087,
+      "recursive_over_factored": 0.20790729379686435,
+      "standalone_recursive_over_factored": 0.6333659160302204
+    },
+    {
+      "directory": "rung1-one",
+      "worlds": 8,
+      "roots": 6,
+      "factored_cold_ms": 12.424,
+      "recursive_cold_ms": 1.3825,
+      "predecessor_over_factored": 1.6210962652929812,
+      "recursive_over_factored": 0.11127656149388282,
+      "standalone_recursive_over_factored": 0.2706677478409721
+    },
+    {
+      "directory": "rung2-one",
+      "worlds": 8,
+      "roots": 6,
+      "factored_cold_ms": 45.656,
+      "recursive_cold_ms": 3.832,
+      "predecessor_over_factored": 1.6731754862449622,
+      "recursive_over_factored": 0.08393201331697914,
+      "standalone_recursive_over_factored": 0.1422496400279118
+    }
+  ],
+  "note": "Ratios are medians on retained local finite workloads, not inferential confidence intervals. Current standalone includes JSON, child lifetime, output parsing and measured harness overhead; historical panels lacking overhead retain their narrower metric."
+}

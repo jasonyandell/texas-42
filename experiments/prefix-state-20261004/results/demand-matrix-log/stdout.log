@@ -1,0 +1,9 @@
+{"worlds": 2, "field": 0, "status": {"full": "complete", "hybrid": "complete"}}
+{"worlds": 2, "field": 1, "status": {"full": "complete", "hybrid": "complete"}}
+{"worlds": 2, "field": 2, "status": {"full": "complete", "hybrid": "complete"}}
+{"worlds": 8, "field": 0, "status": {"full": "complete", "hybrid": "complete"}}
+{"worlds": 8, "field": 1, "status": {"full": "complete", "hybrid": "complete"}}
+{"worlds": 8, "field": 2, "status": {"full": "complete", "hybrid": "complete"}}
+{"worlds": 40, "field": 0, "status": {"full": "complete", "hybrid": "complete"}}
+{"worlds": 40, "field": 1, "status": {"full": "complete", "hybrid": "complete"}}
+{"worlds": 40, "field": 2, "status": {"full": "actor query cap", "hybrid": "complete"}}

@@ -1,0 +1,435 @@
+{
+  "arguments": {
+    "out": "experiments/prefix-state-20261004/results/policy0-four",
+    "start": 960000,
+    "count": 128,
+    "counts": [
+      8,
+      40
+    ],
+    "workers": 4,
+    "repeats": 4,
+    "mode": "policy",
+    "field": 0,
+    "min_ply": 12,
+    "native_choices": false,
+    "counted": false,
+    "limit": 1000,
+    "candidate": "/Users/jason/Documents/Codex/2026-10-04/task-4/research-worktree/experiments/prefix-state-20261004/native/target/release/native-frontier",
+    "control": "/Users/jason/Documents/Codex/2026-10-04/task-4/research-worktree/experiments/prefix-state-20261004/control-target/release/native-frontier"
+  },
+  "selected": [
+    960003,
+    960004,
+    960005,
+    960008,
+    960012,
+    960016,
+    960021,
+    960023,
+    960025,
+    960030,
+    960032,
+    960034,
+    960035,
+    960036,
+    960040,
+    960043,
+    960044,
+    960048,
+    960051,
+    960057,
+    960061,
+    960062,
+    960068,
+    960069,
+    960075,
+    960076,
+    960077,
+    960078,
+    960079,
+    960080,
+    960081,
+    960084,
+    960086,
+    960088,
+    960093,
+    960094,
+    960096,
+    960097,
+    960098,
+    960099,
+    960104,
+    960113,
+    960114,
+    960117,
+    960121,
+    960124,
+    960126
+  ],
+  "panels": [
+    {
+      "worlds": 8,
+      "roots": 47,
+      "generation_actual_n_s": 0.059872959,
+      "variants": {
+        "factored": {
+          "serialization_s": 0.0006063335000000281,
+          "host_s": 0.03538881300000002,
+          "output_parse_s": 0.0001241250000000027,
+          "child_cpu_s": 0.08785399999999999,
+          "process_peak_rss_bytes": 16621568.0,
+          "cold_service_s": 0.032063,
+          "standalone_s": 0.03611400100000006,
+          "total_with_generation_s": 0.09598696000000007,
+          "stats": {
+            "actor_demands_by_level": [
+              11118
+            ],
+            "avoided_record_calls": 60325,
+            "cache_entries": 10892,
+            "cache_hits": 0,
+            "cache_key_bytes": 1402448,
+            "cache_lookup_us": 3853,
+            "completed_actor_queries": 10845,
+            "demand_grouping_us": 17357,
+            "fold_us": 16237,
+            "forward_us": 33259,
+            "generated_actor_queries": 10845,
+            "inner_worlds_by_level": [
+              43380
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 4407260,
+            "peak_layer_rows": 10752,
+            "peak_retained_array_bytes": 4359256,
+            "prefix_lookup_probes": 525665,
+            "preparation_us": 1543,
+            "public_coordinates": 1430945,
+            "public_record_calls": 262911,
+            "public_step_calls": 896440,
+            "query_lookups": 11165,
+            "raw_policy_consultations_by_level": [
+              11174
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 139747,
+            "row_edges": 1659930,
+            "sample_us": 4766,
+            "unique_actor_misses_by_level": [
+              10845
+            ]
+          }
+        },
+        "factored-hash": {
+          "serialization_s": 0.0006186664999999758,
+          "host_s": 0.04935837499999998,
+          "output_parse_s": 0.00014937499999995163,
+          "child_cpu_s": 0.12161749999999999,
+          "process_peak_rss_bytes": 16154624.0,
+          "cold_service_s": 0.0459215,
+          "standalone_s": 0.050097104499999934,
+          "total_with_generation_s": 0.10997006349999994,
+          "stats": {
+            "actor_demands_by_level": [
+              11118
+            ],
+            "avoided_record_calls": 60325,
+            "cache_entries": 10892,
+            "cache_hits": 0,
+            "cache_key_bytes": 1402448,
+            "cache_lookup_us": 3840,
+            "completed_actor_queries": 10845,
+            "demand_grouping_us": 17196,
+            "fold_us": 15929,
+            "forward_us": 68631,
+            "generated_actor_queries": 10845,
+            "inner_worlds_by_level": [
+              43380
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 4407260,
+            "peak_layer_rows": 10752,
+            "peak_retained_array_bytes": 4359256,
+            "prefix_lookup_probes": 1659930,
+            "preparation_us": 1487,
+            "public_coordinates": 1430945,
+            "public_record_calls": 262911,
+            "public_step_calls": 896440,
+            "query_lookups": 11165,
+            "raw_policy_consultations_by_level": [
+              11174
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 139747,
+            "row_edges": 1659930,
+            "sample_us": 4391,
+            "unique_actor_misses_by_level": [
+              10845
+            ]
+          }
+        },
+        "predecessor": {
+          "serialization_s": 0.0006161250000000229,
+          "host_s": 0.05686066700000003,
+          "output_parse_s": 0.00010983349999998948,
+          "child_cpu_s": 0.14300649999999998,
+          "process_peak_rss_bytes": 15638528.0,
+          "cold_service_s": 0.053602,
+          "standalone_s": 0.05756397950000003,
+          "total_with_generation_s": 0.11743693850000003,
+          "stats": {
+            "actor_demands_by_level": [
+              10845
+            ],
+            "cache_entries": 10892,
+            "cache_hits": 0,
+            "cache_key_bytes": 1402448,
+            "cache_lookup_us": 3433,
+            "completed_actor_queries": 10845,
+            "demand_grouping_us": 14240,
+            "fold_us": 19002,
+            "forward_us": 91673,
+            "generated_actor_queries": 10845,
+            "inner_worlds_by_level": [
+              43380
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 5037620,
+            "peak_layer_rows": 10752,
+            "peak_retained_array_bytes": 4999140,
+            "preparation_us": 1610,
+            "public_coordinates": 1430945,
+            "query_lookups": 10892,
+            "raw_policy_consultations_by_level": [
+              11174
+            ],
+            "refused_batches": 0,
+            "row_edges": 1659930,
+            "sample_us": 4109,
+            "unique_actor_misses_by_level": [
+              10845
+            ]
+          }
+        },
+        "recursive": {
+          "serialization_s": 0.0006187500000000012,
+          "host_s": 0.0054783959999999965,
+          "output_parse_s": 5.200000000002425e-05,
+          "child_cpu_s": 0.012359499999999999,
+          "process_peak_rss_bytes": 8167424.0,
+          "cold_service_s": 0.0026515,
+          "standalone_s": 0.006155479500000005,
+          "total_with_generation_s": 0.06602843850000001
+        }
+      },
+      "predecessor_over_factored": 1.6717712004491156,
+      "recursive_over_factored": 0.0826965661354209,
+      "standalone_recursive_over_factored": 0.1704457919243009
+    },
+    {
+      "worlds": 40,
+      "roots": 47,
+      "generation_actual_n_s": 0.22049745799999998,
+      "variants": {
+        "factored": {
+          "serialization_s": 0.0022381250000000907,
+          "host_s": 0.1414560629999999,
+          "output_parse_s": 0.00016908300000018084,
+          "child_cpu_s": 0.35791949999999995,
+          "process_peak_rss_bytes": 63045632.0,
+          "cold_service_s": 0.135236,
+          "standalone_s": 0.14390506200000042,
+          "total_with_generation_s": 0.3644025200000004,
+          "stats": {
+            "actor_demands_by_level": [
+              53476
+            ],
+            "avoided_record_calls": 284647,
+            "cache_entries": 51873,
+            "cache_hits": 0,
+            "cache_key_bytes": 6672080,
+            "cache_lookup_us": 15632,
+            "completed_actor_queries": 51826,
+            "demand_grouping_us": 82854,
+            "fold_us": 71777,
+            "forward_us": 138351,
+            "generated_actor_queries": 51826,
+            "inner_worlds_by_level": [
+              207304
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 21331076,
+            "peak_layer_rows": 51731,
+            "peak_retained_array_bytes": 21182736,
+            "prefix_lookup_probes": 2534770,
+            "preparation_us": 6099,
+            "public_coordinates": 6719898,
+            "public_record_calls": 1230348,
+            "public_step_calls": 4206159,
+            "query_lookups": 53523,
+            "raw_policy_consultations_by_level": [
+              55014
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 674740,
+            "row_edges": 7834725,
+            "sample_us": 18146,
+            "unique_actor_misses_by_level": [
+              51826
+            ]
+          }
+        },
+        "factored-hash": {
+          "serialization_s": 0.002252103999999977,
+          "host_s": 0.20589602100000004,
+          "output_parse_s": 0.0001444374999999276,
+          "child_cpu_s": 0.520276,
+          "process_peak_rss_bytes": 63840256.0,
+          "cold_service_s": 0.1992895,
+          "standalone_s": 0.2084669374999999,
+          "total_with_generation_s": 0.4289643954999999,
+          "stats": {
+            "actor_demands_by_level": [
+              53476
+            ],
+            "avoided_record_calls": 284647,
+            "cache_entries": 51873,
+            "cache_hits": 0,
+            "cache_key_bytes": 6672080,
+            "cache_lookup_us": 14666,
+            "completed_actor_queries": 51826,
+            "demand_grouping_us": 82728,
+            "fold_us": 69593,
+            "forward_us": 306007,
+            "generated_actor_queries": 51826,
+            "inner_worlds_by_level": [
+              207304
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 21331076,
+            "peak_layer_rows": 51731,
+            "peak_retained_array_bytes": 21182736,
+            "prefix_lookup_probes": 7834725,
+            "preparation_us": 5442,
+            "public_coordinates": 6719898,
+            "public_record_calls": 1230348,
+            "public_step_calls": 4206159,
+            "query_lookups": 53523,
+            "raw_policy_consultations_by_level": [
+              55014
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 674740,
+            "row_edges": 7834725,
+            "sample_us": 17385,
+            "unique_actor_misses_by_level": [
+              51826
+            ]
+          }
+        },
+        "predecessor": {
+          "serialization_s": 0.0023018540000001586,
+          "host_s": 0.24634231250000016,
+          "output_parse_s": 0.00013493750000015403,
+          "child_cpu_s": 0.641561,
+          "process_peak_rss_bytes": 59916288.0,
+          "cold_service_s": 0.239997,
+          "standalone_s": 0.24870275000000053,
+          "total_with_generation_s": 0.4692002080000005,
+          "stats": {
+            "actor_demands_by_level": [
+              51826
+            ],
+            "cache_entries": 51873,
+            "cache_hits": 0,
+            "cache_key_bytes": 6672080,
+            "cache_lookup_us": 14214,
+            "completed_actor_queries": 51826,
+            "demand_grouping_us": 69097,
+            "fold_us": 83530,
+            "forward_us": 415926,
+            "generated_actor_queries": 51826,
+            "inner_worlds_by_level": [
+              207304
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 24409112,
+            "peak_layer_rows": 51731,
+            "peak_retained_array_bytes": 24224572,
+            "preparation_us": 5524,
+            "public_coordinates": 6719898,
+            "query_lookups": 51873,
+            "raw_policy_consultations_by_level": [
+              55014
+            ],
+            "refused_batches": 0,
+            "row_edges": 7834725,
+            "sample_us": 19053,
+            "unique_actor_misses_by_level": [
+              51826
+            ]
+          }
+        },
+        "recursive": {
+          "serialization_s": 0.0022707710000000603,
+          "host_s": 0.023039770500000056,
+          "output_parse_s": 6.172950000016275e-05,
+          "child_cpu_s": 0.0775585,
+          "process_peak_rss_bytes": 10674176.0,
+          "cold_service_s": 0.0190725,
+          "standalone_s": 0.025327979000000278,
+          "total_with_generation_s": 0.24582543700000026
+        }
+      },
+      "predecessor_over_factored": 1.7746531988523766,
+      "recursive_over_factored": 0.1410312342867284,
+      "standalone_recursive_over_factored": 0.17600478154132065
+    }
+  ],
+  "vector_checks": 1128,
+  "elapsed_s": 3.5047726249999998,
+  "binary_sha256": {
+    "factored": "a44f4194f3341e259621b3617898c0545c91b1f2e1806c7108a1c372c495b88b",
+    "factored-hash": "a44f4194f3341e259621b3617898c0545c91b1f2e1806c7108a1c372c495b88b",
+    "predecessor": "f8f01726abb9f6494bae8b165f8f7da24153f2e1e980d0d1b126f8b9e6171085",
+    "recursive": "a44f4194f3341e259621b3617898c0545c91b1f2e1806c7108a1c372c495b88b"
+  },
+  "scope": "Finite late pip-trump component queries. Separate cold processes, all worker counts matched. Recursive wall includes preparation; front wall includes service setup, partitions, prepare/group/expand/fold and cache insertion. JSON/process/replay separately charged. No warm check in timed process. wait4 RSS attributed to each individual binary; summed array maxima remain a subset/upper bound. Generation charged at actual n over all proposed deals; no strength or k-linearity inference."
+}

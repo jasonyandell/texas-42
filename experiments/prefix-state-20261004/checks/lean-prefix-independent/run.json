@@ -1,0 +1,21 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T09:45:12.085035+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-4/research-worktree",
+  "command": [
+    "/Users/jason/.elan/toolchains/leanprover--lean4---v4.33.0-rc1/bin/lean",
+    "experiments/prefix-state-20261004/math/PrefixState.lean"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.260926,
+  "status": "completed",
+  "child_pid": 29610,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

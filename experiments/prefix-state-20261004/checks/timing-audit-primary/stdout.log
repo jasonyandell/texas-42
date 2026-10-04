@@ -1,0 +1,86 @@
+{
+  "all_arithmetic_and_vector_checks_pass": true,
+  "panels": [
+    {
+      "directory": "final-one",
+      "worlds": 8,
+      "roots": 47,
+      "factored_cold_ms": 1.9825,
+      "recursive_cold_ms": 0.7845000000000001,
+      "predecessor_over_factored": 1.8670870113493065,
+      "recursive_over_factored": 0.39571248423707445,
+      "standalone_recursive_over_factored": 0.7697888316074474
+    },
+    {
+      "directory": "final-one",
+      "worlds": 40,
+      "roots": 47,
+      "factored_cold_ms": 7.77,
+      "recursive_cold_ms": 10.5985,
+      "predecessor_over_factored": 1.852123552123552,
+      "recursive_over_factored": 1.364028314028314,
+      "standalone_recursive_over_factored": 1.172109274289798
+    },
+    {
+      "directory": "final-one",
+      "worlds": 128,
+      "roots": 47,
+      "factored_cold_ms": 23.351,
+      "recursive_cold_ms": 34.6995,
+      "predecessor_over_factored": 1.8517194124448633,
+      "recursive_over_factored": 1.4859963170742152,
+      "standalone_recursive_over_factored": 1.2781360984811985
+    },
+    {
+      "directory": "final-one",
+      "worlds": 512,
+      "roots": 47,
+      "factored_cold_ms": 89.452,
+      "recursive_cold_ms": 131.459,
+      "predecessor_over_factored": 1.9067991772123596,
+      "recursive_over_factored": 1.4696038098645081,
+      "standalone_recursive_over_factored": 1.2850097456036458
+    },
+    {
+      "directory": "final-four",
+      "worlds": 8,
+      "roots": 47,
+      "factored_cold_ms": 1.0614999999999999,
+      "recursive_cold_ms": 0.3565,
+      "predecessor_over_factored": 1.5675930287329252,
+      "recursive_over_factored": 0.3358455016486105,
+      "standalone_recursive_over_factored": 0.8312675353596894
+    },
+    {
+      "directory": "final-four",
+      "worlds": 40,
+      "roots": 47,
+      "factored_cold_ms": 3.2405,
+      "recursive_cold_ms": 4.117,
+      "predecessor_over_factored": 1.9384354266316925,
+      "recursive_over_factored": 1.270482950162012,
+      "standalone_recursive_over_factored": 1.0567390343628829
+    },
+    {
+      "directory": "final-four",
+      "worlds": 128,
+      "roots": 47,
+      "factored_cold_ms": 8.7995,
+      "recursive_cold_ms": 13.0655,
+      "predecessor_over_factored": 1.9683504744587759,
+      "recursive_over_factored": 1.4848002727427696,
+      "standalone_recursive_over_factored": 1.149350569425395
+    },
+    {
+      "directory": "final-four",
+      "worlds": 512,
+      "roots": 47,
+      "factored_cold_ms": 32.6655,
+      "recursive_cold_ms": 42.1015,
+      "predecessor_over_factored": 1.8967259034761446,
+      "recursive_over_factored": 1.2888674595521268,
+      "standalone_recursive_over_factored": 1.0909974138465086
+    }
+  ],
+  "note": "Ratios are medians on retained local finite workloads, not inferential confidence intervals. Standalone metric includes JSON serialization, child lifetime and output parsing; tempfile setup/input write outside child timing is omitted."
+}

@@ -1,0 +1,11 @@
+[package]
+name = "prefix-state-independent-check"
+version = "0.1.0"
+edition = "2021"
+publish = false
+[workspace]
+[dependencies]
+native-frontier = { path = "../../native" }
+serde_json = "1"
+[profile.release]
+overflow-checks = true

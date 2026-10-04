@@ -1,0 +1,6 @@
+'WaltResearch.PrefixState.replay_child' depends on axioms: [propext, Quot.sound]
+'WaltResearch.PrefixState.advance_consistent' depends on axioms: [propext, Quot.sound]
+'WaltResearch.PrefixState.one_state_per_coordinate' does not depend on any axioms
+'WaltResearch.PrefixState.advance_preserves_world' does not depend on any axioms
+'WaltResearch.PrefixState.actor_view_preserved' does not depend on any axioms
+'WaltResearch.PrefixState.shared_sum_preserved' depends on axioms: [propext, Quot.sound]

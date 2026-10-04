@@ -1,0 +1,232 @@
+{
+  "arguments": {
+    "out": "experiments/prefix-state-20261004/results/rung1-one",
+    "start": 962000,
+    "count": 32,
+    "counts": [
+      8
+    ],
+    "workers": 1,
+    "repeats": 4,
+    "mode": "policy",
+    "field": 1,
+    "min_ply": 16,
+    "native_choices": false,
+    "counted": false,
+    "limit": 1000,
+    "candidate": "/Users/jason/Documents/Codex/2026-10-04/task-4/research-worktree/experiments/prefix-state-20261004/native/target/release/native-frontier",
+    "control": "/Users/jason/Documents/Codex/2026-10-04/task-4/research-worktree/experiments/prefix-state-20261004/control-target/release/native-frontier"
+  },
+  "selected": [
+    962004,
+    962012,
+    962015,
+    962016,
+    962020,
+    962023
+  ],
+  "panels": [
+    {
+      "worlds": 8,
+      "roots": 6,
+      "generation_actual_n_s": 0.011844624999999998,
+      "variants": {
+        "factored": {
+          "serialization_s": 9.752100000000319e-05,
+          "host_s": 0.015029853999999981,
+          "output_parse_s": 5.6645999999993535e-05,
+          "harness_overhead_s": 0.0005684580000000217,
+          "child_cpu_s": 0.014206499999999999,
+          "process_peak_rss_bytes": 8347648.0,
+          "cold_service_s": 0.012424,
+          "standalone_s": 0.01575570800000002,
+          "total_with_generation_s": 0.02760033300000002,
+          "stats": {
+            "actor_demands_by_level": [
+              3681,
+              470
+            ],
+            "avoided_record_calls": 11500,
+            "cache_entries": 4081,
+            "cache_hits": 37,
+            "cache_key_bytes": 523424,
+            "cache_lookup_us": 977,
+            "completed_actor_queries": 4075,
+            "demand_grouping_us": 2009,
+            "fold_us": 1963,
+            "forward_us": 3426,
+            "generated_actor_queries": 4075,
+            "inner_worlds_by_level": [
+              14428,
+              936
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 541923,
+            "peak_layer_rows": 1564,
+            "peak_retained_array_bytes": 530015,
+            "prefix_lookup_probes": 121227,
+            "preparation_us": 419,
+            "public_coordinates": 181922,
+            "public_record_calls": 19161,
+            "public_step_calls": 126966,
+            "query_lookups": 4157,
+            "raw_policy_consultations_by_level": [
+              3813,
+              490
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 42731,
+            "row_edges": 251201,
+            "sample_us": 1046,
+            "unique_actor_misses_by_level": [
+              3607,
+              468
+            ]
+          }
+        },
+        "factored-hash": {
+          "serialization_s": 0.0001001875000000152,
+          "host_s": 0.019296374999999998,
+          "output_parse_s": 5.133350000001424e-05,
+          "harness_overhead_s": 0.0005468329999999688,
+          "child_cpu_s": 0.018536499999999997,
+          "process_peak_rss_bytes": 8273920.0,
+          "cold_service_s": 0.0168335,
+          "standalone_s": 0.01990924949999999,
+          "total_with_generation_s": 0.03175387449999999,
+          "stats": {
+            "actor_demands_by_level": [
+              3681,
+              470
+            ],
+            "avoided_record_calls": 11500,
+            "cache_entries": 4081,
+            "cache_hits": 37,
+            "cache_key_bytes": 523424,
+            "cache_lookup_us": 1002,
+            "completed_actor_queries": 4075,
+            "demand_grouping_us": 2002,
+            "fold_us": 1893,
+            "forward_us": 7888,
+            "generated_actor_queries": 4075,
+            "inner_worlds_by_level": [
+              14428,
+              936
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 541923,
+            "peak_layer_rows": 1564,
+            "peak_retained_array_bytes": 530015,
+            "prefix_lookup_probes": 251201,
+            "preparation_us": 376,
+            "public_coordinates": 181922,
+            "public_record_calls": 19161,
+            "public_step_calls": 126966,
+            "query_lookups": 4157,
+            "raw_policy_consultations_by_level": [
+              3813,
+              490
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 42731,
+            "row_edges": 251201,
+            "sample_us": 973,
+            "unique_actor_misses_by_level": [
+              3607,
+              468
+            ]
+          }
+        },
+        "predecessor": {
+          "serialization_s": 0.00010016650000001237,
+          "host_s": 0.022544228999999985,
+          "output_parse_s": 4.891649999999581e-05,
+          "harness_overhead_s": 0.000495145500000016,
+          "child_cpu_s": 0.021728499999999998,
+          "process_peak_rss_bytes": 8306688.0,
+          "cold_service_s": 0.0201405,
+          "standalone_s": 0.023231854000000003,
+          "total_with_generation_s": 0.035076479,
+          "stats": {
+            "actor_demands_by_level": [
+              3644,
+              468
+            ],
+            "cache_entries": 4081,
+            "cache_hits": 37,
+            "cache_key_bytes": 523424,
+            "cache_lookup_us": 926,
+            "completed_actor_queries": 4075,
+            "demand_grouping_us": 2049,
+            "fold_us": 2266,
+            "forward_us": 10891,
+            "generated_actor_queries": 4075,
+            "inner_worlds_by_level": [
+              14428,
+              936
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 654467,
+            "peak_layer_rows": 1564,
+            "peak_retained_array_bytes": 643691,
+            "preparation_us": 385,
+            "public_coordinates": 181922,
+            "query_lookups": 4118,
+            "raw_policy_consultations_by_level": [
+              3813,
+              490
+            ],
+            "refused_batches": 0,
+            "row_edges": 251201,
+            "sample_us": 992,
+            "unique_actor_misses_by_level": [
+              3607,
+              468
+            ]
+          }
+        },
+        "recursive": {
+          "serialization_s": 9.793699999999239e-05,
+          "host_s": 0.003624687500000001,
+          "output_parse_s": 2.7895999999999477e-05,
+          "harness_overhead_s": 0.0005084994999999815,
+          "child_cpu_s": 0.0029189999999999997,
+          "process_peak_rss_bytes": 4956160.0,
+          "cold_service_s": 0.0013825,
+          "standalone_s": 0.004264561999999993,
+          "total_with_generation_s": 0.01610918699999999
+        }
+      },
+      "predecessor_over_factored": 1.6210962652929812,
+      "recursive_over_factored": 0.11127656149388282,
+      "standalone_recursive_over_factored": 0.2706677478409721
+    }
+  ],
+  "vector_checks": 72,
+  "elapsed_s": 0.27091083299999996,
+  "binary_sha256": {
+    "factored": "6d1e94223caa3ac9589e24185bf6871b536ab82421218d85f3a7891369effbe8",
+    "factored-hash": "6d1e94223caa3ac9589e24185bf6871b536ab82421218d85f3a7891369effbe8",
+    "predecessor": "f8f01726abb9f6494bae8b165f8f7da24153f2e1e980d0d1b126f8b9e6171085",
+    "recursive": "6d1e94223caa3ac9589e24185bf6871b536ab82421218d85f3a7891369effbe8"
+  },
+  "scope": "Finite late pip-trump component queries. Separate cold processes, all worker counts matched. Recursive wall includes preparation; front wall includes service setup, partitions, prepare/group/expand/fold and cache insertion. JSON/process/replay separately charged; standalone includes temporary-file creation/write/seek/close via harness_overhead_s. No warm check in timed process. wait4 RSS attributed to each individual binary; summed array maxima remain a subset/upper bound. Generation charged at actual n over all proposed deals; no strength or k-linearity inference."
+}

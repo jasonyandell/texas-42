@@ -1,0 +1,169 @@
+{
+  "completed_vectors": 102,
+  "refusals": 1,
+  "matrix": [
+    {
+      "worlds": 2,
+      "field": 0,
+      "full_complete": true,
+      "full_actor_demands": [
+        117
+      ],
+      "full_unique_misses": [
+        117
+      ],
+      "full_inner_worlds": [
+        468
+      ],
+      "hybrid_complete": true
+    },
+    {
+      "worlds": 2,
+      "field": 1,
+      "full_complete": true,
+      "full_actor_demands": [
+        936,
+        122
+      ],
+      "full_unique_misses": [
+        929,
+        122
+      ],
+      "full_inner_worlds": [
+        3716,
+        244
+      ],
+      "hybrid_complete": true
+    },
+    {
+      "worlds": 2,
+      "field": 2,
+      "full_complete": true,
+      "full_actor_demands": [
+        4268,
+        1045,
+        124
+      ],
+      "full_unique_misses": [
+        4188,
+        1040,
+        124
+      ],
+      "full_inner_worlds": [
+        16752,
+        2080,
+        248
+      ],
+      "hybrid_complete": true
+    },
+    {
+      "worlds": 8,
+      "field": 0,
+      "full_complete": true,
+      "full_actor_demands": [
+        447
+      ],
+      "full_unique_misses": [
+        446
+      ],
+      "full_inner_worlds": [
+        1784
+      ],
+      "hybrid_complete": true
+    },
+    {
+      "worlds": 8,
+      "field": 1,
+      "full_complete": true,
+      "full_actor_demands": [
+        3681,
+        470
+      ],
+      "full_unique_misses": [
+        3607,
+        468
+      ],
+      "full_inner_worlds": [
+        14428,
+        936
+      ],
+      "hybrid_complete": true
+    },
+    {
+      "worlds": 8,
+      "field": 2,
+      "full_complete": true,
+      "full_actor_demands": [
+        15914,
+        3772,
+        471
+      ],
+      "full_unique_misses": [
+        15452,
+        3708,
+        470
+      ],
+      "full_inner_worlds": [
+        61808,
+        7416,
+        940
+      ],
+      "hybrid_complete": true
+    },
+    {
+      "worlds": 40,
+      "field": 0,
+      "full_complete": true,
+      "full_actor_demands": [
+        1784
+      ],
+      "full_unique_misses": [
+        1738
+      ],
+      "full_inner_worlds": [
+        6952
+      ],
+      "hybrid_complete": true
+    },
+    {
+      "worlds": 40,
+      "field": 1,
+      "full_complete": true,
+      "full_actor_demands": [
+        14065,
+        1823
+      ],
+      "full_unique_misses": [
+        13366,
+        1747
+      ],
+      "full_inner_worlds": [
+        53464,
+        3494
+      ],
+      "hybrid_complete": true
+    },
+    {
+      "worlds": 40,
+      "field": 2,
+      "full_complete": false,
+      "full_actor_demands": [
+        41294,
+        10257,
+        1429
+      ],
+      "full_unique_misses": [
+        38371,
+        9786,
+        1377
+      ],
+      "full_inner_worlds": [
+        153484,
+        19572,
+        2754
+      ],
+      "hybrid_complete": true
+    }
+  ],
+  "note": "One observation per cell; partial lower caches may survive refusal; absence of root answers is checked, not a proof of transactional rollback."
+}

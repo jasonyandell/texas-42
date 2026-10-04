@@ -1,0 +1,244 @@
+{
+  "arguments": {
+    "out": "experiments/prefix-state-20261004/results/rung2-one",
+    "start": 962000,
+    "count": 32,
+    "counts": [
+      8
+    ],
+    "workers": 1,
+    "repeats": 4,
+    "mode": "policy",
+    "field": 2,
+    "min_ply": 16,
+    "native_choices": false,
+    "counted": false,
+    "limit": 1000,
+    "candidate": "/Users/jason/Documents/Codex/2026-10-04/task-4/research-worktree/experiments/prefix-state-20261004/native/target/release/native-frontier",
+    "control": "/Users/jason/Documents/Codex/2026-10-04/task-4/research-worktree/experiments/prefix-state-20261004/control-target/release/native-frontier"
+  },
+  "selected": [
+    962004,
+    962012,
+    962015,
+    962016,
+    962020,
+    962023
+  ],
+  "panels": [
+    {
+      "worlds": 8,
+      "roots": 6,
+      "generation_actual_n_s": 0.01234275,
+      "variants": {
+        "factored": {
+          "serialization_s": 0.00010187500000000127,
+          "host_s": 0.04874868699999996,
+          "output_parse_s": 7.383350000000899e-05,
+          "harness_overhead_s": 0.0005700830000000441,
+          "child_cpu_s": 0.0477495,
+          "process_peak_rss_bytes": 19038208.0,
+          "cold_service_s": 0.045656,
+          "standalone_s": 0.04953439599999998,
+          "total_with_generation_s": 0.06187714599999998,
+          "stats": {
+            "actor_demands_by_level": [
+              15914,
+              3772,
+              471
+            ],
+            "avoided_record_calls": 36498,
+            "cache_entries": 19636,
+            "cache_hits": 331,
+            "cache_key_bytes": 2514464,
+            "cache_lookup_us": 4758,
+            "completed_actor_queries": 19630,
+            "demand_grouping_us": 7934,
+            "fold_us": 6587,
+            "forward_us": 11945,
+            "generated_actor_queries": 19630,
+            "inner_worlds_by_level": [
+              61808,
+              7416,
+              940
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 1629182,
+            "peak_layer_rows": 4675,
+            "peak_retained_array_bytes": 1594114,
+            "prefix_lookup_probes": 493928,
+            "preparation_us": 1889,
+            "public_coordinates": 646154,
+            "public_record_calls": 51444,
+            "public_step_calls": 446310,
+            "query_lookups": 20163,
+            "raw_policy_consultations_by_level": [
+              16412,
+              3855,
+              488
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 179426,
+            "row_edges": 949728,
+            "sample_us": 4863,
+            "unique_actor_misses_by_level": [
+              15452,
+              3708,
+              470
+            ]
+          }
+        },
+        "factored-hash": {
+          "serialization_s": 0.00011504200000000964,
+          "host_s": 0.06600285449999999,
+          "output_parse_s": 6.427100000000463e-05,
+          "harness_overhead_s": 0.0007013114999999473,
+          "child_cpu_s": 0.06505449999999999,
+          "process_peak_rss_bytes": 19128320.0,
+          "cold_service_s": 0.063061,
+          "standalone_s": 0.06697316699999994,
+          "total_with_generation_s": 0.07931591699999994,
+          "stats": {
+            "actor_demands_by_level": [
+              15914,
+              3772,
+              471
+            ],
+            "avoided_record_calls": 36498,
+            "cache_entries": 19636,
+            "cache_hits": 331,
+            "cache_key_bytes": 2514464,
+            "cache_lookup_us": 4738,
+            "completed_actor_queries": 19630,
+            "demand_grouping_us": 7842,
+            "fold_us": 6681,
+            "forward_us": 28849,
+            "generated_actor_queries": 19630,
+            "inner_worlds_by_level": [
+              61808,
+              7416,
+              940
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 1629182,
+            "peak_layer_rows": 4675,
+            "peak_retained_array_bytes": 1594114,
+            "prefix_lookup_probes": 949728,
+            "preparation_us": 1881,
+            "public_coordinates": 646154,
+            "public_record_calls": 51444,
+            "public_step_calls": 446310,
+            "query_lookups": 20163,
+            "raw_policy_consultations_by_level": [
+              16412,
+              3855,
+              488
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 179426,
+            "row_edges": 949728,
+            "sample_us": 4875,
+            "unique_actor_misses_by_level": [
+              15452,
+              3708,
+              470
+            ]
+          }
+        },
+        "predecessor": {
+          "serialization_s": 0.00011652100000000831,
+          "host_s": 0.07952775000000001,
+          "output_parse_s": 5.7187999999985806e-05,
+          "harness_overhead_s": 0.0006306869999999631,
+          "child_cpu_s": 0.07847849999999999,
+          "process_peak_rss_bytes": 19374080.0,
+          "cold_service_s": 0.0763905,
+          "standalone_s": 0.08031262500000005,
+          "total_with_generation_s": 0.09265537500000005,
+          "stats": {
+            "actor_demands_by_level": [
+              15739,
+              3747,
+              470
+            ],
+            "cache_entries": 19636,
+            "cache_hits": 326,
+            "cache_key_bytes": 2514464,
+            "cache_lookup_us": 4681,
+            "completed_actor_queries": 19630,
+            "demand_grouping_us": 8605,
+            "fold_us": 8076,
+            "forward_us": 40903,
+            "generated_actor_queries": 19630,
+            "inner_worlds_by_level": [
+              61808,
+              7416,
+              940
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 1968850,
+            "peak_layer_rows": 4675,
+            "peak_retained_array_bytes": 1937234,
+            "preparation_us": 2006,
+            "public_coordinates": 646154,
+            "query_lookups": 19962,
+            "raw_policy_consultations_by_level": [
+              16412,
+              3855,
+              488
+            ],
+            "refused_batches": 0,
+            "row_edges": 949728,
+            "sample_us": 5047,
+            "unique_actor_misses_by_level": [
+              15452,
+              3708,
+              470
+            ]
+          }
+        },
+        "recursive": {
+          "serialization_s": 0.0001225004999999696,
+          "host_s": 0.006317249999999955,
+          "output_parse_s": 2.4041499999960525e-05,
+          "harness_overhead_s": 0.0005736875000000308,
+          "child_cpu_s": 0.0054265,
+          "process_peak_rss_bytes": 5029888.0,
+          "cold_service_s": 0.003832,
+          "standalone_s": 0.007046250000000032,
+          "total_with_generation_s": 0.01938900000000003
+        }
+      },
+      "predecessor_over_factored": 1.6731754862449622,
+      "recursive_over_factored": 0.08393201331697914,
+      "standalone_recursive_over_factored": 0.1422496400279118
+    }
+  ],
+  "vector_checks": 72,
+  "elapsed_s": 0.835135125,
+  "binary_sha256": {
+    "factored": "6d1e94223caa3ac9589e24185bf6871b536ab82421218d85f3a7891369effbe8",
+    "factored-hash": "6d1e94223caa3ac9589e24185bf6871b536ab82421218d85f3a7891369effbe8",
+    "predecessor": "f8f01726abb9f6494bae8b165f8f7da24153f2e1e980d0d1b126f8b9e6171085",
+    "recursive": "6d1e94223caa3ac9589e24185bf6871b536ab82421218d85f3a7891369effbe8"
+  },
+  "scope": "Finite late pip-trump component queries. Separate cold processes, all worker counts matched. Recursive wall includes preparation; front wall includes service setup, partitions, prepare/group/expand/fold and cache insertion. JSON/process/replay separately charged; standalone includes temporary-file creation/write/seek/close via harness_overhead_s. No warm check in timed process. wait4 RSS attributed to each individual binary; summed array maxima remain a subset/upper bound. Generation charged at actual n over all proposed deals; no strength or k-linearity inference."
+}

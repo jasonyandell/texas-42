@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/jason/Documents/Codex/2026-10-04/task-4/research-worktree/experiments/prefix-state-20261004/compare.py", line 77, in <module>
+    if __name__=='__main__':main()
+  File "/Users/jason/Documents/Codex/2026-10-04/task-4/research-worktree/experiments/prefix-state-20261004/compare.py", line 48, in main
+    runs[name]=call(binaries[name],payload)
+  File "/Users/jason/Documents/Codex/2026-10-04/task-4/research-worktree/experiments/prefix-state-20261004/compare.py", line 17, in call
+    if proc.returncode:raise RuntimeError(proc.stderr)
+RuntimeError:         0.29 real         0.01 user         0.00 sys
+time: sysctl kern.clockrate: Operation not permitted
+

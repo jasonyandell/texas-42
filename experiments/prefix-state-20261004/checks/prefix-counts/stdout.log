@@ -1,0 +1,2039 @@
+{
+  "roots": 38,
+  "row_edges": 9224,
+  "public_coordinates": 7331,
+  "records": [
+    {
+      "seed": 963000,
+      "worlds": 8,
+      "row_edges": 370,
+      "public_coordinates": 331,
+      "active_parent_coordinates": 206,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 10,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 20,
+          "active_parent_coordinates": 10
+        },
+        {
+          "rows": 24,
+          "coordinates": 24,
+          "active_parent_coordinates": 20
+        },
+        {
+          "rows": 25,
+          "coordinates": 25,
+          "active_parent_coordinates": 23
+        },
+        {
+          "rows": 28,
+          "coordinates": 28,
+          "active_parent_coordinates": 24
+        },
+        {
+          "rows": 31,
+          "coordinates": 31,
+          "active_parent_coordinates": 27
+        },
+        {
+          "rows": 38,
+          "coordinates": 38,
+          "active_parent_coordinates": 30
+        },
+        {
+          "rows": 38,
+          "coordinates": 38,
+          "active_parent_coordinates": 17
+        },
+        {
+          "rows": 38,
+          "coordinates": 38,
+          "active_parent_coordinates": 17
+        },
+        {
+          "rows": 38,
+          "coordinates": 38,
+          "active_parent_coordinates": 17
+        },
+        {
+          "rows": 38,
+          "coordinates": 38,
+          "active_parent_coordinates": 17
+        }
+      ]
+    },
+    {
+      "seed": 963001,
+      "worlds": 8,
+      "row_edges": 272,
+      "public_coordinates": 204,
+      "active_parent_coordinates": 32,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 13,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 20,
+          "active_parent_coordinates": 13
+        },
+        {
+          "rows": 25,
+          "coordinates": 21,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 25,
+          "coordinates": 21,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 25,
+          "coordinates": 21,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 25,
+          "coordinates": 21,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 25,
+          "coordinates": 21,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 25,
+          "coordinates": 21,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 25,
+          "coordinates": 21,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 25,
+          "coordinates": 21,
+          "active_parent_coordinates": 2
+        }
+      ]
+    },
+    {
+      "seed": 963002,
+      "worlds": 8,
+      "row_edges": 289,
+      "public_coordinates": 184,
+      "active_parent_coordinates": 63,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 13,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 16,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 31,
+          "coordinates": 21,
+          "active_parent_coordinates": 10
+        },
+        {
+          "rows": 31,
+          "coordinates": 21,
+          "active_parent_coordinates": 15
+        },
+        {
+          "rows": 31,
+          "coordinates": 22,
+          "active_parent_coordinates": 15
+        },
+        {
+          "rows": 31,
+          "coordinates": 22,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 31,
+          "coordinates": 22,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 31,
+          "coordinates": 22,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 31,
+          "coordinates": 22,
+          "active_parent_coordinates": 3
+        }
+      ]
+    },
+    {
+      "seed": 963003,
+      "worlds": 8,
+      "row_edges": 291,
+      "public_coordinates": 255,
+      "active_parent_coordinates": 113,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 13,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 20,
+          "active_parent_coordinates": 13
+        },
+        {
+          "rows": 24,
+          "coordinates": 24,
+          "active_parent_coordinates": 20
+        },
+        {
+          "rows": 39,
+          "coordinates": 39,
+          "active_parent_coordinates": 24
+        },
+        {
+          "rows": 39,
+          "coordinates": 39,
+          "active_parent_coordinates": 13
+        },
+        {
+          "rows": 39,
+          "coordinates": 39,
+          "active_parent_coordinates": 13
+        },
+        {
+          "rows": 39,
+          "coordinates": 39,
+          "active_parent_coordinates": 13
+        },
+        {
+          "rows": 39,
+          "coordinates": 39,
+          "active_parent_coordinates": 13
+        }
+      ]
+    },
+    {
+      "seed": 963010,
+      "worlds": 8,
+      "row_edges": 324,
+      "public_coordinates": 278,
+      "active_parent_coordinates": 147,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 14,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 22,
+          "active_parent_coordinates": 12
+        },
+        {
+          "rows": 24,
+          "coordinates": 23,
+          "active_parent_coordinates": 20
+        },
+        {
+          "rows": 38,
+          "coordinates": 36,
+          "active_parent_coordinates": 21
+        },
+        {
+          "rows": 38,
+          "coordinates": 36,
+          "active_parent_coordinates": 34
+        },
+        {
+          "rows": 38,
+          "coordinates": 36,
+          "active_parent_coordinates": 14
+        },
+        {
+          "rows": 38,
+          "coordinates": 36,
+          "active_parent_coordinates": 14
+        },
+        {
+          "rows": 38,
+          "coordinates": 36,
+          "active_parent_coordinates": 14
+        },
+        {
+          "rows": 38,
+          "coordinates": 36,
+          "active_parent_coordinates": 14
+        }
+      ]
+    },
+    {
+      "seed": 963012,
+      "worlds": 8,
+      "row_edges": 128,
+      "public_coordinates": 82,
+      "active_parent_coordinates": 35,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 8,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 12
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 3
+        }
+      ]
+    },
+    {
+      "seed": 963014,
+      "worlds": 8,
+      "row_edges": 96,
+      "public_coordinates": 40,
+      "active_parent_coordinates": 17,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 6,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 8,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 8,
+          "active_parent_coordinates": 4
+        },
+        {
+          "rows": 16,
+          "coordinates": 8,
+          "active_parent_coordinates": 4
+        },
+        {
+          "rows": 16,
+          "coordinates": 8,
+          "active_parent_coordinates": 4
+        }
+      ]
+    },
+    {
+      "seed": 963018,
+      "worlds": 8,
+      "row_edges": 186,
+      "public_coordinates": 142,
+      "active_parent_coordinates": 70,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 10,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 13,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 19,
+          "coordinates": 16,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 19,
+          "coordinates": 16,
+          "active_parent_coordinates": 11
+        },
+        {
+          "rows": 20,
+          "coordinates": 17,
+          "active_parent_coordinates": 11
+        },
+        {
+          "rows": 20,
+          "coordinates": 17,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 20,
+          "coordinates": 17,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 20,
+          "coordinates": 17,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 20,
+          "coordinates": 17,
+          "active_parent_coordinates": 8
+        }
+      ]
+    },
+    {
+      "seed": 963019,
+      "worlds": 8,
+      "row_edges": 272,
+      "public_coordinates": 116,
+      "active_parent_coordinates": 56,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 6,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 32,
+          "coordinates": 10,
+          "active_parent_coordinates": 4
+        },
+        {
+          "rows": 32,
+          "coordinates": 14,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 32,
+          "coordinates": 16,
+          "active_parent_coordinates": 12
+        },
+        {
+          "rows": 32,
+          "coordinates": 16,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 32,
+          "coordinates": 17,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 32,
+          "coordinates": 17,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 32,
+          "coordinates": 17,
+          "active_parent_coordinates": 8
+        }
+      ]
+    },
+    {
+      "seed": 963021,
+      "worlds": 8,
+      "row_edges": 112,
+      "public_coordinates": 69,
+      "active_parent_coordinates": 30,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 7,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 5
+        }
+      ]
+    },
+    {
+      "seed": 963030,
+      "worlds": 8,
+      "row_edges": 32,
+      "public_coordinates": 6,
+      "active_parent_coordinates": 3,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 4,
+          "active_parent_coordinates": 2
+        }
+      ]
+    },
+    {
+      "seed": 963037,
+      "worlds": 8,
+      "row_edges": 112,
+      "public_coordinates": 71,
+      "active_parent_coordinates": 31,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 7,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 16,
+          "coordinates": 13,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 16,
+          "coordinates": 13,
+          "active_parent_coordinates": 6
+        }
+      ]
+    },
+    {
+      "seed": 963040,
+      "worlds": 8,
+      "row_edges": 333,
+      "public_coordinates": 286,
+      "active_parent_coordinates": 101,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 13,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 19,
+          "active_parent_coordinates": 13
+        },
+        {
+          "rows": 24,
+          "coordinates": 22,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 24,
+          "coordinates": 23,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 29,
+          "coordinates": 28,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 29,
+          "coordinates": 28,
+          "active_parent_coordinates": 13
+        },
+        {
+          "rows": 31,
+          "coordinates": 30,
+          "active_parent_coordinates": 13
+        },
+        {
+          "rows": 31,
+          "coordinates": 30,
+          "active_parent_coordinates": 6
+        },
+        {
+          "rows": 31,
+          "coordinates": 30,
+          "active_parent_coordinates": 6
+        },
+        {
+          "rows": 31,
+          "coordinates": 30,
+          "active_parent_coordinates": 6
+        },
+        {
+          "rows": 31,
+          "coordinates": 30,
+          "active_parent_coordinates": 6
+        }
+      ]
+    },
+    {
+      "seed": 963041,
+      "worlds": 8,
+      "row_edges": 334,
+      "public_coordinates": 279,
+      "active_parent_coordinates": 116,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 12,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 20,
+          "active_parent_coordinates": 12
+        },
+        {
+          "rows": 26,
+          "coordinates": 22,
+          "active_parent_coordinates": 10
+        },
+        {
+          "rows": 33,
+          "coordinates": 31,
+          "active_parent_coordinates": 12
+        },
+        {
+          "rows": 33,
+          "coordinates": 31,
+          "active_parent_coordinates": 21
+        },
+        {
+          "rows": 34,
+          "coordinates": 32,
+          "active_parent_coordinates": 21
+        },
+        {
+          "rows": 34,
+          "coordinates": 32,
+          "active_parent_coordinates": 9
+        },
+        {
+          "rows": 34,
+          "coordinates": 32,
+          "active_parent_coordinates": 9
+        },
+        {
+          "rows": 34,
+          "coordinates": 32,
+          "active_parent_coordinates": 9
+        },
+        {
+          "rows": 34,
+          "coordinates": 32,
+          "active_parent_coordinates": 9
+        }
+      ]
+    },
+    {
+      "seed": 963042,
+      "worlds": 8,
+      "row_edges": 288,
+      "public_coordinates": 201,
+      "active_parent_coordinates": 54,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 15,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 30,
+          "coordinates": 18,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 30,
+          "coordinates": 21,
+          "active_parent_coordinates": 6
+        },
+        {
+          "rows": 30,
+          "coordinates": 24,
+          "active_parent_coordinates": 9
+        },
+        {
+          "rows": 30,
+          "coordinates": 24,
+          "active_parent_coordinates": 12
+        },
+        {
+          "rows": 30,
+          "coordinates": 24,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 30,
+          "coordinates": 24,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 30,
+          "coordinates": 24,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 30,
+          "coordinates": 24,
+          "active_parent_coordinates": 5
+        }
+      ]
+    },
+    {
+      "seed": 963051,
+      "worlds": 8,
+      "row_edges": 264,
+      "public_coordinates": 200,
+      "active_parent_coordinates": 110,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 5,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 32,
+          "coordinates": 13,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 32,
+          "coordinates": 26,
+          "active_parent_coordinates": 13
+        },
+        {
+          "rows": 32,
+          "coordinates": 30,
+          "active_parent_coordinates": 26
+        },
+        {
+          "rows": 32,
+          "coordinates": 31,
+          "active_parent_coordinates": 15
+        },
+        {
+          "rows": 32,
+          "coordinates": 31,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 32,
+          "coordinates": 31,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 32,
+          "coordinates": 31,
+          "active_parent_coordinates": 16
+        }
+      ]
+    },
+    {
+      "seed": 963056,
+      "worlds": 8,
+      "row_edges": 414,
+      "public_coordinates": 372,
+      "active_parent_coordinates": 203,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 12,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 19,
+          "active_parent_coordinates": 12
+        },
+        {
+          "rows": 24,
+          "coordinates": 22,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 34,
+          "coordinates": 32,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 35,
+          "coordinates": 35,
+          "active_parent_coordinates": 26
+        },
+        {
+          "rows": 39,
+          "coordinates": 39,
+          "active_parent_coordinates": 29
+        },
+        {
+          "rows": 42,
+          "coordinates": 42,
+          "active_parent_coordinates": 33
+        },
+        {
+          "rows": 42,
+          "coordinates": 42,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 42,
+          "coordinates": 42,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 42,
+          "coordinates": 42,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 42,
+          "coordinates": 42,
+          "active_parent_coordinates": 16
+        }
+      ]
+    },
+    {
+      "seed": 963057,
+      "worlds": 8,
+      "row_edges": 343,
+      "public_coordinates": 291,
+      "active_parent_coordinates": 106,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 14,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 21,
+          "active_parent_coordinates": 14
+        },
+        {
+          "rows": 29,
+          "coordinates": 25,
+          "active_parent_coordinates": 11
+        },
+        {
+          "rows": 29,
+          "coordinates": 27,
+          "active_parent_coordinates": 15
+        },
+        {
+          "rows": 33,
+          "coordinates": 31,
+          "active_parent_coordinates": 17
+        },
+        {
+          "rows": 36,
+          "coordinates": 34,
+          "active_parent_coordinates": 21
+        },
+        {
+          "rows": 36,
+          "coordinates": 34,
+          "active_parent_coordinates": 6
+        },
+        {
+          "rows": 36,
+          "coordinates": 34,
+          "active_parent_coordinates": 6
+        },
+        {
+          "rows": 36,
+          "coordinates": 34,
+          "active_parent_coordinates": 6
+        },
+        {
+          "rows": 36,
+          "coordinates": 34,
+          "active_parent_coordinates": 6
+        }
+      ]
+    },
+    {
+      "seed": 963059,
+      "worlds": 8,
+      "row_edges": 360,
+      "public_coordinates": 321,
+      "active_parent_coordinates": 163,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 16,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 23,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 48,
+          "coordinates": 46,
+          "active_parent_coordinates": 23
+        },
+        {
+          "rows": 48,
+          "coordinates": 46,
+          "active_parent_coordinates": 46
+        },
+        {
+          "rows": 48,
+          "coordinates": 46,
+          "active_parent_coordinates": 18
+        },
+        {
+          "rows": 48,
+          "coordinates": 47,
+          "active_parent_coordinates": 18
+        },
+        {
+          "rows": 48,
+          "coordinates": 47,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 48,
+          "coordinates": 47,
+          "active_parent_coordinates": 19
+        }
+      ]
+    },
+    {
+      "seed": 963064,
+      "worlds": 8,
+      "row_edges": 413,
+      "public_coordinates": 378,
+      "active_parent_coordinates": 224,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 15,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 22,
+          "active_parent_coordinates": 15
+        },
+        {
+          "rows": 24,
+          "coordinates": 22,
+          "active_parent_coordinates": 22
+        },
+        {
+          "rows": 27,
+          "coordinates": 26,
+          "active_parent_coordinates": 18
+        },
+        {
+          "rows": 34,
+          "coordinates": 34,
+          "active_parent_coordinates": 22
+        },
+        {
+          "rows": 41,
+          "coordinates": 41,
+          "active_parent_coordinates": 30
+        },
+        {
+          "rows": 43,
+          "coordinates": 43,
+          "active_parent_coordinates": 37
+        },
+        {
+          "rows": 43,
+          "coordinates": 43,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 43,
+          "coordinates": 43,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 43,
+          "coordinates": 43,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 43,
+          "coordinates": 43,
+          "active_parent_coordinates": 19
+        }
+      ]
+    },
+    {
+      "seed": 963065,
+      "worlds": 8,
+      "row_edges": 267,
+      "public_coordinates": 237,
+      "active_parent_coordinates": 169,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 6,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 10,
+          "active_parent_coordinates": 6
+        },
+        {
+          "rows": 16,
+          "coordinates": 16,
+          "active_parent_coordinates": 10
+        },
+        {
+          "rows": 29,
+          "coordinates": 29,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 29,
+          "coordinates": 29,
+          "active_parent_coordinates": 29
+        },
+        {
+          "rows": 29,
+          "coordinates": 29,
+          "active_parent_coordinates": 29
+        },
+        {
+          "rows": 29,
+          "coordinates": 29,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 29,
+          "coordinates": 29,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 29,
+          "coordinates": 29,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 29,
+          "coordinates": 29,
+          "active_parent_coordinates": 19
+        }
+      ]
+    },
+    {
+      "seed": 963066,
+      "worlds": 8,
+      "row_edges": 214,
+      "public_coordinates": 179,
+      "active_parent_coordinates": 97,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 11,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 14,
+          "active_parent_coordinates": 9
+        },
+        {
+          "rows": 16,
+          "coordinates": 14,
+          "active_parent_coordinates": 12
+        },
+        {
+          "rows": 25,
+          "coordinates": 23,
+          "active_parent_coordinates": 12
+        },
+        {
+          "rows": 25,
+          "coordinates": 23,
+          "active_parent_coordinates": 21
+        },
+        {
+          "rows": 25,
+          "coordinates": 23,
+          "active_parent_coordinates": 10
+        },
+        {
+          "rows": 25,
+          "coordinates": 23,
+          "active_parent_coordinates": 10
+        },
+        {
+          "rows": 25,
+          "coordinates": 23,
+          "active_parent_coordinates": 10
+        },
+        {
+          "rows": 25,
+          "coordinates": 23,
+          "active_parent_coordinates": 10
+        }
+      ]
+    },
+    {
+      "seed": 963072,
+      "worlds": 8,
+      "row_edges": 396,
+      "public_coordinates": 369,
+      "active_parent_coordinates": 225,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 18,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 24,
+          "active_parent_coordinates": 18
+        },
+        {
+          "rows": 24,
+          "coordinates": 24,
+          "active_parent_coordinates": 24
+        },
+        {
+          "rows": 27,
+          "coordinates": 27,
+          "active_parent_coordinates": 17
+        },
+        {
+          "rows": 31,
+          "coordinates": 31,
+          "active_parent_coordinates": 20
+        },
+        {
+          "rows": 37,
+          "coordinates": 37,
+          "active_parent_coordinates": 24
+        },
+        {
+          "rows": 41,
+          "coordinates": 41,
+          "active_parent_coordinates": 30
+        },
+        {
+          "rows": 41,
+          "coordinates": 41,
+          "active_parent_coordinates": 22
+        },
+        {
+          "rows": 41,
+          "coordinates": 41,
+          "active_parent_coordinates": 22
+        },
+        {
+          "rows": 41,
+          "coordinates": 41,
+          "active_parent_coordinates": 22
+        },
+        {
+          "rows": 41,
+          "coordinates": 41,
+          "active_parent_coordinates": 22
+        }
+      ]
+    },
+    {
+      "seed": 963083,
+      "worlds": 8,
+      "row_edges": 318,
+      "public_coordinates": 272,
+      "active_parent_coordinates": 144,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 14,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 19,
+          "active_parent_coordinates": 14
+        },
+        {
+          "rows": 41,
+          "coordinates": 32,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 41,
+          "coordinates": 40,
+          "active_parent_coordinates": 32
+        },
+        {
+          "rows": 41,
+          "coordinates": 41,
+          "active_parent_coordinates": 18
+        },
+        {
+          "rows": 41,
+          "coordinates": 41,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 41,
+          "coordinates": 41,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 41,
+          "coordinates": 41,
+          "active_parent_coordinates": 19
+        }
+      ]
+    },
+    {
+      "seed": 963086,
+      "worlds": 8,
+      "row_edges": 96,
+      "public_coordinates": 44,
+      "active_parent_coordinates": 35,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 6,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 7,
+          "active_parent_coordinates": 6
+        },
+        {
+          "rows": 16,
+          "coordinates": 9,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 16,
+          "coordinates": 10,
+          "active_parent_coordinates": 9
+        },
+        {
+          "rows": 16,
+          "coordinates": 10,
+          "active_parent_coordinates": 10
+        }
+      ]
+    },
+    {
+      "seed": 963090,
+      "worlds": 8,
+      "row_edges": 361,
+      "public_coordinates": 322,
+      "active_parent_coordinates": 232,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 10,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 22,
+          "active_parent_coordinates": 10
+        },
+        {
+          "rows": 37,
+          "coordinates": 35,
+          "active_parent_coordinates": 22
+        },
+        {
+          "rows": 37,
+          "coordinates": 37,
+          "active_parent_coordinates": 35
+        },
+        {
+          "rows": 43,
+          "coordinates": 43,
+          "active_parent_coordinates": 37
+        },
+        {
+          "rows": 43,
+          "coordinates": 43,
+          "active_parent_coordinates": 31
+        },
+        {
+          "rows": 43,
+          "coordinates": 43,
+          "active_parent_coordinates": 31
+        },
+        {
+          "rows": 43,
+          "coordinates": 43,
+          "active_parent_coordinates": 31
+        },
+        {
+          "rows": 43,
+          "coordinates": 43,
+          "active_parent_coordinates": 31
+        }
+      ]
+    },
+    {
+      "seed": 963094,
+      "worlds": 8,
+      "row_edges": 96,
+      "public_coordinates": 22,
+      "active_parent_coordinates": 11,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 4,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 4,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 4,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 4,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 4,
+          "active_parent_coordinates": 2
+        }
+      ]
+    },
+    {
+      "seed": 963100,
+      "worlds": 8,
+      "row_edges": 128,
+      "public_coordinates": 94,
+      "active_parent_coordinates": 41,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 8,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 14,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 16,
+          "coordinates": 14,
+          "active_parent_coordinates": 14
+        },
+        {
+          "rows": 16,
+          "coordinates": 14,
+          "active_parent_coordinates": 4
+        },
+        {
+          "rows": 16,
+          "coordinates": 14,
+          "active_parent_coordinates": 4
+        },
+        {
+          "rows": 16,
+          "coordinates": 14,
+          "active_parent_coordinates": 4
+        },
+        {
+          "rows": 16,
+          "coordinates": 14,
+          "active_parent_coordinates": 4
+        }
+      ]
+    },
+    {
+      "seed": 963102,
+      "worlds": 8,
+      "row_edges": 32,
+      "public_coordinates": 9,
+      "active_parent_coordinates": 3,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 7,
+          "active_parent_coordinates": 2
+        }
+      ]
+    },
+    {
+      "seed": 963104,
+      "worlds": 8,
+      "row_edges": 371,
+      "public_coordinates": 325,
+      "active_parent_coordinates": 151,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 13,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 20,
+          "active_parent_coordinates": 13
+        },
+        {
+          "rows": 24,
+          "coordinates": 22,
+          "active_parent_coordinates": 20
+        },
+        {
+          "rows": 29,
+          "coordinates": 28,
+          "active_parent_coordinates": 13
+        },
+        {
+          "rows": 33,
+          "coordinates": 32,
+          "active_parent_coordinates": 19
+        },
+        {
+          "rows": 33,
+          "coordinates": 32,
+          "active_parent_coordinates": 23
+        },
+        {
+          "rows": 36,
+          "coordinates": 35,
+          "active_parent_coordinates": 23
+        },
+        {
+          "rows": 36,
+          "coordinates": 35,
+          "active_parent_coordinates": 9
+        },
+        {
+          "rows": 36,
+          "coordinates": 35,
+          "active_parent_coordinates": 9
+        },
+        {
+          "rows": 36,
+          "coordinates": 35,
+          "active_parent_coordinates": 9
+        },
+        {
+          "rows": 36,
+          "coordinates": 35,
+          "active_parent_coordinates": 9
+        }
+      ]
+    },
+    {
+      "seed": 963108,
+      "worlds": 8,
+      "row_edges": 128,
+      "public_coordinates": 104,
+      "active_parent_coordinates": 57,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 10,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 10
+        },
+        {
+          "rows": 16,
+          "coordinates": 16,
+          "active_parent_coordinates": 12
+        },
+        {
+          "rows": 16,
+          "coordinates": 16,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 16,
+          "coordinates": 16,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 16,
+          "coordinates": 16,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 16,
+          "coordinates": 16,
+          "active_parent_coordinates": 8
+        }
+      ]
+    },
+    {
+      "seed": 963109,
+      "worlds": 8,
+      "row_edges": 112,
+      "public_coordinates": 68,
+      "active_parent_coordinates": 37,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 7,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 11,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 6
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 16,
+          "coordinates": 12,
+          "active_parent_coordinates": 7
+        }
+      ]
+    },
+    {
+      "seed": 963111,
+      "worlds": 8,
+      "row_edges": 16,
+      "public_coordinates": 2,
+      "active_parent_coordinates": 1,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        }
+      ]
+    },
+    {
+      "seed": 963112,
+      "worlds": 8,
+      "row_edges": 405,
+      "public_coordinates": 373,
+      "active_parent_coordinates": 230,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 15,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 22,
+          "active_parent_coordinates": 15
+        },
+        {
+          "rows": 24,
+          "coordinates": 24,
+          "active_parent_coordinates": 22
+        },
+        {
+          "rows": 24,
+          "coordinates": 24,
+          "active_parent_coordinates": 22
+        },
+        {
+          "rows": 30,
+          "coordinates": 30,
+          "active_parent_coordinates": 22
+        },
+        {
+          "rows": 35,
+          "coordinates": 35,
+          "active_parent_coordinates": 28
+        },
+        {
+          "rows": 44,
+          "coordinates": 44,
+          "active_parent_coordinates": 33
+        },
+        {
+          "rows": 44,
+          "coordinates": 44,
+          "active_parent_coordinates": 21
+        },
+        {
+          "rows": 44,
+          "coordinates": 44,
+          "active_parent_coordinates": 21
+        },
+        {
+          "rows": 44,
+          "coordinates": 44,
+          "active_parent_coordinates": 21
+        },
+        {
+          "rows": 44,
+          "coordinates": 44,
+          "active_parent_coordinates": 21
+        }
+      ]
+    },
+    {
+      "seed": 963114,
+      "worlds": 8,
+      "row_edges": 298,
+      "public_coordinates": 213,
+      "active_parent_coordinates": 144,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 12,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 29,
+          "coordinates": 19,
+          "active_parent_coordinates": 9
+        },
+        {
+          "rows": 29,
+          "coordinates": 23,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 32,
+          "coordinates": 26,
+          "active_parent_coordinates": 20
+        },
+        {
+          "rows": 32,
+          "coordinates": 26,
+          "active_parent_coordinates": 23
+        },
+        {
+          "rows": 32,
+          "coordinates": 26,
+          "active_parent_coordinates": 18
+        },
+        {
+          "rows": 32,
+          "coordinates": 26,
+          "active_parent_coordinates": 18
+        },
+        {
+          "rows": 32,
+          "coordinates": 26,
+          "active_parent_coordinates": 18
+        },
+        {
+          "rows": 32,
+          "coordinates": 26,
+          "active_parent_coordinates": 18
+        }
+      ]
+    },
+    {
+      "seed": 963118,
+      "worlds": 8,
+      "row_edges": 96,
+      "public_coordinates": 45,
+      "active_parent_coordinates": 21,
+      "layers": [
+        {
+          "rows": 16,
+          "coordinates": 2,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 16,
+          "coordinates": 7,
+          "active_parent_coordinates": 2
+        },
+        {
+          "rows": 16,
+          "coordinates": 9,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 16,
+          "coordinates": 9,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 16,
+          "coordinates": 9,
+          "active_parent_coordinates": 5
+        },
+        {
+          "rows": 16,
+          "coordinates": 9,
+          "active_parent_coordinates": 5
+        }
+      ]
+    },
+    {
+      "seed": 963121,
+      "worlds": 8,
+      "row_edges": 358,
+      "public_coordinates": 305,
+      "active_parent_coordinates": 150,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 12,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 21,
+          "active_parent_coordinates": 12
+        },
+        {
+          "rows": 32,
+          "coordinates": 27,
+          "active_parent_coordinates": 11
+        },
+        {
+          "rows": 32,
+          "coordinates": 27,
+          "active_parent_coordinates": 17
+        },
+        {
+          "rows": 37,
+          "coordinates": 35,
+          "active_parent_coordinates": 17
+        },
+        {
+          "rows": 37,
+          "coordinates": 36,
+          "active_parent_coordinates": 25
+        },
+        {
+          "rows": 37,
+          "coordinates": 36,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 37,
+          "coordinates": 36,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 37,
+          "coordinates": 36,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 37,
+          "coordinates": 36,
+          "active_parent_coordinates": 16
+        }
+      ]
+    },
+    {
+      "seed": 963122,
+      "worlds": 8,
+      "row_edges": 299,
+      "public_coordinates": 242,
+      "active_parent_coordinates": 95,
+      "layers": [
+        {
+          "rows": 24,
+          "coordinates": 3,
+          "active_parent_coordinates": 1
+        },
+        {
+          "rows": 24,
+          "coordinates": 12,
+          "active_parent_coordinates": 3
+        },
+        {
+          "rows": 24,
+          "coordinates": 19,
+          "active_parent_coordinates": 8
+        },
+        {
+          "rows": 24,
+          "coordinates": 20,
+          "active_parent_coordinates": 15
+        },
+        {
+          "rows": 33,
+          "coordinates": 28,
+          "active_parent_coordinates": 16
+        },
+        {
+          "rows": 34,
+          "coordinates": 32,
+          "active_parent_coordinates": 24
+        },
+        {
+          "rows": 34,
+          "coordinates": 32,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 34,
+          "coordinates": 32,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 34,
+          "coordinates": 32,
+          "active_parent_coordinates": 7
+        },
+        {
+          "rows": 34,
+          "coordinates": 32,
+          "active_parent_coordinates": 7
+        }
+      ]
+    }
+  ]
+}
