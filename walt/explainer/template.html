@@ -1,0 +1,603 @@
+<title>How Walt Picks a Domino</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column (~68ch) with diagrams breaking out to ~960px; each section carries a depth gauge
+   showing where we are in the stack (Walt → 40 deals → one deal → modeled player → dice) and back up. */
+:root {
+  --paper: #f5f6f1; --panel: #ffffff; --ink: #1c211e; --muted: #5b655f; --rule: #d8ddd5; --wash: #eceee7;
+  --walt: #2c5f8f; --walt-wash: #dfe9f3;
+  --mind: #7b4d9e; --mind-wash: #ece2f4;
+  --dice: #a86a12; --dice-wash: #f6ead4;
+  --make: #2d7a57; --make-wash: #d7ece1;
+  --fail: #c24a2c; --fail-wash: #f6dfd7;
+  --tile: #fffdf6; --tile-edge: #9a978c; --pip: #1c1c1a;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Literata", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #121614; --panel: #1a1f1c; --ink: #e5eae5; --muted: #a0aba4; --rule: #313934; --wash: #222925;
+  --walt: #8bb8e6; --walt-wash: #203243; --mind: #c7a3e6; --mind-wash: #2f2539; --dice: #e3b25e; --dice-wash: #3a2e19;
+  --make: #63c79b; --make-wash: #1d3a2d; --fail: #ef8667; --fail-wash: #43251d;
+  --tile: #ece7da; --tile-edge: #6d6a62; --pip: #1c1c1a; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --paper: #121614; --panel: #1a1f1c; --ink: #e5eae5; --muted: #a0aba4; --rule: #313934; --wash: #222925;
+  --walt: #8bb8e6; --walt-wash: #203243; --mind: #c7a3e6; --mind-wash: #2f2539; --dice: #e3b25e; --dice-wash: #3a2e19;
+  --make: #63c79b; --make-wash: #1d3a2d; --fail: #ef8667; --fail-wash: #43251d;
+  --tile: #ece7da; --tile-edge: #6d6a62; --pip: #1c1c1a; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; margin: 0; }
+.page { max-width: 1000px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 80px; }
+.prose { max-width: 68ch; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.15; text-wrap: balance; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.1rem, 5vw, 3.1rem); margin: 0 0 12px; }
+h2 { font-size: 1.65rem; margin: 0 0 10px; }
+.lede { font-size: 1.12rem; color: var(--muted); margin: 0 0 8px; }
+p { margin: 0 0 14px; }
+section { padding-block: 44px 8px; border-top: 1px solid var(--rule); }
+section:first-of-type { border-top: 0; }
+.num, .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.w { color: var(--walt); font-weight: 600; } .m { color: var(--mind); font-weight: 600; } .d { color: var(--dice); font-weight: 600; }
+.ok { color: var(--make); font-weight: 600; } .no { color: var(--fail); font-weight: 600; }
+a { color: var(--walt); }
+.note { font-size: 0.92rem; color: var(--muted); border-left: 3px solid var(--rule); padding: 4px 0 4px 14px; margin: 14px 0; max-width: 68ch; }
+
+/* depth gauge */
+.gauge { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 14px; font-family: var(--display); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.gauge span { padding: 3px 8px; border-radius: 4px; background: var(--wash); white-space: nowrap; }
+.gauge span.on { color: var(--paper); background: var(--ink); }
+.gauge .dir { background: none; padding: 0 2px; font-family: var(--mono); text-transform: none; letter-spacing: 0; }
+
+.fig { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; margin: 18px 0 20px; }
+.fig .cap { font-size: 0.88rem; color: var(--muted); margin-top: 10px; }
+.scroll { overflow-x: auto; }
+.label { font-family: var(--display); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+button { font-family: var(--display); font-size: 0.92rem; font-weight: 500; border: 1px solid var(--ink); background: var(--panel); color: var(--ink); padding: 7px 14px; border-radius: 6px; cursor: pointer; }
+button:hover { background: var(--wash); }
+button:focus-visible, [tabindex]:focus-visible, .cell:focus-visible { outline: 2px solid var(--walt); outline-offset: 2px; }
+button[disabled] { opacity: 0.5; cursor: default; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+/* hand + bars */
+.hand { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; align-items: end; }
+.opt { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; }
+.opt .bar { width: 100%; height: 120px; background: var(--wash); border-radius: 4px; position: relative; overflow: hidden; }
+.opt .bar i { position: absolute; left: 0; right: 0; bottom: 0; background: var(--walt); border-radius: 0 0 4px 4px; }
+.opt .bar i.alt { background: none; border-top: 2px dashed var(--ink); }
+.opt.pick .bar i { background: var(--make); }
+.opt .pct { font-family: var(--mono); font-size: 0.95rem; font-weight: 600; }
+.opt .frac { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
+.dn { font-family: var(--mono); font-size: 0.78rem; font-weight: 600; line-height: 1.1; }
+.opt .tag { font-family: var(--display); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); height: 1em; }
+.opt.pick .tag { color: var(--make); }
+.dual { display: flex; gap: 4px; width: 100%; }
+.dual .bar { height: 110px; }
+.dual .bar.walt i { background: var(--walt); } .dual .bar.re i { background: var(--mind); opacity: 0.85; }
+.key { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.85rem; color: var(--muted); margin-top: 12px; }
+.key b { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 5px; }
+
+/* grid of 40 deals */
+.grid40 { display: grid; grid-template-columns: 64px repeat(40, 15px) 64px; gap: 3px; align-items: center; min-width: 790px; }
+.grid40 .rl { font-family: var(--mono); font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+.grid40 .rt { font-family: var(--mono); font-size: 0.85rem; text-align: right; }
+.cell { width: 15px; height: 15px; border-radius: 3px; cursor: pointer; border: 0; padding: 0; }
+.cell.y { background: var(--make); } .cell.n { background: var(--fail-wash); box-shadow: inset 0 0 0 1.5px var(--fail); }
+.cell.colsel { outline: 2px solid var(--ink); outline-offset: 1px; }
+.cell.sel { outline: 3px solid var(--walt); outline-offset: 1px; }
+.colhead { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); text-align: center; cursor: pointer; }
+.colhead.sel { color: var(--ink); font-weight: 600; }
+
+.seats { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 14px; }
+.seat { min-width: 0; }
+.seat .who { font-family: var(--display); font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+.tiles { display: flex; flex-wrap: wrap; gap: 4px; }
+
+/* trace */
+.tricks { display: grid; grid-template-columns: 92px repeat(7, minmax(56px, 1fr)); gap: 6px 6px; min-width: 620px; align-items: start; }
+.tricks .h { font-family: var(--display); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); text-align: center; }
+.tricks .sl { font-family: var(--display); font-weight: 700; font-size: 0.9rem; align-self: center; }
+.play { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 2px; border-radius: 6px; border: 2px solid transparent; min-height: 74px; }
+.play.walt { background: var(--walt-wash); }
+.play.mind { background: var(--mind-wash); cursor: pointer; }
+.play.dice { background: var(--dice-wash); }
+.play.forced { background: var(--wash); }
+.play.won .won-mark { visibility: visible; }
+.play .won-mark { visibility: hidden; font-size: 0.65rem; font-family: var(--display); text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.play.sel { border-color: var(--mind); }
+.play .sub { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); line-height: 1.2; text-align: center; }
+.play.mind .sub { color: var(--mind); }
+.play.dice .sub { color: var(--dice); }
+.score { margin-top: 12px; font-family: var(--mono); font-size: 0.9rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.85rem; color: var(--muted); margin-bottom: 12px; }
+.legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; background: var(--c); }
+
+/* mind grid */
+.mgrid { display: grid; gap: 4px; align-items: center; }
+.mgrid .gh { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-align: center; cursor: pointer; padding: 2px; border-radius: 4px; }
+.mgrid .gh.sel { background: var(--dice-wash); color: var(--ink); }
+.mgrid .ml { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 0.85rem; }
+.mgrid .mt { font-family: var(--mono); font-size: 0.85rem; text-align: right; white-space: nowrap; }
+.mgrid .mc { height: 22px; border-radius: 4px; }
+.mgrid .mc.y { background: var(--make); } .mgrid .mc.n { background: var(--fail-wash); box-shadow: inset 0 0 0 1.5px var(--fail); }
+.mgrid .chosen .mt { color: var(--mind); font-weight: 600; }
+.pill { display: inline-block; font-family: var(--display); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; background: var(--mind); color: var(--paper); }
+
+.dots { width: 100%; }
+.dots text { font-family: var(--mono); font-size: 11px; fill: var(--muted); }
+.icicle text { font-family: var(--mono); font-size: 10px; }
+.icicle .rowlab { font-family: var(--display); font-size: 11px; fill: var(--ink); }
+.icicle .calls { fill: var(--mind); }
+.die { display: inline-block; width: 0.95em; height: 0.95em; vertical-align: -0.12em; }
+.stack { display: grid; gap: 8px; }
+.stack div { padding: 10px 14px; border-radius: 8px; }
+.stack .s1 { background: var(--walt-wash); } .stack .s2 { background: var(--mind-wash); margin-left: 18px; } .stack .s3 { background: var(--dice-wash); margin-left: 36px; }
+footer { margin-top: 50px; font-size: 0.85rem; color: var(--muted); max-width: 68ch; }
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .page { padding-inline: 16px; }
+  .fig { padding: 12px; }
+  .hand { gap: 5px; }
+  .opt .bar { height: 90px; }
+  .opt .pct { font-size: 0.8rem; }
+  .opt .frac { display: none; }
+  #top-hand .opt .frac { display: block; font-size: 0.68rem; }
+}
+@media (prefers-reduced-motion: no-preference) { .opt .bar i { transition: height 0.5s ease; } }
+</style>
+
+<div class="page">
+<header class="prose">
+  <div class="label">Texas 42 · the Walt player</div>
+  <h1>How Walt picks a domino</h1>
+  <p class="lede">Walt is this project's computer player for Texas 42. This page takes one of its decisions apart. It starts with the answer, goes down through each layer of the calculation to the random play at the bottom, then climbs back up.</p>
+</header>
+
+<section id="answer">
+  <div class="gauge"><span class="on">Walt</span><span class="dir">→</span><span>40 deals</span><span class="dir">→</span><span>one deal</span><span class="dir">→</span><span>modeled player</span><span class="dir">→</span><span>dice</span></div>
+  <div class="prose">
+    <h2>The answer</h2>
+    <p>Walt won the bid at 30, named fives as trump, and leads to the first trick. These are its seven dominoes. Under each one is Walt's estimate of the chance its team takes at least 30 of the hand's 42 points if it leads that domino. That chance is what Walt maximizes; the project calls it <em>pmake</em>.</p>
+  </div>
+  <div class="fig">
+    <div class="hand" id="answer-hand"></div>
+    <div class="cap">Fives are trump. A heavier center bar marks a trump; the 5-0 is the only count domino in this hand, worth 5 points. These numbers are the real Walt's, from a saved decision record.</div>
+  </div>
+  <div class="prose">
+    <p>Walt led the <b>4-4</b>: its team made 30 in 39 of 40 tries. The <b>5-0</b>, a low trump that carries 5 points, scores worst at 19 of 40, about a coin flip. Where do numbers like "39 of 40" come from?</p>
+  </div>
+</section>
+
+<section id="deals">
+  <div class="gauge"><span>Walt</span><span class="dir">→</span><span class="on">40 deals</span><span class="dir">→</span><span>one deal</span><span class="dir">→</span><span>modeled player</span><span class="dir">→</span><span>dice</span></div>
+  <div class="prose">
+    <h2>Forty imagined deals</h2>
+    <p>Walt sees its own seven dominoes and nothing else. The other 21 are split among <b>Left</b>, <b>Partner</b> and <b>Right</b> in a way it can't see. So Walt makes up 40 deals: it shuffles those 21 dominoes and hands seven to each seat, 40 times over.</p>
+    <p>Then, for every possible lead and every imagined deal, Walt plays the whole hand out and checks one thing: did its team reach 30? Each square below is one of those checks. A row's count of makes is that domino's percentage.</p>
+  </div>
+  <div class="note">From here on, the numbers come from a re-creation of Walt's method that runs in this page. It draws its own 40 deals, so its counts differ a little from the real Walt's. The ranking holds: 4-4 near the top, 5-0 at the bottom.</div>
+  <div class="fig">
+    <div class="scroll"><div class="grid40" id="grid40"></div></div>
+    <div class="key"><span><b style="background:var(--make)"></b>Walt's team made 30</span><span><b style="background:var(--fail-wash);box-shadow:inset 0 0 0 1.5px var(--fail)"></b>it fell short</span></div>
+    <div class="cap">Click a column number to see that deal. Click a square to play it out in the next section.</div>
+    <div id="deal-view"></div>
+  </div>
+</section>
+
+<section id="one">
+  <div class="gauge"><span>Walt</span><span class="dir">→</span><span>40 deals</span><span class="dir">→</span><span class="on">one deal</span><span class="dir">→</span><span>modeled player</span><span class="dir">→</span><span>dice</span></div>
+  <div class="prose">
+    <h2>One deal, played out</h2>
+    <p id="one-intro"></p>
+    <p>Walt's own plays are in blue. Each play by Left, Partner or Right was picked by a <span class="m">modeled player</span>, Walt's stand-in for a person sitting in that chair. The fraction on each of those plays is not Walt's number. It is the modeled player's own estimate of the bidders' chances after that play, worked out from where it sits.</p>
+  </div>
+  <div class="fig">
+    <div class="legend"><span style="--c:var(--walt-wash)">Walt</span><span style="--c:var(--mind-wash)">modeled player (click one)</span><span style="--c:var(--wash)">only one legal play</span></div>
+    <div class="scroll"><div class="tricks" id="tricks"></div></div>
+    <div class="score" id="score"></div>
+  </div>
+</section>
+
+<section id="mind">
+  <div class="gauge"><span>Walt</span><span class="dir">→</span><span>40 deals</span><span class="dir">→</span><span>one deal</span><span class="dir">→</span><span class="on">modeled player</span><span class="dir">→</span><span>dice</span></div>
+  <div class="prose">
+    <h2>Inside a modeled player</h2>
+    <p>A modeled player knows what a real player in that seat would know: its own dominoes and everything played so far. It then does what Walt does, on a smaller scale. It imagines <b>8</b> deals instead of 40, and scores each domino it could legally play on those 8.</p>
+    <p id="mind-intro"></p>
+  </div>
+  <div class="fig">
+    <div id="mind-hand"></div>
+    <div class="scroll" style="margin-top:14px"><div class="mgrid" id="mgrid"></div></div>
+    <div class="cap" id="mind-cap"></div>
+  </div>
+</section>
+
+<section id="dice">
+  <div class="gauge"><span>Walt</span><span class="dir">→</span><span>40 deals</span><span class="dir">→</span><span>one deal</span><span class="dir">→</span><span>modeled player</span><span class="dir">→</span><span class="on">dice</span></div>
+  <div class="prose">
+    <h2>The bottom layer is dice</h2>
+    <p>Inside those 8 guesses, who plays for the other three seats? Nobody does any thinking. Each of them plays a <span class="d">random legal domino</span>, as if rolling a die. Only the modeled player itself chooses with care, and it can't see through the dice either: its later plays have to work across all 8 guesses at once.</p>
+  </div>
+  <div class="fig">
+    <div class="row" style="justify-content:space-between">
+      <div class="label" id="dice-title"></div>
+      <div class="row"><button id="roll" type="button">Roll the dice again</button><button id="unroll" type="button">Back to the original roll</button></div>
+    </div>
+    <div class="legend" style="margin-top:12px"><span style="--c:var(--mind-wash)">modeled player</span><span style="--c:var(--dice-wash)">dice</span><span style="--c:var(--wash)">only one legal play</span></div>
+    <div class="scroll"><div class="tricks" id="dtricks"></div></div>
+    <div class="score" id="dscore"></div>
+    <div class="cap">Pick a different guess with the column numbers in the grid above. The dice are fixed for each guess and each position, so the search can try every option for the modeled player against the same luck. Rolling again changes that luck.</div>
+  </div>
+  <div class="prose">
+    <p>So at the very bottom, the play is random. A single game played with dice tells you very little.</p>
+  </div>
+</section>
+
+<section id="differ">
+  <div class="gauge"><span>Walt</span><span class="dir">←</span><span>40 deals</span><span class="dir">←</span><span>one deal</span><span class="dir">←</span><span class="on">modeled player</span><span class="dir">←</span><span>dice</span></div>
+  <div class="prose">
+    <h2>Random play still separates the options</h2>
+    <p id="differ-intro"></p>
+  </div>
+  <div class="fig">
+    <div class="row" style="justify-content:space-between">
+      <div class="label">Bidders' makes out of 8, one dot per fresh set of guesses</div>
+      <div class="row"><button id="redraw" type="button">Draw 8 new guesses</button><button id="redraw10" type="button">Draw 10 more</button></div>
+    </div>
+    <svg class="dots" id="dots" role="img" aria-label="Spread of each option's score across fresh draws"></svg>
+    <div class="cap" id="dots-cap"></div>
+  </div>
+  <div class="prose">
+    <p>Sometimes the 8 guesses can't separate the options at all: every choice gets the same count, often 0 of 8 or 8 of 8. Then the modeled player falls back on a fixed rule and takes the lowest-numbered domino. Along the 4-4 line in these 40 deals, that happened in <span class="num">117</span> of the <span class="num">489</span> modeled decisions that had a real choice.</p>
+  </div>
+</section>
+
+<section id="where">
+  <div class="gauge"><span>Walt</span><span class="dir">←</span><span class="on">40 deals</span><span class="dir">←</span><span>one deal</span><span class="dir">←</span><span>modeled player</span><span class="dir">←</span><span>dice</span></div>
+  <div class="prose">
+    <h2>Where Walt asks the modeled players</h2>
+    <p>Back up to Walt's own search. The diagram follows the <b id="where-cand">4-4</b> lead through the first two tricks in all 40 deals at once. Each column is one deal.</p>
+    <p>Whenever it's Left's, Partner's or Right's turn, Walt asks a modeled player for that seat what it would play. It asks once per deal, since each deal gives that seat different dominoes. Where the answers differ, the deals split apart.</p>
+    <p>Walt's own plays work the other way: one choice per group. Inside a group, every deal looks the same from Walt's chair, with the same dominoes played in the same order. Walt can't play one way in deal 3 and another in deal 17 unless something on the table tells those deals apart. That rule keeps the plan honest: no peeking at hidden hands.</p>
+  </div>
+  <div class="fig">
+    <div class="row" style="justify-content:space-between"><div class="label">Lead</div><div class="row" id="where-pick"></div></div>
+    <div class="scroll" style="margin-top:10px"><svg class="icicle" id="icicle"></svg></div>
+    <div class="cap" id="icicle-cap"></div>
+  </div>
+</section>
+
+<section id="top">
+  <div class="gauge"><span class="on">Walt</span><span class="dir">←</span><span>40 deals</span><span class="dir">←</span><span>one deal</span><span class="dir">←</span><span>modeled player</span><span class="dir">←</span><span>dice</span></div>
+  <div class="prose">
+    <h2>Back to the top</h2>
+    <p>Now each of the seven percentages can be read all the way down:</p>
+  </div>
+  <div class="stack prose">
+    <div class="s1"><span class="w">Walt</span> imagines 40 deals and plays each lead to the end. Its later plays follow one plan that can't peek at the hidden hands. The percentage is the share of deals where its team reaches 30.</div>
+    <div class="s2"><span class="m">Each other seat</span> is a modeled player. At every turn it imagines 8 deals of its own and plays whatever does best for its side across them.</div>
+    <div class="s3"><span class="d">Inside those 8 deals</span>, everyone else plays a random legal domino. Random play still punishes giving away a count or a trick, so even this bottom layer pushes the modeled players toward sensible plays.</div>
+  </div>
+  <div class="fig">
+    <div class="hand" id="top-hand"></div>
+    <div class="key"><span><b style="background:var(--walt)"></b>the real Walt</span><span><b style="background:var(--mind)"></b>this page's re-creation</span></div>
+    <div class="row" style="margin-top:14px"><button id="rerun" type="button">Deal 40 new guesses and run again</button><span class="label" id="rerun-status"></span></div>
+    <div class="cap" id="rerun-cap">Re-running takes a few seconds. It runs the whole stack in your browser: seven leads, 40 deals, played to the end, with modeled players at every turn. The first run made <span class="num" id="calls"></span> modeled-player calls.</div>
+  </div>
+  <div class="prose">
+    <p>The percentages move a few points each run. They are estimates from 40 sampled deals against a model of the other players, not a solution of the game. What Walt acts on is the ranking, and the clear cases stay put: the 4-4 stays near the top and the 5-0 stays at the bottom.</p>
+    <p>The plain reason behind the extremes: the 5-0 is the lowest trump. Any other trump an opponent holds (the 5-3, 5-4 or 5-5) beats it, and that trick carries the 5-0's 5 points plus 1 for the trick. The 4-4 is the highest four. It loses only to a trump from someone with no fours left, so it usually wins the trick, keeps the lead, and saves Walt's trumps for later.</p>
+  </div>
+</section>
+
+<footer>
+  <p><b>Sources.</b> The real Walt's numbers are from <span class="mono">experiments/partnership/campaigns/foundation-battery/02-fixed/seeds/720641</span>: the default level-1 player (40 deals, 8 per modeled player), bidder's opening lead, fives trump, bid 30. In that game Walt's team took 35 points. The method follows <span class="mono">walt/SCENARIO-PLAYER.md</span> (Defs 3.2, 3.5, 4.1–4.3, 5, 6.1).</p>
+  <p><b>What the re-creation leaves out.</b> It keeps the method and the tie rule but uses its own random number streams, so its deals differ from Walt's. Live Walt also runs a quick 8-deal pass first so it always has a move, uses 160 deals for the bidder's opening lead at the table, and may run a short partner check afterward. All of Walt is exploratory work. Its numbers are sampled estimates under a declared model of the other players, never solved values.</p>
+</footer>
+</div>
+
+<script>
+/*ENGINE*/
+const DATA = /*DATA*/;
+const WALT = { // real Walt receipt: options as [tile, num, den]
+  options: [[6,33,40],[14,39,40],[15,19,40],[16,31,40],[17,17,20],[21,27,40],[26,7,8]], choice: 14 };
+</script>
+<script>
+(() => {
+const E = WaltLiteFactory();
+const G = E.makeGame(DATA.decl, DATA.bid, DATA.bidder);
+const VIEW = DATA.viewer;
+const SEATNAME = { 3: 'Walt', 0: 'Left', 1: 'Partner', 2: 'Right' };
+const ORDER = [3, 0, 1, 2];
+const W = DATA.worlds.map(w => w.map(a => a.reduce((m, t) => m | (1 << t), 0)));
+const HAND = DATA.hand.reduce((m, t) => m | (1 << t), 0);
+const L0 = E.Level0(G, DATA.n0);
+const $ = id => document.getElementById(id);
+const nm = E.name;
+const isTrump = t => G.R.called[t];
+const SVGNS = 'http://www.w3.org/2000/svg';
+
+const PIPS = { 0: [], 1: [[.5,.5]], 2: [[.27,.27],[.73,.73]], 3: [[.27,.27],[.5,.5],[.73,.73]], 4: [[.27,.27],[.73,.27],[.27,.73],[.73,.73]], 5: [[.27,.27],[.73,.27],[.5,.5],[.27,.73],[.73,.73]], 6: [[.27,.22],[.73,.22],[.27,.5],[.73,.5],[.27,.78],[.73,.78]] };
+function domino(t, w) {
+  w = w || 30; const h = 2 * w, r = w * 0.085;
+  let s = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${nm(t)}${isTrump(t) ? ', trump' : ''}" style="display:block;flex:none"><rect x="0.75" y="0.75" width="${w - 1.5}" height="${h - 1.5}" rx="${w * 0.16}" fill="var(--tile)" stroke="var(--tile-edge)" stroke-width="1.5"/>`;
+  const bar = isTrump(t) ? 3.2 : 1.1;
+  s += `<line x1="${w * 0.14}" x2="${w * 0.86}" y1="${w}" y2="${w}" stroke="var(--pip)" stroke-width="${bar}"/>`;
+  [[E.HI[t], 0], [E.LO[t], w]].forEach(([p, oy]) => PIPS[p].forEach(([x, y]) => { s += `<circle cx="${(x * w).toFixed(2)}" cy="${(oy + y * w).toFixed(2)}" r="${r.toFixed(2)}" fill="var(--pip)"/>`; }));
+  return s + '</svg>';
+}
+const pct = (a, b) => Math.round(100 * a / b) + '%';
+function frac(a, b) { const g = (x, y) => y ? g(y, x % y) : x; const k = g(a, b) || 1; return `${a / k}/${b / k}`; }
+
+// ---------- state ----------
+const state = { ci: DATA.cands.indexOf(14), w: 13, step: 1, guess: 0, diceSalt: 0, whereCi: DATA.cands.indexOf(14) };
+
+// ---------- §1 answer ----------
+function renderAnswer() {
+  const el = $('answer-hand'); el.innerHTML = '';
+  WALT.options.forEach(([t, a, b]) => {
+    const pick = t === WALT.choice; const n40 = Math.round(40 * a / b);
+    const d = document.createElement('div'); d.className = 'opt' + (pick ? ' pick' : '');
+    d.innerHTML = `<div class="tag">${pick ? 'led' : ''}</div><div class="bar"><i style="height:${100 * a / b}%"></i></div><div class="pct">${pct(a, b)}</div><div class="frac">${n40}/40</div>${domino(t, 34)}<div class="dn">${nm(t)}</div>`;
+    el.appendChild(d);
+  });
+}
+
+// ---------- §2 grid ----------
+function renderGrid() {
+  const g = $('grid40'); g.innerHTML = '';
+  g.appendChild(Object.assign(document.createElement('div'), { className: 'label', textContent: 'Lead' }));
+  for (let w = 0; w < 40; w++) {
+    const h = document.createElement('div'); h.className = 'colhead' + (w === state.w ? ' sel' : ''); h.textContent = w + 1; h.tabIndex = 0;
+    h.title = 'Show deal ' + (w + 1);
+    h.onclick = () => { state.w = w; state.step = firstMindStep(); state.guess = 0; state.diceSalt = 0; renderAllBelow(); };
+    g.appendChild(h);
+  }
+  g.appendChild(Object.assign(document.createElement('div'), { className: 'label', textContent: 'Made', style: 'text-align:right' }));
+  DATA.cands.forEach((t, ci) => {
+    const l = document.createElement('div'); l.className = 'rl'; l.innerHTML = domino(t, 13) + nm(t); g.appendChild(l);
+    for (let w = 0; w < 40; w++) {
+      const c = document.createElement('button'); c.type = 'button';
+      c.className = 'cell ' + (DATA.made[ci][w] ? 'y' : 'n') + (w === state.w ? ' colsel' : '') + (w === state.w && ci === state.ci ? ' sel' : '');
+      c.setAttribute('aria-label', `Lead ${nm(t)}, deal ${w + 1}: ${DATA.made[ci][w] ? 'made' : 'fell short'}`);
+      c.onclick = () => { state.ci = ci; state.w = w; state.step = firstMindStep(); state.guess = 0; state.diceSalt = 0; renderAllBelow(); };
+      g.appendChild(c);
+    }
+    const r = document.createElement('div'); r.className = 'rt'; r.textContent = DATA.counts[ci] + '/40'; g.appendChild(r);
+  });
+}
+function renderDeal() {
+  const w = state.w;
+  const seats = [0, 1, 2].map(s => `<div class="seat"><div class="who">${SEATNAME[s]}</div><div class="tiles">${DATA.worlds[w][s].map(t => domino(t, 20)).join('')}</div></div>`).join('');
+  $('deal-view').innerHTML = `<div class="label" style="margin-top:18px">Imagined deal ${w + 1}</div><div class="seats">${seats}</div>`;
+}
+
+// ---------- replay helpers ----------
+function replay(tiles, st0) { const states = []; let st = st0; for (const t of tiles) { states.push(st); st = G.step(st, t); } return { states, end: st }; }
+const mindCache = new Map();
+function mindAt(seat, hand, st, opt) {
+  const k = seat + ':' + hand + ':' + G.stKey(st) + ':' + JSON.stringify(opt || {});
+  let v = mindCache.get(k); if (!v) { v = L0.detail(seat, hand, st, opt); mindCache.set(k, v); } return v;
+}
+function trickRows(tiles, states, cls) {
+  // returns html for a 4 x 7 grid; cls(i, seat, t, st) -> {k, sub, click}
+  const cols = [];
+  for (let i = 0; i < tiles.length; i += 4) {
+    const trick = tiles.slice(i, i + 4); const lead = states[i].leader;
+    const wi = trick.length === 4 ? (lead + G.R.winner(trick)) & 3 : -1;
+    const bySeat = {};
+    trick.forEach((t, j) => { const seat = (lead + j) & 3; bySeat[seat] = { i: i + j, t, seat, won: seat === wi }; });
+    cols.push(bySeat);
+  }
+  let html = '<div></div>' + Array.from({ length: 7 }, (_, k) => `<div class="h">Trick ${k + 1}</div>`).join('');
+  ORDER.forEach(seat => {
+    html += `<div class="sl">${SEATNAME[seat]}</div>`;
+    for (let k = 0; k < 7; k++) {
+      const p = cols[k] && cols[k][seat];
+      if (!p) { html += '<div></div>'; continue; }
+      const c = cls(p.i, seat, p.t, states[p.i]);
+      html += `<div class="play ${c.k}${p.won ? ' won' : ''}${c.sel ? ' sel' : ''}" ${c.click ? `data-i="${p.i}" tabindex="0" role="button"` : ''}>${domino(p.t, 22)}<div class="dn">${nm(p.t)}</div><div class="sub">${c.sub || '&nbsp;'}</div><div class="won-mark">won</div></div>`;
+    }
+  });
+  return html;
+}
+function firstMindStep() {
+  const tr = DATA.traces[state.ci][state.w]; const { states } = replay(tr.t, G.start);
+  for (let i = 0; i < tr.t.length; i++) { const seat = G.actor(states[i]); if (seat !== VIEW && E.popcount(G.R.legal(W[state.w][seat] & ~states[i].played, G.ledOf(states[i]))) > 1) return i; }
+  return 1;
+}
+
+// ---------- §3 one deal ----------
+function renderTrace() {
+  const tr = DATA.traces[state.ci][state.w]; const { states, end } = replay(tr.t, G.start);
+  $('one-intro').innerHTML = `Here is imagined deal ${state.w + 1} with the <b>${nm(DATA.cands[state.ci])}</b> led. Walt's team ${tr.m ? '<span class="ok">made its 30</span>' : '<span class="no">fell short</span>'} in this deal.`;
+  $('tricks').innerHTML = trickRows(tr.t, states, (i, seat, t, st) => {
+    if (seat === VIEW) return { k: 'walt', sub: i === 0 ? 'the lead' : '' };
+    const hand = W[state.w][seat] & ~st.played; const lm = G.R.legal(hand, G.ledOf(st));
+    if (E.popcount(lm) === 1) return { k: 'forced', sub: 'forced' };
+    const x = mindAt(seat, hand, st); const j = x.cands.indexOf(t);
+    return { k: 'mind', sub: `${x.counts[j]}/8`, click: true, sel: i === state.step };
+  });
+  $('tricks').querySelectorAll('[data-i]').forEach(el => {
+    const go = () => { state.step = +el.dataset.i; state.guess = 0; state.diceSalt = 0; renderMind(); renderDice(); renderDiffer(true); renderTraceSel(); document.getElementById('mind').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); };
+    el.onclick = go; el.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } };
+  });
+  $('score').innerHTML = `Final points: Walt's team <b>${end.b1}</b>, opponents <b>${end.b0}</b>. ${tr.m ? 'Reaching 30 ends the question early.' : 'Opponents passing 12 means 30 is out of reach.'}`;
+}
+function renderTraceSel() { $('tricks').querySelectorAll('.play.mind').forEach(el => el.classList.toggle('sel', +el.dataset.i === state.step)); }
+function currentMind(opt) {
+  const tr = DATA.traces[state.ci][state.w]; const { states } = replay(tr.t, G.start);
+  const st = states[state.step]; const seat = G.actor(st); const hand = W[state.w][seat] & ~st.played;
+  return { st, seat, hand, x: mindAt(seat, hand, st, opt), played: tr.t[state.step] };
+}
+
+// ---------- §4 modeled player ----------
+function renderMind() {
+  const { st, seat, x, played } = currentMind();
+  const side = seat === 1 ? 'Walt\'s side' : 'the defenders';
+  const want = x.maximize ? 'the most makes' : 'the fewest makes';
+  const sofar = st.plays.length ? `The trick so far: ${st.plays.map(nm).join(', ')}.` : 'It is leading this trick.';
+  $('mind-intro').innerHTML = `This is <b>${SEATNAME[seat]}</b> in deal ${state.w + 1}, trick ${Math.floor(E.popcount(st.played) / 4) + 1}. ${sofar} ${SEATNAME[seat]} plays for ${side}, so it wants ${want} for the bidders. Each column below is one of its 8 guesses at the hidden hands.`;
+  $('mind-hand').innerHTML = `<div class="label">${SEATNAME[seat]}'s dominoes · legal plays are scored</div><div class="tiles" style="margin-top:6px">${E.bits(x.hand & ~st.played).map(t => `<div style="opacity:${x.cands.includes(t) ? 1 : 0.35}">${domino(t, 24)}</div>`).join('')}</div>`;
+  const g = $('mgrid'); const n = x.worlds.length;
+  g.style.gridTemplateColumns = `90px repeat(${n}, minmax(26px, 40px)) 70px`;
+  let html = '<div class="label">Plays</div>';
+  for (let k = 0; k < n; k++) html += `<div class="gh${k === state.guess ? ' sel' : ''}" data-g="${k}" tabindex="0" role="button" title="Play guess ${k + 1} out with dice">guess ${k + 1}</div>`;
+  html += '<div class="label" style="text-align:right">Makes</div>';
+  x.cands.forEach((t, j) => {
+    const ch = t === x.choice;
+    html += `<div class="ml${ch ? ' chosen' : ''}" style="display:contents"><div class="ml">${domino(t, 13)}${nm(t)}</div>`;
+    for (let k = 0; k < n; k++) html += `<div class="mc ${(x.masks[j] >> k) & 1 ? 'y' : 'n'}" title="guess ${k + 1}: ${(x.masks[j] >> k) & 1 ? 'bidders make' : 'bidders fall short'}"></div>`;
+    html += `<div class="mt" style="${ch ? 'color:var(--mind);font-weight:600' : ''}">${x.counts[j]}/8${ch ? ' ◂' : ''}</div></div>`;
+  });
+  g.innerHTML = html;
+  g.querySelectorAll('[data-g]').forEach(el => { const go = () => { state.guess = +el.dataset.g; renderMind(); renderDice(); }; el.onclick = go; el.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } }; });
+  const best = x.maximize ? Math.max(...x.counts) : Math.min(...x.counts);
+  const tied = x.counts.filter(c => c === best).length > 1;
+  $('mind-cap').innerHTML = `A green square means the bidders reached 30 in that guess. ${SEATNAME[seat]} plays the <b>${nm(played)}</b> (◂)${tied ? `: several options tie at ${best}/8, and the tie goes to the lowest-numbered domino` : ''}. Click a guess number to see it played out with dice.`;
+}
+
+// ---------- §5 dice ----------
+function renderDice() {
+  const opt = state.diceSalt ? { diceSalt: state.diceSalt } : undefined;
+  const { st, seat, x } = currentMind(opt);
+  const g = state.guess;
+  const field = E.diceField(G, x.worlds, x.seeds);
+  const tr = E.trace(G, x.solver, field, x.worlds, seat, st, x.choice, g);
+  const pre = DATA.traces[state.ci][state.w].t.slice(0, state.step);
+  const tiles = pre.concat(tr.steps.map(s => s.tile));
+  const { states, end } = replay(tiles, G.start);
+  $('dice-title').textContent = `${SEATNAME[seat]}'s guess ${g + 1}, playing the ${nm(x.choice)}${state.diceSalt ? ` · re-roll ${state.diceSalt}` : ''}`;
+  const world = x.worlds[g];
+  $('dtricks').innerHTML = trickRows(tiles, states, (i, s, t, sti) => {
+    if (i < state.step) return { k: 'forced', sub: 'already played' };
+    if (s === seat) return { k: 'mind', sub: i === state.step ? 'its choice' : 'its plan' };
+    const lm = G.R.legal(world[s] & ~sti.played, G.ledOf(sti));
+    const n = E.popcount(lm);
+    return n === 1 ? { k: 'forced', sub: 'forced' } : { k: 'dice', sub: `rolled 1 of ${n}` };
+  });
+  const made = G.terminal(end) === 1;
+  $('dscore').innerHTML = `In this guess the bidders finish with <b>${end.b1}</b> to <b>${end.b0}</b>: ${made ? '<span class="ok">made</span>' : '<span class="no">fell short</span>'}. ${state.diceSalt ? `With this roll, ${SEATNAME[seat]}'s options score ${x.cands.map((t, j) => `${nm(t)} ${x.counts[j]}/8`).join(', ')}.` : ''}`;
+  $('unroll').disabled = !state.diceSalt;
+}
+
+// ---------- §6 differ ----------
+let draws = [];
+function renderDiffer(reset) {
+  const { seat, x } = currentMind();
+  if (reset) draws = [x.counts.slice()];
+  const firstCase = state.ci === DATA.cands.indexOf(14) && state.w === 13 && state.step === 1;
+  $('differ-intro').innerHTML = firstCase
+    ? `Climb back up to Left's 8 guesses. Everyone else in them plays at random, yet the 4-2 and the 6-4 score very differently: 1 of 8 against 7 of 8. The reason is plain. Walt's 4-4 is the highest four, so it will win this trick. The 6-4 is worth 10 points. Following with it hands those 10 points to Walt's team, and nothing the dice do later gets them back. The dice can't hide a bad play when the bad play gives points away directly.`
+    : `Climb back up to ${SEATNAME[seat]}'s 8 guesses. Everyone else in them plays at random, yet the options don't all score alike. Points given away, or a trick lost to a higher domino, stay lost no matter how the dice fall later. (Click the 6-4 decision for Left in deal 14, trick 1, with the 4-4 led, for the clearest case.)`;
+  const svg = $('dots'); const n = x.cands.length; const rowH = 30, left = 70, right = 20, top = 22;
+  const width = Math.max(320, svg.parentNode.clientWidth - 36 || 600); const plotW = width - left - right; const height = top + n * rowH + 8;
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`); svg.setAttribute('height', height);
+  const sx = v => left + plotW * v / 8;
+  let s = '';
+  for (let v = 0; v <= 8; v++) s += `<line x1="${sx(v)}" x2="${sx(v)}" y1="${top - 6}" y2="${height - 6}" stroke="var(--rule)"/><text x="${sx(v)}" y="${top - 10}" text-anchor="middle">${v}</text>`;
+  x.cands.forEach((t, j) => {
+    const y = top + j * rowH + rowH / 2;
+    s += `<text x="${left - 12}" y="${y + 4}" text-anchor="end" style="font-size:12px;fill:var(--ink)">${nm(t)}</text>`;
+    const tally = new Map();
+    draws.forEach((c, di) => { const v = c[j]; const k = tally.get(v) || 0; tally.set(v, k + 1);
+      const off = (k % 2 ? 1 : -1) * Math.ceil(k / 2) * 5;
+      s += `<circle cx="${sx(v)}" cy="${y + off}" r="${di === 0 ? 5 : 3.6}" fill="${di === 0 ? 'var(--mind)' : 'none'}" stroke="var(--mind)" stroke-width="1.4" opacity="${di === 0 ? 1 : 0.75}"/>`; });
+    const mean = draws.reduce((a, c) => a + c[j], 0) / draws.length;
+    s += `<line x1="${sx(mean)}" x2="${sx(mean)}" y1="${y - 11}" y2="${y + 11}" stroke="var(--ink)" stroke-width="2"/>`;
+  });
+  svg.innerHTML = s;
+  $('dots-cap').innerHTML = `Filled dot: the 8 guesses ${SEATNAME[seat]} actually used. Open dots: fresh guesses with fresh dice. Black tick: the average over ${draws.length} draw${draws.length > 1 ? 's' : ''}. ${draws.length > 3 ? 'The dots scatter, because 8 random guesses is a small sample, but the gap between options stays.' : 'Draw a few more to see how far the scores wander.'}`;
+}
+let salt = 1;
+function redraw(k) { const { seat, hand, st } = currentMind(); for (let i = 0; i < k; i++) { const y = L0.detail(seat, hand, st, { worldSalt: salt++ }); draws.push(y.counts.slice()); } renderDiffer(false); }
+
+// ---------- §7 where ----------
+function renderWherePick() {
+  const el = $('where-pick'); el.innerHTML = '';
+  DATA.cands.forEach((t, ci) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = nm(t); b.style.padding = '4px 9px';
+    if (ci === state.whereCi) { b.style.background = 'var(--ink)'; b.style.color = 'var(--paper)'; }
+    b.onclick = () => { state.whereCi = ci; renderWherePick(); renderIcicle(); }; el.appendChild(b); });
+}
+function renderIcicle() {
+  const ci = state.whereCi; const ROWS = 8; const cw = 17, lw = 132, rh = 30, rw = 64;
+  $('where-cand').textContent = nm(DATA.cands[ci]);
+  const paths = DATA.traces[ci].map((tr, w) => ({ w, t: tr.t, m: tr.m }));
+  paths.sort((a, b) => { for (let i = 0; i < ROWS; i++) { if (a.t[i] !== b.t[i]) return a.t[i] - b.t[i]; } return a.w - b.w; });
+  const width = lw + 40 * cw + rw, height = 24 + (ROWS + 1) * rh + 10;
+  let s = `<rect x="0" y="0" width="${width}" height="${height}" fill="none"/>`;
+  s += `<text x="${lw}" y="14" style="fill:var(--muted)">40 imagined deals, grouped by what has been played →</text>`;
+  const st0 = G.start; let totalCalls = 0;
+  for (let r = 0; r < ROWS; r++) {
+    const y = 24 + r * rh;
+    // seat for this row
+    const firstStates = replay(paths[0].t.slice(0, r + 1), st0).states; const seat = G.actor(firstStates[r]);
+    // groups: runs of same prefix (0..r-1)
+    let calls = 0; let x0 = 0;
+    while (x0 < 40) {
+      let x1 = x0; const pre = paths[x0].t.slice(0, r).join(',');
+      while (x1 < 40 && paths[x1].t.slice(0, r).join(',') === pre) x1++;
+      // within group: sub-runs by tile at r
+      const st = replay(paths[x0].t.slice(0, r + 1), st0).states[r];
+      if (seat !== VIEW) { const hands = new Set(); for (let i = x0; i < x1; i++) { const h = W[paths[i].w][seat] & ~st.played; if (E.popcount(G.R.legal(h, G.ledOf(st))) > 1) hands.add(h); } calls += hands.size; }
+      let a = x0;
+      while (a < x1) { let b = a; while (b < x1 && paths[b].t[r] === paths[a].t[r]) b++;
+        const fill = seat === VIEW ? 'var(--walt-wash)' : 'var(--mind-wash)'; const stroke = seat === VIEW ? 'var(--walt)' : 'var(--mind)';
+        s += `<rect x="${lw + a * cw + 1}" y="${y}" width="${(b - a) * cw - 2}" height="${rh - 6}" rx="3" fill="${fill}" stroke="${stroke}" stroke-width="1"/>`;
+        if ((b - a) * cw >= 26) s += `<text x="${lw + (a + b) / 2 * cw}" y="${y + 16}" text-anchor="middle" style="fill:var(--ink)">${nm(paths[a].t[r])}</text>`;
+        a = b; }
+      // group separator for Walt rows: bracket showing one decision per group
+      if (seat === VIEW && r > 0) s += `<line x1="${lw + x0 * cw + 1}" x2="${lw + x1 * cw - 1}" y1="${y + rh - 3}" y2="${y + rh - 3}" stroke="var(--walt)" stroke-width="2"/>`;
+      x0 = x1;
+    }
+    totalCalls += calls;
+    const trick = Math.floor(r / 4) + 1;
+    s += `<text class="rowlab" x="0" y="${y + 12}">${SEATNAME[seat]}${r % 4 === 0 ? ' leads' : ''}</text><text x="0" y="${y + 24}" style="fill:var(--muted)">trick ${trick}</text>`;
+    s += seat === VIEW ? `<text x="${lw + 40 * cw + 8}" y="${y + 16}" style="fill:var(--walt)">${r === 0 ? 'root' : 'plan'}</text>` : `<text class="calls" x="${lw + 40 * cw + 8}" y="${y + 16}">${calls} ask${calls === 1 ? '' : 's'}</text>`;
+  }
+  const y = 24 + ROWS * rh;
+  paths.forEach((p, i) => { s += `<rect x="${lw + i * cw + 2}" y="${y + 4}" width="${cw - 4}" height="${cw - 4}" rx="3" fill="${p.m ? 'var(--make)' : 'var(--fail-wash)'}" stroke="${p.m ? 'var(--make)' : 'var(--fail)'}" stroke-width="1.5"/>`; });
+  s += `<text class="rowlab" x="0" y="${y + 14}">end of hand</text><text x="${lw + 40 * cw + 8}" y="${y + 14}" style="fill:var(--ink)">${DATA.counts[ci]}/40</text>`;
+  const svg = $('icicle'); svg.setAttribute('viewBox', `0 0 ${width} ${height}`); svg.setAttribute('width', width); svg.setAttribute('height', height); svg.innerHTML = s;
+  $('icicle-cap').innerHTML = `Purple rows are the other seats: each box is a group of deals where the modeled player's answer was the same domino, and "asks" counts the distinct hands it was asked about (a seat with only one legal play needs no ask). Blue rows are Walt: the underline marks a group that shares one choice. In the first two tricks alone, Walt asked modeled players ${totalCalls} times for this lead. The bottom row shows whether each deal ended with 30 for Walt's team.`;
+}
+
+// ---------- §8 top ----------
+function renderTop(re) {
+  const el = $('top-hand'); el.innerHTML = '';
+  WALT.options.forEach(([t, a, b]) => {
+    const ci = DATA.cands.indexOf(t); const rc = re ? re[ci] : DATA.counts[ci];
+    const d = document.createElement('div'); d.className = 'opt' + (t === WALT.choice ? ' pick' : '');
+    d.innerHTML = `<div class="dual"><div class="bar walt" title="real Walt ${Math.round(40 * a / b)}/40"><i style="height:${100 * a / b}%"></i></div><div class="bar re" title="re-creation ${rc}/40"><i style="height:${100 * rc / 40}%"></i></div></div><div class="frac" style="display:block"><span style="color:var(--walt)">${Math.round(40 * a / b)}</span> · <span style="color:var(--mind)">${rc}</span></div>${domino(t, 34)}<div class="dn">${nm(t)}</div>`;
+    el.appendChild(d);
+  });
+  $('calls').textContent = DATA.calls.toLocaleString('en-US');
+}
+let runSeed = 100;
+function rerun() {
+  const btn = $('rerun'); btn.disabled = true; $('rerun-status').textContent = 'computing…';
+  const src = `${WaltLiteFactory.toString()}\nconst E = WaltLiteFactory();\nonmessage = e => { const d = e.data; const G = E.makeGame(d.decl, d.bid, d.bidder); const hand = d.hand.reduce((m,t)=>m|1<<t,0); const t0 = Date.now(); const r = E.level1(G, d.viewer, hand, G.start, 40, 8, d.seed); postMessage({ counts: r.counts, cands: r.cands, ms: Date.now() - t0, calls: r.L0.calls() }); };`;
+  const done = (res) => { btn.disabled = false; renderTop(res.counts); $('rerun-status').textContent = `run with seed ${runSeed - 1}: ${(res.ms / 1000).toFixed(1)} s, ${res.calls.toLocaleString('en-US')} modeled-player calls`; };
+  const msg = { decl: DATA.decl, bid: DATA.bid, bidder: DATA.bidder, viewer: VIEW, hand: DATA.hand, seed: runSeed++ };
+  try {
+    const url = URL.createObjectURL(new Blob([src], { type: 'text/javascript' }));
+    const wk = new Worker(url);
+    wk.onmessage = e => { done(e.data); wk.terminate(); };
+    wk.onerror = () => { wk.terminate(); fallback(); };
+    wk.postMessage(msg);
+  } catch (err) { fallback(); }
+  function fallback() { setTimeout(() => { const t0 = Date.now(); const r = E.level1(G, VIEW, HAND, G.start, 40, 8, msg.seed); done({ counts: r.counts, ms: Date.now() - t0, calls: r.L0.calls() }); }, 30); }
+}
+
+function renderAllBelow() { renderGrid(); renderDeal(); renderTrace(); renderMind(); renderDice(); renderDiffer(true); }
+renderAnswer(); renderAllBelow(); renderWherePick(); renderIcicle(); renderTop();
+$('roll').onclick = () => { state.diceSalt++; renderDice(); };
+$('unroll').onclick = () => { state.diceSalt = 0; renderDice(); };
+$('redraw').onclick = () => redraw(1);
+$('redraw10').onclick = () => redraw(10);
+$('rerun').onclick = rerun;
+let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => renderDiffer(false), 150); });
+})();
+</script>
