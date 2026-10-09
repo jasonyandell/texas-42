@@ -25,6 +25,42 @@ public record, and deal-independent noise**. The objective is pmake (ruled
 bridge (plunge repo) is the harder stress lab; the current phase is
 digesting *why* Walt works and walking the ladder with learned inner minds.
 
+**It all starts with the math.** Walt came out of the math program, and so
+did rob — rob is "rec's mathematics under v0.7's type discipline," an
+executable mathematical specification with proof receipts. The engineering
+below is the math executed, never the other way round.
+
+## The math — the generative layer
+
+`walt/math/` is the program's source of law, run under its own discipline:
+a **parent** is a frozen design document, pinned by SHA-256 beside it and
+never edited; it enters through an **intake companion** and adversarial
+review; questions go to walt-math as question→ruling pairs; several parents
+carry machine checks (`verify_*.py`); errata and second audits are filed
+beside their parents. The standing ruling "**no new parent until the
+consolidation slice lands**" is a ruling about these documents. Several
+parents extend *The Mathematics of Walt v0.1*, the working framework.
+
+The load-bearing parents and rulings:
+
+- `unified_information_geometry_v0.4` (frozen) with
+  `equivariant_lumpability_v0.5` (§12.6A) — together "the law" that
+  `walt/CENSUS-RULINGS.md` binds the census against.
+- `WALT-MATH-RULING-2026-08-17` (pmake and the walk to trick 1) — where
+  pmake-as-objective was ruled.
+- `focal_horizon_sandwich_v0.1` — FH-A1..A11, Theorems 1–6 proved in full;
+  the FH hierarchy (result 2) is this document executed.
+- `counted_belief_sandwich_v0.1` — the refinement calculus from sampled
+  orientation to factorized exact best response (results 1 and 4 trace
+  here).
+- `calculated_evidence_v0.1` — anytime-valid adaptive settlement; "the end
+  of magic sample counts."
+- The rest of the bench: `model_belief_base_player`, `salvation_complex`,
+  `signed_pivotal_geometry`, `targeted_level2_field_stability`,
+  `anytime_proof_state_score`, `decision_sparse_exact_solving` (+ errata
+  and second audit), `predictive_algebra_v0.6`, and `SUIT_ALGEBRA_PURE`
+  (the suit structure stated for its own sake).
+
 ## Standing results
 
 | # | result | the numbers | where |
