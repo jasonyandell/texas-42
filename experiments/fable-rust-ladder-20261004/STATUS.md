@@ -828,3 +828,11 @@ Artifacts: `models/LAD7-k*.{w,json,npz}`, `models/LAD7-start.{w,npz}` (widened k
   `tracked-artifacts.tar.gz` (the 5,715 model/data/result files the experiment branch had committed, 426 MB) and
   `results-LAD6-LAD7.tar.gz` (bideval, h2h games and summaries, pipeline logs, the parked rollout probe, 94 MB), with
   `MANIFEST.json` and SHA-256s. Unpack over the PR branch to restore the tree this record describes.
+- **Reference implementation (2026-10-10):** `walt_net.py` in the model repo, numpy only: loader for every weight-file kind
+  (MLP encodings 1-5, residual, tokens), the input encodings, the forward passes, Walt's follow rule, the selector, a
+  `State` builder, `--selftest` against Rust `agree --dump` scores for all six released nets (`examples/`, 600 rows, max
+  |dz| 1.6e-5, every pick equal, legal masks equal on 165,850 label rows), `--demo`, and `--bid HAND` (root score and the
+  self-play level map per trump and bid). The model card was rewritten around it.
+- **Parquet mirror of the labels (2026-10-10):** all six piles (T160, LAD3-LAD7; 17.5M rows, 439 MB zstd) under
+  `parquet/<name>/` in the labels dataset with viewer configs per pile, a schema table, `parquet-sha256.txt`; the raw
+  `.bin` files stay as the tool format.
