@@ -813,3 +813,18 @@ the population the table should be fitted to (net self-play as here, or producti
 Artifacts: `models/LAD7-k*.{w,json,npz}`, `models/LAD7-start.{w,npz}` (widened k35), `data/labels2-LAD7-{train,val}.bin`,
 `pipeline/LAD7/`, `results/h2h-np-LAD7-*`, `results/h2h-l2n-160-LAD7-k39-s5000-4096`, `results/bideval/LAD7k{5,14,29,39}-b*`,
 `data/rollroot/` (parked probe). Nothing running.
+
+## Published (2026-10-09): PR #102 and Hugging Face artifacts
+
+- **Code and record:** https://github.com/jasonyandell/texas-42/pull/102 (branch `pr/fable-tiny-net-ladder`, an
+  artifact-free snapshot of `experiment/fable-tiny-net-ladder`, base `codex/walt-higher-k-budget-20261004`).
+- **Models:** https://huggingface.co/jasonyandell/texas-42-walt-tiny-net-ladder — `LAD7/LAD7-k39.{w,json,npz}`,
+  `LAD7/LAD7-k39-bidcal.json`, `LAD7/LAD7-start.*`, `LAD7/all/` (every rung), `LAD6/LAD6-k35.*`, `LAD6/all/`, model cards,
+  README with encoding 5 and the LAD6/LAD7 section.
+- **Labels:** https://huggingface.co/datasets/jasonyandell/texas-42-walt-ladder-labels — `data/labels2-LAD6-{train,val}.bin`
+  (7.59M / 239k rows), `data/labels2-LAD7-{train,val}.bin` (2.86M / 91k), README (contract byte packing, deal mixture),
+  SHA256SUMS.
+- **Everything else:** https://huggingface.co/datasets/jasonyandell/texas-42-walt-archive/tree/main/fable-tiny-net-ladder-20261009 —
+  `tracked-artifacts.tar.gz` (the 5,715 model/data/result files the experiment branch had committed, 426 MB) and
+  `results-LAD6-LAD7.tar.gz` (bideval, h2h games and summaries, pipeline logs, the parked rollout probe, 94 MB), with
+  `MANIFEST.json` and SHA-256s. Unpack over the PR branch to restore the tree this record describes.
