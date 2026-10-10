@@ -1,0 +1,15 @@
+{
+  "schema": "tiny-ladder-local-team-v1",
+  "tier": "exploratory",
+  "authorization": "User explicitly requested an independent Sol6.1 collaborator.",
+  "primary": "Local experiment implementation and execution in isolated task-11 checkout",
+  "independent_reviewer": {
+    "task": "/root/independent_review",
+    "requested_model": "gpt-6.1-sol",
+    "scope": "Original teacher lawfulness, native rules/sampler, whole-deal splits, frozen continuation policy, paired metrics, input invariance, weights, diagnostics and pinned-phone replay",
+    "review": "checks/REVIEW.md",
+    "result": "Accept useful T0 distillation; ladder improvement and competitive phone strength not established."
+  },
+  "external_transmission": false,
+  "production_merge_deploy": false
+}

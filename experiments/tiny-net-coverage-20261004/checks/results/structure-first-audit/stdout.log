@@ -1,0 +1,48 @@
+{
+  "source_deals": 2048,
+  "unique_normalized_inputs": 8430,
+  "old_source_or_input_overlap": 0,
+  "matched_train_source_deals": 1522,
+  "unavailable_train_sources": 14,
+  "main_training_roots": 3648,
+  "mixed_bands": {
+    "0": 1522,
+    "2": 910,
+    "1": 1216
+  },
+  "mining_16trajectory_replayed_sources": 24,
+  "late_panels": {
+    "validation": {
+      "roots": 512,
+      "source_deals": 256,
+      "unconditional_denominator": 256
+    },
+    "test": {
+      "roots": 508,
+      "source_deals": 254,
+      "unconditional_denominator": 256
+    }
+  },
+  "datasets": {
+    "late128": {
+      "roots": 4160,
+      "frozen_identity": true
+    },
+    "mixed128": {
+      "roots": 4160,
+      "frozen_identity": true
+    },
+    "reference0": {
+      "roots": 1024,
+      "frozen_identity": true
+    },
+    "subset128": {
+      "roots": 1424,
+      "frozen_identity": true
+    },
+    "subset512": {
+      "roots": 1424,
+      "frozen_identity": true
+    }
+  }
+}

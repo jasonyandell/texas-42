@@ -1,0 +1,31 @@
+{
+  "tier": "exploratory",
+  "schema": "tiny-coverage-followthrough-v1",
+  "base_commit": "04cf0de2b2b56446105cce7db5659305b8378b58",
+  "seed": 61010611,
+  "source_deals": {
+    "train": 1536,
+    "validation": 256,
+    "test": 256
+  },
+  "trajectories_per_deal": 16,
+  "train_roots": 3648,
+  "training_worlds": 128,
+  "reference_worlds": 4096,
+  "controls": {
+    "mixed32": "3648roots128worldsH32, band counts1536/1200/912",
+    "late32": "3648late roots128worldsH32, identical source-deal quotas",
+    "late64": "same late128dataH64 capacity diagnostic",
+    "subset128": "same912late roots128worldsH32",
+    "subset512": "same912late roots512worldsH32,128samples prefix-identical"
+  },
+  "quotas": "first576train deals3roots/arm; remaining960deals2roots/arm. All1536train deals shared. Subset one late root from first912source deals, intentional lower coverage.",
+  "contract": "fixedbid30; trumpuniform0..6/bidderuniform0..3 independent of hands; no bidding",
+  "belief": "uniform legal-compatible completions, ignores historical action likelihood/bidding; support-conditioned surrogate, not gameplay posterior",
+  "teacher0": "frozen P-1 uniform legal for ALL future actors incl own; root all-action Q for acting partnership contract win; shared worlds and absolute-ply tapes; ascending exact ties",
+  "model": "raw862inputs from previous pilot, no hidden/source/seed features;862->32or64ReLU->28 advantage regression; factor4targets, identical optimizer100epochs, validation-MSE checkpoint on same late128panel",
+  "evaluation": "up to2late roots per heldout source plus early/mid generalization panel; selections independent of labels/models. Pair all arms on same reference; equal-weight whole-deal means and paired bootstrap; empirical3SEgap subset heuristic.",
+  "rung_gate": "PRIMARY late32 only: late validation reference regret <=.9*mixed32, paired late32-minus-mixed32 upper95%<0, and beats random and ascending by paired upper95%<0. Capacity/precision arms diagnostic only. Freeze ALL controls before opening test.",
+  "rung": "if gate passes: freeze late32 for ALL actors to generate one T1 all-action search dataset; redistill on EXACT late training roots and validation panel; keep fresh reference1 and same original reference0 comparisons. No improvement theorem.",
+  "resources": "same nominal root-world main budgets3648*128; subset512=912*512, subset128quarter-budget; actual candidate continuations/ply/wall differ and recorded. Every executable<=295seconds process-group cap,2label workersmax, localMLXMetal, no transmissions/cloud/production. No extra model scaling beyond64diagnostic."
+}

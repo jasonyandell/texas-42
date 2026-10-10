@@ -1,0 +1,148 @@
+{
+ "tier": "exploratory",
+ "schema": "fable-tiny-net-diagnosis-v1",
+ "owner": "Claude Fable 5.1 (claude-fable-5-1)",
+ "base_commit": "461028ed8b1ecde27b5fbca7c36d4ca186620e39",
+ "seed": 61010704,
+ "question": "Does representation capacity, source-deal coverage, label noise, or optimization block distillation of the lawful T0 teacher into a cheap net? Capacity is a candidate, not a default.",
+ "inherited": "teacher T0 = all-action Q under frozen P-1 uniform legal play for every future actor; belief = uniform over capacity-compatible hidden completions given own hand and legal public history (support-conditioned surrogate, NOT the gameplay posterior); raw 862 information-set encoding; kernel.c byte-identical to both prior experiments; fixed bid 30, pip trump 0..6, no bidding model.",
+ "prior_diagnosis": "On the committed coverage validation panel the prior nets mixed32/late32/late64 reach held-out scaled centered-advantage MSE .1476/.1477/.1485 against a zero-predictor MSE .1491 and a 128-world sampling floor of about .004: held-out R^2 about 1%. Training loss falls to <.01. This is a generalization failure at 3,648 roots, not a fit failure; it motivates a learning curve in source deals crossed with capacity.",
+ "sources": {
+  "train_deals": 24576,
+  "test_deals": 512,
+  "block": 2048,
+  "histories_per_deal": 8,
+  "roots_per_deal": "at most one live nonforced root per absolute-ply band 0-7/8-15/16-23, chosen uniformly by the per-deal trajectory RNG among unique information sets",
+  "exclusion": "all source partitions of both prior experiments and all prior phone-game deals; all prior actor-normalized inputs; duplicates across this experiment keep first occurrence; test roots duplicating any train root are dropped",
+  "collisions_skipped": 0,
+  "test_deals_drawn_now_but_mined_and_labeled_only_after_freeze": true
+ },
+ "validation": "the committed coverage experiment validation panel: 1,024 roots (256/256/512 early/mid/late) over 256 deals, reference0 4,096-world Q and teacher128 labels (coverage batches 012-013). Used for checkpoint selection and validation reporting only.",
+ "data_arms": {
+  "d1": {
+   "deals": 1536,
+   "nested": true,
+   "note": "first v source deals of the frozen train sequence"
+  },
+  "d4": {
+   "deals": 6144,
+   "nested": true,
+   "note": "first v source deals of the frozen train sequence"
+  },
+  "d16": {
+   "deals": 24576,
+   "nested": true,
+   "note": "first v source deals of the frozen train sequence"
+  }
+ },
+ "labels": {
+  "worlds": 128,
+  "domains": {
+   "train": "fable-T0-label-v1",
+   "test_teacher": "fable-T0-teacher128-v1",
+   "test_reference": "fable-T0-reference-v1"
+  },
+  "reference_worlds": 4096,
+  "teacher_worlds": 128
+ },
+ "archs": {
+  "raw-h32": {
+   "sizes": [
+    862,
+    32,
+    28
+   ],
+   "kind": "dense raw-encoding MLP"
+  },
+  "raw-h256": {
+   "sizes": [
+    862,
+    256,
+    28
+   ],
+   "kind": "dense raw-encoding MLP"
+  },
+  "raw-d256": {
+   "sizes": [
+    862,
+    256,
+    256,
+    28
+   ],
+   "kind": "dense raw-encoding MLP"
+  },
+  "feat-s64": {
+   "sizes": [
+    32,
+    64,
+    64,
+    1
+   ],
+   "kind": "per-action feature scorer with shared MLP over 32 lawful features"
+  }
+ },
+ "features": "32 per-action features computed only from own current hand, public ordered plays, trump, bidder, leader, public scores: trump/double/count/pips, universe rank in context, follows/leading, wins current trick, unseen tiles that beat it, unseen followers, own followers, master flag, own higher, players after, partner played/winning/after, opponent winning, table points, partner/opponent revealed voids in context, unseen/own trumps, team bidding, scores, tricks remaining, hand size, bidder/defender points needed, unseen count, legal count. No hidden hands, no source identity, no labels.",
+ "optimizer": {
+  "adam": [
+   0.9,
+   0.999,
+   1e-08
+  ],
+  "lr": 0.002,
+  "l2": 1e-05,
+  "batch": 256,
+  "max_updates": 6000,
+  "eval_every": 10,
+  "init": "first raw layer std .08, hidden std sqrt(2/fan_in), output std .04*sqrt(32/fan_in), zero bias, NumPy seed 12345",
+  "selection": "minimum validation scaled centered-advantage MSE against the 4,096-world validation reference, evaluated every 50 updates; validation regret is recorded, not used for selection",
+  "budget_note": "identical maximum update budget for every arm; selected update count and whether selection hit the final evaluation are reported; an arm that selects within the last 10% of the budget is flagged budget-limited"
+ },
+ "trainings": {
+  "primary": [
+   "raw-h32-d1",
+   "raw-h32-d4",
+   "raw-h32-d16",
+   "raw-h256-d1",
+   "raw-h256-d4",
+   "raw-h256-d16",
+   "raw-d256-d1",
+   "raw-d256-d4",
+   "raw-d256-d16"
+  ],
+  "secondary": [
+   "feat-s64-d1",
+   "feat-s64-d4",
+   "feat-s64-d16",
+   "raw-h256-reg-d1"
+  ],
+  "secondary_reg": "raw-h256-reg-d1 = raw-h256 at d1 with lr .0005 and l2 1e-3 as a single optimization/regularization check"
+ },
+ "hypotheses": {
+  "H_capacity_at_prior_scale": "at d1, raw-h256 and raw-d256 do not have paired upper 95% bound < 0 against raw-h32 on fresh test regret (capacity alone does not unblock)",
+  "H_coverage": "raw-h32 at d16 has paired upper 95% bound < 0 against raw-h32 at d1 on fresh test regret (source-deal coverage is a blocker)",
+  "H_capacity_x_data": "at d16, raw-d256 versus raw-h32 paired difference; direction not preregistered, reported",
+  "H_representation": "feat-s64 at d1 versus raw-h32 at d1 paired; feat-s64 at d16 versus raw-d256 at d16 paired; secondary",
+  "noise": "bounded, not retested: the 128-world scaled sampling floor is about .004 against a .149 zero-predictor MSE; the prior subset512 control showed no decision gain"
+ },
+ "metrics": "regret = max_a Q_ref(a) - Q_ref(chosen) in acting-partnership contract-win probability under the stated surrogate teacher, all-band and late-band; equal-weight means per source deal; 5,000-draw source-deal bootstrap; best-set and resolved (gap > 3 paired SE, heuristic) agreement; held-out R^2 of scaled centered advantage; warm CPU latency (network-only, validated decision); parameters and bytes; training and label wall seconds. Not multiplicity corrected. Teacher-relative, not optimal-game regret.",
+ "rung": "no frozen-policy rung is run in this phase under any outcome; the rung decision returns to Jason with the diagnosis",
+ "resources": "every invocation under run_capped.py <= 295 s process-group cap; at most two concurrent label workers; local MLX Metal only; no cloud, no installs, no transmissions, no production, no fixture export",
+ "amendments": [
+  {
+   "id": "A1",
+   "utc": "2026-10-04T16:42:51Z",
+   "stage": "before any freeze; test roots unmined and unlabeled",
+   "change": "eval_every 50 -> 10 updates for every arm; selection rule (minimum validation MSE) unchanged; max_updates unchanged",
+   "reason": "at d1 (about 18 updates per epoch) all three raw arms selected the first evaluation at update 50 with validation MSE already rising, so a 50-update grid cannot resolve the early minimum; the prior experiments selected at epoch 2 (about 30 updates). A finer grid applies equally to every arm.",
+   "retained": "the three coarse-grid runs are archived under results/pre-amendment-eval50/ (raw-h32-d1 .10137, raw-h256-d1 .10616, raw-d256-d1 .10870 validation MSE at update 50) and are not used for any claim"
+  },
+  {
+   "id": "A2",
+   "utc": "2026-10-04T16:45:54Z",
+   "stage": "after validation results of the frozen-rule arms were read; before freeze; test roots unmined and unlabeled",
+   "change": "add regret-selected copies rs-<arm>.regret for the nine primary arms and the three feat-s64 arms: identical training (same seed, data, budget) re-run with --also-regret, which additionally saves the checkpoint with minimum validation regret on the 10-update grid. The MSE-selected weights of each re-run are hash-compared with the frozen-rule arm as a determinism receipt.",
+   "reason": "validation curves show validation MSE reaching its minimum within the first few hundred updates while validation regret keeps falling for thousands of updates on the larger raw nets (e.g. raw-h256-d16 MSE-selected regret .0314 at update 240 versus a history minimum .0255 at update 5760). The preregistered MSE selector therefore confounds the capacity comparison with a selection-objective mismatch. Regret selection over 600 checkpoints on the same validation panel is optimistic by construction; these arms are labeled post hoc and secondary, and the fresh test is the only unbiased read.",
+   "status": "secondary, post hoc on validation, declared before test"
+  }
+ ]
+}

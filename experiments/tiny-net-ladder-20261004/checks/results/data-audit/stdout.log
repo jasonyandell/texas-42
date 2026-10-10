@@ -1,0 +1,19 @@
+{
+  "source_deals": 2048,
+  "roots": 4860,
+  "duplicate_information_keys": 0,
+  "datasets": {
+    "labels0": {
+      "batches": 16,
+      "roots": 4860,
+      "one_frozen_teacher": true,
+      "unique_record_seeds": 4860
+    },
+    "reference0": {
+      "batches": 2,
+      "roots": 608,
+      "one_frozen_teacher": true,
+      "unique_record_seeds": 608
+    }
+  }
+}

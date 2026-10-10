@@ -1,0 +1,124 @@
+{
+  "tier": "exploratory",
+  "base_commit": "04cf0de2b2b56446105cce7db5659305b8378b58",
+  "isolated_branch": "experiment/tiny-net-ladder",
+  "sources": [
+    {
+      "path": "experiments/tiny-net-ladder-20261004/pilot.py",
+      "bytes": 12718,
+      "sha256": "3c9c5e9a8ecb14f72fd8e8cec0b9d5811143d0426f3aaf6711d6fe873801c4ba"
+    },
+    {
+      "path": "experiments/tiny-net-ladder-20261004/kernel.c",
+      "bytes": 5084,
+      "sha256": "f905d0a349273d01fb967b8e0573c1bf7f6590e041acce939f58e9ecfc59ed06"
+    },
+    {
+      "path": "experiments/tiny-net-ladder-20261004/PROVENANCE.json",
+      "bytes": 7140,
+      "sha256": "294e405ecee8fba374d3d2c84e8dea7b3cead23722b8ba579f83989471384f64"
+    },
+    {
+      "path": "experiments/tiny-net-ladder-20261004/REPORT.md",
+      "bytes": 14123,
+      "sha256": "3249ee3b96c57564d5a4603e510786e80b16ebf3dfcb6fdd84bb91e3e4af9169"
+    },
+    {
+      "path": "experiments/tiny-net-ladder-20261004/models/n0-32.npz",
+      "bytes": 115126,
+      "sha256": "70c37e26d80bfb9f3cd393f62d07a9be74f5849f3731db7bfa8f5cb4cf57174c"
+    },
+    {
+      "path": "experiments/tiny-net-coverage-20261004/coverage.py",
+      "bytes": 11903,
+      "sha256": "677393bccb72463cac891052091cad4e4e33e021b0f0824da54c168f8a5dca67"
+    },
+    {
+      "path": "experiments/tiny-net-coverage-20261004/history/coverage-label-v1.py",
+      "bytes": 11881,
+      "sha256": "4150f175340ed108f8bd643a08ad6a0ff1c4c0ebd7ce1b0b2d65ea2de9acb831"
+    },
+    {
+      "path": "experiments/partnership/rules.py",
+      "bytes": 7685,
+      "sha256": "4393683bc431f868c6f20dc42a81124a8fee000ccfd848a021f8bafd85d109af"
+    },
+    {
+      "path": "experiments/astra-sol-20261004/tools/arena.py",
+      "bytes": 11579,
+      "sha256": "653928d3e532cb01a9db75f911637b2c63b03d78b914fe63b999dee5b1ae7436"
+    },
+    {
+      "path": "experiments/astra-sol-20261004/tools/phone_worker.mjs",
+      "bytes": 1540,
+      "sha256": "1e965dd5f92741864b0823b8c11e79887b4fb29fd7ed05c610febab92200161e"
+    },
+    {
+      "path": "experiments/astra-sol-20261004/reference/production-phone/walt-player.wasm",
+      "bytes": 6331412,
+      "sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119"
+    }
+  ],
+  "original_pilot_manifest_verified_files": 558,
+  "original_source_recovery": "unchanged original pilot PROVENANCE.json pins canonical task2 Fable archive/conversation/Drive packet and task8/task9 adapters",
+  "teacher": "T0 uniform legal continuation for every actor including own future; exact capacity-constrained uniform completion sampler; support-conditioned surrogate belief; all actions paired; no maximizing continuation",
+  "dataset_code_versions": [
+    "4150f175340ed108f8bd643a08ad6a0ff1c4c0ebd7ce1b0b2d65ea2de9acb831",
+    "677393bccb72463cac891052091cad4e4e33e021b0f0824da54c168f8a5dca67"
+  ],
+  "code_version_note": "history/coverage-label-v1.py exactly matches original generation hash. Current coverage.py adds teacher128 heldout comparator routing only; training generation behavior unchanged.",
+  "split": "2048freshunconditional source partitions1536/256/256, source RNG separated from trajectory RNG in documented pre-label amendment; all root histories/label completions attributed to source; normalized inputs disjoint from priorpilot",
+  "controls": {
+    "main_root_world_budget": 466944,
+    "main_roots": 3648,
+    "main_eligible_train_sources": 1522,
+    "precision_roots": 912,
+    "late_test_roots": 508,
+    "late_test_eligible_sources": 254,
+    "original_test_sources": 256,
+    "gate_failed": true,
+    "new_rung_run": false,
+    "adaptive_checkpoints_byte_identical": true
+  },
+  "frozen_models": {
+    "FROZEN.json": "b95130b2df10ab517fdec078c13649dfcda16f453c2f51586e5fa2f82a01a0e6",
+    "ADAPTIVE-FROZEN.json": "1ff6aff18ff9e3668fb06e653f076a37357be3a20a81794d899390119bb4a763"
+  },
+  "chronology": "results/chronology.json retains original local mtime snapshot plus successful independent audit receipts; not tamper-proof attestation",
+  "watchdog": {
+    "receipts": 143,
+    "maximum_allowance_seconds": 295.0,
+    "maximum_observed_seconds": 35.82682,
+    "statuses": {
+      "completed": 141,
+      "failed": 2
+    },
+    "retained_failures": [
+      {
+        "path": "results/initialize-log/run.json",
+        "status": "failed",
+        "elapsed_seconds": 1.806026,
+        "command": [
+          "/Users/jason/code/flux/python/.venv/bin/python",
+          "experiments/tiny-net-coverage-20261004/coverage.py",
+          "initialize"
+        ]
+      },
+      {
+        "path": "results/package-path-initial-log/run.json",
+        "status": "failed",
+        "elapsed_seconds": 0.084775,
+        "command": [
+          "/Users/jason/code/flux/python/.venv/bin/python",
+          "experiments/tiny-net-coverage-20261004/package.py"
+        ]
+      }
+    ]
+  },
+  "private_fixture_export": false,
+  "external_transmissions": false,
+  "paid_services": false,
+  "production_modified": false,
+  "task10_touched": false,
+  "no_background_jobs": true
+}

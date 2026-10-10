@@ -1,0 +1,42 @@
+{
+  "raw_actor_normalized_encoding": {
+    "roots": 4860,
+    "unique_vectors": 4860,
+    "within_split_duplicate_vectors": 0,
+    "cross_split_duplicate_vectors": 0
+  },
+  "h2h": {
+    "teacher0": {
+      "games": 16,
+      "independent_source_deals": 2,
+      "moves": 448,
+      "phone_calls": 224,
+      "pair_wins": 0,
+      "pair_losses": 1,
+      "pair_ties": 7
+    },
+    "n0-32": {
+      "games": 16,
+      "independent_source_deals": 2,
+      "moves": 448,
+      "phone_calls": 224,
+      "pair_wins": 0,
+      "pair_losses": 4,
+      "pair_ties": 4
+    },
+    "n1-32": {
+      "games": 16,
+      "independent_source_deals": 2,
+      "moves": 448,
+      "phone_calls": 224,
+      "pair_wins": 0,
+      "pair_losses": 4,
+      "pair_ties": 4
+    }
+  },
+  "diagnostics": {
+    "training_roots": 96,
+    "reference_worlds": 4096,
+    "arithmetic": "pass"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "teacher0": {
+    "games": 16,
+    "independent_source_deals": 2,
+    "replayed_moves": 448,
+    "eligible_moves": 80,
+    "exact_replayed_overrides": 41,
+    "phone_calls": 407,
+    "pair_wins_losses_ties": [
+      0,
+      0,
+      8
+    ]
+  },
+  "mixed32": {
+    "games": 16,
+    "independent_source_deals": 2,
+    "replayed_moves": 448,
+    "eligible_moves": 78,
+    "exact_replayed_overrides": 42,
+    "phone_calls": 406,
+    "pair_wins_losses_ties": [
+      0,
+      0,
+      8
+    ]
+  },
+  "late32": {
+    "games": 16,
+    "independent_source_deals": 2,
+    "replayed_moves": 448,
+    "eligible_moves": 80,
+    "exact_replayed_overrides": 42,
+    "phone_calls": 406,
+    "pair_wins_losses_ties": [
+      0,
+      0,
+      8
+    ]
+  }
+}

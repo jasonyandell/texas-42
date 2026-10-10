@@ -1,0 +1,9 @@
+{
+ "kind": "train",
+ "batch": 0,
+ "positions": 6064,
+ "seconds": 0.7239019160624593,
+ "nf": 32,
+ "ladder_sha256": "8427c7bb1d41250a39001cc211dbcf36739dc225998767976fd489b37b527032",
+ "dataset_sha256": "3e71a7ff21ce8da1fb252283798ad093b5ed902da3fa68d634d3f9490a4d50e8"
+}

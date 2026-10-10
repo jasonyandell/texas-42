@@ -1,0 +1,141 @@
+{
+ "tier": "exploratory",
+ "schema": "fable-inner-vector-v1",
+ "owner": "Claude Fable 5.1 (claude-fable-5-1)",
+ "base_commit": "4daafce0",
+ "seed": 61010804,
+ "hypothesis": "the corrected teacher boundary (Walt level-0 mind: own future committed per public node over an 8-world Voidless bundle, others seeded dice) versus the pilots V0 (all-future uniform), on full legal vectors with a separate deterministic selector",
+ "teacher": {
+  "name": "WALT-INNER-L0MIND-n8-DICE-VOIDLESS-FIXED-BID30-STRAIGHT-DECLMAKE-v1",
+  "source": "walt/walt/src/solver/mod.rs Solver::pi(0) generic tail; adapter/src/lib.rs; pinned cb1ef3b2 identical at HEAD",
+  "perspective": "declarer-make k/8 exact; declarers maximize, defenders minimize, lowest tile on exact ties",
+  "belief": "Voidless shuffle ignoring public voids (superset of support; information-lawful; not a posterior)",
+  "others": "Field::Dice seeded uniform legal per world and node",
+  "own_future": "bundle recursion (committed per public node, bundle-coupled)",
+  "seedless": "deterministic function of (seat, remaining hand, public key); request seed unused",
+  "differential": {
+   "positions": 1024,
+   "production_agree": 1024,
+   "cross_build_identical": 1024,
+   "receipt": "results/seam-check-log/run.json"
+  }
+ },
+ "reference": {
+  "name": "\u2026-refseed-v1",
+  "definition": "16 bundles with an extra mixed term in the production RNG seed; mean counts over 128 worlds; declared evaluation/secondary-target estimator, not production"
+ },
+ "v0_control": "the pilots T0/V0 kernel (fable-tiny-net-20261004/kernel.c, byte-identical to the ladder pilot), 128 common worlds/tapes, acting-partnership outcome",
+ "sources": {
+  "blocks": [
+   [
+    "train",
+    2048
+   ],
+   [
+    "train",
+    2048
+   ],
+   [
+    "train",
+    2048
+   ],
+   [
+    "validation",
+    512
+   ],
+   [
+    "test",
+    512
+   ]
+  ],
+  "deals": 7168,
+  "histories_per_deal": 8,
+  "roots": "at most one live nonforced root per absolute-ply band 0-7/8-15/16-23 per deal, actor = whichever seat is on turn (all seats covered)",
+  "exclusion": "all source partitions and all actor-normalized inputs of tiny-net-ladder, tiny-net-coverage, fable-tiny-net and every phone game",
+  "collisions_skipped": 0,
+  "test": "block 4 mined and labeled only after freeze"
+ },
+ "encoding": "raw 862 own-current-hand/public encoding of the pilots (primary); 32 lawful per-action features (diagnostic arm only)",
+ "orientation": "net targets are acting-side success s = p_make for declaring seats, 1 - p_make for defenders; p_make is recovered exactly as s or 1 - s and reported; selector = legal argmax of the acting-side score, lowest tile on exact ties",
+ "arms": [
+  {
+   "name": "inner-h32",
+   "arch": "raw-h32",
+   "target": "inner",
+   "loss": "bce"
+  },
+  {
+   "name": "inner-h256",
+   "arch": "raw-h256",
+   "target": "inner",
+   "loss": "bce"
+  },
+  {
+   "name": "inner-d256",
+   "arch": "raw-d256",
+   "target": "inner",
+   "loss": "bce"
+  },
+  {
+   "name": "inner-h32-centered",
+   "arch": "raw-h32",
+   "target": "inner",
+   "loss": "centered"
+  },
+  {
+   "name": "v0-h32",
+   "arch": "raw-h32",
+   "target": "v0",
+   "loss": "bce"
+  },
+  {
+   "name": "v0-h256",
+   "arch": "raw-h256",
+   "target": "v0",
+   "loss": "bce"
+  },
+  {
+   "name": "ref-h32",
+   "arch": "raw-h32",
+   "target": "ref",
+   "loss": "bce"
+  },
+  {
+   "name": "inner-feat",
+   "arch": "feat-s64",
+   "target": "inner",
+   "loss": "bce"
+  }
+ ],
+ "targets": {
+  "inner": "exact production level-0 vector k/8 (acting-side oriented)",
+  "ref": "declared reference: mean of 16 ref-seeded 8-world bundles (k/128)",
+  "v0": "pilots V0: uniform all-future, 128 common worlds/tapes (acting-side)"
+ },
+ "losses": {
+  "bce": "masked soft-target binary cross-entropy on sigmoid outputs against k/N (a proper scoring rule; not claimed to be an exact binomial likelihood for bundle-coupled counts)",
+  "centered": "the pilots loss: masked MSE on 4*(s - mean_legal s) with legally centered outputs; cannot be read as probabilities"
+ },
+ "optimizer": {
+  "adam": [
+   0.9,
+   0.999,
+   1e-08
+  ],
+  "lr": 0.002,
+  "l2": 1e-05,
+  "batch": 256,
+  "max_updates": 6000,
+  "eval_every": 10,
+  "init": "as fable-tiny-net",
+  "selection": "minimum validation loss of the arm own loss against the arm own target; validation regret and fidelity recorded, not used"
+ },
+ "gates": {
+  "G1_teacher": "exact single-bundle choice vs 16-bundle majority agreement, overall and on resolved (ref gap > 3 paired-free SE) roots; reported, sets the fidelity ceiling",
+  "G2_fidelity": "primary: inner-h32 chosen tile in the exact teacher tie set on fresh test; secondary: exact-choice agreement, vector RMSE vs k/8, calibration (10-bin ECE), paired action-gap error; compare arms by source-deal bootstrap",
+  "G2_hypothesis": "inner-h32 vs v0-h32 and inner-h256 vs v0-h256 on the SAME reference regret (ref-mean, acting side): the teacher-boundary effect; inner-h32 vs inner-h32-centered: loss effect; inner-h256/d256 vs inner-h32: capacity",
+  "G3_outer_substitution": "NOT run in this phase; requires the net inside the Rust recursion; stated as undone",
+  "G4_cost": "inner call latency net vs seam (about 22 us median) on the same positions; parameters, bytes"
+ },
+ "resources": "every run under run_capped.py <=295 s, two label workers max, local MLX Metal, no cloud/installs/transmissions/production/export"
+}

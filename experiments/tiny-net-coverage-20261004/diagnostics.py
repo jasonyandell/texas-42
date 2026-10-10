@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+"""Retrospective accounting and fit/noise diagnostics; no model selection."""
+import datetime,json,math
+import numpy as np
+from coverage import HERE,BASE,p,positions
+rows=positions();budgets={}
+for kind in ['mixed128','late128','subset128','subset512','teacher128','reference0']:
+ counts={k:dict(roots=0,root_worlds=0,candidate_continuations=0) for k in ['train','validation','test']};seconds=0;batch_count=0
+ for f in sorted((HERE/'data'/kind).glob('batch-*.json')):
+  meta=json.loads(f.read_text());seconds+=meta['seconds'];batch_count+=1
+  for rec in meta['records']:
+   row=rows[rec['position_index']];c=counts[row['split']];legal=len(p.public(row['request'])[0]['legal']);c['roots']+=1;c['root_worlds']+=rec['worlds'];c['candidate_continuations']+=rec['worlds']*legal
+ total={k:sum(c[k] for c in counts.values()) for k in ['roots','root_worlds','candidate_continuations']}
+ budgets[kind]=dict(by_split=counts,total=total,batches=batch_count,kernel_sampling_encoding_and_write_seconds_sum=seconds,root_worlds_per_second=total['root_worlds']/seconds,candidate_continuations_per_second=total['candidate_continuations']/seconds,qualification='actual allocated all-action continuations; early contract settlement can shorten rollouts; sample count is not ply count. Timings include encoding/packing/writes, exclude process startup. Validation overlap was regenerated and actually cost compute.')
+fit={}
+for name in ['mixed32','late32','late64','subset128','subset512','subset128updates1500','subset512updates1500']:
+ meta=json.loads((HERE/'models'/f'{name}.json').read_text());data,_=p.dataset(meta['kind']);split=np.array([rows[int(i)]['split'] for i in data['ids']]);pn=dict(np.load(HERE/'models'/f'{name}.npz'));z=p.predict(pn,data['X']);m=data['M'];q=data['Q'];n=m.sum(1,keepdims=True);z-=np.sum(z*m,axis=1,keepdims=True)/n;y=4*(q-np.sum(q*m,axis=1,keepdims=True)/n);perroot=np.sum((z-y)**2*m,1)/n[:,0]
+ fit[name]=dict(hidden=meta['hidden'],parameters=meta['parameter_count'],raw_float32_bytes=meta['raw_float32_bytes'],npz_file_bytes=meta['file_bytes'],mlx_training_loop_seconds=meta['seconds'],epochs=meta['epochs'],max_updates=meta['epochs']*math.ceil(meta['train_roots']/256),selected_epoch=meta['selected_epoch'],selected_updates=meta['selected_epoch']*math.ceil(meta['train_roots']/256),selected_train_scaled_centered_mse=float(np.mean(perroot[split=='train'])),selected_validation_scaled_centered_mse=float(np.mean(perroot[split=='validation'])),last_epoch_train_loss=meta['history'][-1]['train_loss'],last_epoch_validation_scaled_centered_mse=meta['history'][-1]['validation_advantage_mse_scaled'],qualification='train_loss includes L2 and is an unweighted mean of minibatch means during epoch; post-checkpoint MSE is unregularized root mean. Outputs and MSE use factor4advantage, not probabilities.')
+a,_=p.dataset('subset128');b,_=p.dataset('subset512');assert np.array_equal(a['ids'],b['ids']);tr=np.array([rows[int(i)]['split']=='train' for i in a['ids']]);aQ=a['Q'][tr];bQ=b['Q'][tr];mask=a['M'][tr];counts=mask.sum(1,keepdims=True);ca=aQ-np.sum(aQ*mask,1,keepdims=True)/counts;cb=bQ-np.sum(bQ*mask,1,keepdims=True)/counts
+noise={}
+for kind,data,W in [('128',a,128),('512',b,512)]:
+ outcomes=np.unpackbits(data['B'][tr],axis=2)[:,:,:W].astype(np.float32);centered=(outcomes-np.sum(outcomes*mask[:,:,None],1,keepdims=True)/counts[:,:,None])*mask[:,:,None];variance=centered.var(2,ddof=1)/W;noise[kind]=float(np.mean(np.sum(variance*mask,1)/counts[:,0]))
+noise.update(roots=int(tr.sum()),advantage_difference_rmse=float(np.sqrt(np.mean(np.sum((ca-cb)**2*mask,1)/counts[:,0]))),greedy_action_disagreement=float(np.mean(np.argmax(np.where(mask,aQ,-np.inf),1)!=np.argmax(np.where(mask,bQ,-np.inf),1))),qualification='unscaled legal-centered sampled target variance estimate;512 extends same128prefix, so targets are correlated. Difference/disagreement are observed label sensitivity, not ground-truth decision regret.')
+receipts=[json.loads(f.read_text()) for f in HERE.rglob('run.json')];assert all(r['allowance_seconds']<=300 and r['elapsed_seconds']<=300 for r in receipts)
+cost=dict(dataset_costs=budgets,fit=fit,label_precision_diagnostic=noise,execution_receipts=dict(count=len(receipts),statuses={status:sum(r['status']==status for r in receipts) for status in sorted({r['status'] for r in receipts})},largest_actual_invocation_seconds=max(r['elapsed_seconds'] for r in receipts),qualification='nested campaign receipts overlap child timings; summing elapsed across parent and children double counts, so no aggregate wall-time claim'),rung=dict(primary_gate_passed=False,new_rung_run=False,reason='preregistered late32 validation gate failed; diagnostic arms cannot replace gate'),hardware=json.loads((BASE/'results/hardware.json').read_text()) if (BASE/'results/hardware.json').exists() else dict(reference='../tiny-net-ladder-20261004/results/hardware-*',verified='successful localMLX Metal training executions'))
+p.dump(HERE/'results/costs-and-diagnostics.json',cost)
+freeze={name:dict(original_local_mtime_utc=datetime.datetime.fromtimestamp((HERE/'models'/name).stat().st_mtime,datetime.timezone.utc).isoformat(),sha256=p.sha(HERE/'models'/name)) for name in ['FROZEN.json','ADAPTIVE-FROZEN.json']}
+if not (HERE/'results/chronology.json').exists():p.dump(HERE/'results/chronology.json',dict(freeze_snapshot=freeze,test_receipt_utc={str(f.relative_to(HERE)):json.loads(f.read_text())['started_utc'] for f in sorted((HERE/'results').glob('reference0-01[45]-log/run.json'))},qualification='snapshot of original local freeze mtimes captured after independent before-test chronology audit; mtime alone is not tamper-proof and is reset by Git checkout. Substantive frozen manifests unchanged. Retained capped audit receipts document successful local check.'))
+print(json.dumps(dict(budgets=budgets,fit=fit,noise=noise,receipts=cost['execution_receipts'])))

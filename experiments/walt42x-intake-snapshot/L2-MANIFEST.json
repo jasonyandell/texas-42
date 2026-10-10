@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-29",
+  "tier": "exploratory repaired NumPy ladder",
+  "policy_version": "walt42x-pure-v2",
+  "files": {
+    "repaired.py": "fa47e3140f92e4d2c8ef23da682a70321206c95dbbc003d1d072c294af25c275",
+    "nested_kernels.py": "279c59f0bf81f7a922ef08d87321af8934602f43be49a062942daeae1883de08",
+    "l2_bench.py": "7448a104e7554bd0982c4e40246c84ef7ff0bb60ef23e13f232f13b5f852845c",
+    "verify_repaired.py": "9d3242b6d7a27c63359e8d5e95f9111009b41ff3ee0c5d036ccd8321434a1785",
+    "verify_l2_runs.py": "27f98a82e0883e6d9179aad7c58f18789927ccefd172d3eda92eca91809ff041",
+    "L2.md": "84654dd356b6a4a646a81150365d32921034d4b91ef69e0ef41a8d278760c844",
+    "results/repaired-game-verification.json": "8907582a06a8f9f2a70e9391ecb7a46f2f3e2d2789f5299f90ba92d5206e5654",
+    "results/repaired-l2-b128.json": "3c69f18c76b3c77da0da5db1d7e8fb4bf887e420cbbc0dcfaa967af5f5caa54d",
+    "results/repaired-l2-b512.json": "9c769debe3fd94ba4af8ec37327f926436febe3b3a58a2b6af56f43c836b406a",
+    "results/repaired-l2-initial.json": "aa01d6a1dd40ff422229d9dcf472e9cc446a2b974514a5c6217adba103e3a06c",
+    "results/repaired-v2-l2-b256.json": "d6b279107e0a1419bbc5f306b53b7a2c5e15879549ec38b876f30fca53407ecd",
+    "results/repaired-v2-l2-nocache-b64.json": "77345315194e8427f610fd3c0f4f968f9394d21037ae1e99c83369fffe68ae5a",
+    "results/repaired-v2-l2-panel.json": "51dd68e814b5fecedc8b5c9952c12f3e7e0392ac14029e077d9bd8d3e414f023",
+    "results/repaired-v2-l2-small-panel.json": "8a83b571c5c4ea74d58120e3065c2088a0b3eb05d2d5d930b5cae25421bb0a69",
+    "results/repaired-verification.json": "81e2b0aeb872ae50a8d09d30ccc6b5c1af241d00f9cc5aa446664db55f659f62"
+  }
+}

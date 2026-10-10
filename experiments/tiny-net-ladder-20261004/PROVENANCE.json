@@ -1,0 +1,158 @@
+{
+  "tier": "exploratory",
+  "base_commit": "92cc1ac3ae2c5bd4b0f5f9d0aadc56eb9583a299",
+  "canonical_recovery_root": "/Users/jason/Documents/Codex/2026-10-04/task-2/research-worktree",
+  "sources": [
+    {
+      "relative_path": "experiments/astra-sol-20261004/phase2/incoming/rollout_net.py",
+      "bytes": 9019,
+      "sha256": "8b1d2bc68e9d2299031ce8393741bd7bdff9932dcd04dcb73e03217887710508",
+      "canonical_task2_exists": true,
+      "canonical_task2_sha256": "8b1d2bc68e9d2299031ce8393741bd7bdff9932dcd04dcb73e03217887710508"
+    },
+    {
+      "relative_path": "experiments/astra-sol-20261004/phase2/incoming/walt-sense.zip",
+      "bytes": 39874,
+      "sha256": "df5fa7294cf41f334233aa4a0e864384ad18d555bf08c2819b6a8ed2eb49f326",
+      "canonical_task2_exists": true,
+      "canonical_task2_sha256": "df5fa7294cf41f334233aa4a0e864384ad18d555bf08c2819b6a8ed2eb49f326"
+    },
+    {
+      "relative_path": "experiments/astra-sol-20261004/phase2/incoming/PROVENANCE.json",
+      "bytes": 3108,
+      "sha256": "e6056fda2587d53172177f0aa0b5ca2e517d41e4f342534a584c934fbbd955a2",
+      "canonical_task2_exists": true,
+      "canonical_task2_sha256": "e6056fda2587d53172177f0aa0b5ca2e517d41e4f342534a584c934fbbd955a2"
+    },
+    {
+      "relative_path": "experiments/astra-sol-20261004/phase2/incoming/drive/TINY-MODEL.md",
+      "bytes": 3197,
+      "sha256": "58b38d3a22a619556845364d394110bba71843070f892c37a960e9a76b178287",
+      "canonical_task2_exists": true,
+      "canonical_task2_sha256": "58b38d3a22a619556845364d394110bba71843070f892c37a960e9a76b178287"
+    },
+    {
+      "relative_path": "experiments/astra-sol-20261004/phase2/incoming/drive/HANDOFF.md",
+      "bytes": 4155,
+      "sha256": "2c9a21078981cf04b4614036f64cc0e767589297d19d8e457a259acdc376a3e9",
+      "canonical_task2_exists": true,
+      "canonical_task2_sha256": "2c9a21078981cf04b4614036f64cc0e767589297d19d8e457a259acdc376a3e9"
+    },
+    {
+      "relative_path": "experiments/adversarial-20261004/results/drive-refetch.json",
+      "bytes": 73058,
+      "sha256": "3cf9da89b86267718185c533732d91d352323d2ae2696393a9353276c98c57bb",
+      "canonical_task2_exists": true,
+      "canonical_task2_sha256": "3cf9da89b86267718185c533732d91d352323d2ae2696393a9353276c98c57bb"
+    },
+    {
+      "relative_path": "experiments/adversarial-20261004/incoming/drive-final/engine42.v2.py",
+      "bytes": 11624,
+      "sha256": "db020fc8a47741c6de4596fad96950bd636af476ec7a6b4e2bcee50e5cd94a75",
+      "canonical_task2_exists": true,
+      "canonical_task2_sha256": "db020fc8a47741c6de4596fad96950bd636af476ec7a6b4e2bcee50e5cd94a75"
+    },
+    {
+      "relative_path": "experiments/adversarial-20261004/sol/REPORT.md",
+      "bytes": 34952,
+      "sha256": "14d7ddb700303cbe971b9612f12e819ae6fed14f6b72dccc4ed249d6c25a3b50",
+      "canonical_task2_exists": true,
+      "canonical_task2_sha256": "14d7ddb700303cbe971b9612f12e819ae6fed14f6b72dccc4ed249d6c25a3b50"
+    },
+    {
+      "relative_path": "experiments/higher-k-budget-20261004/adapter/src/lib.rs",
+      "bytes": 9082,
+      "sha256": "2fd94c7664ff8075fff01a8b4af99a02af2ba54aad0ea538aeafb3fd0b8b8710",
+      "canonical_task2_exists": false
+    },
+    {
+      "relative_path": "experiments/native-policy-check-20261004/REPORT.md",
+      "bytes": 14914,
+      "sha256": "87a26cdb23128d3247f012b416c596b5ab940aab58580ae85b57ff6b7e74784f",
+      "canonical_task2_exists": false
+    },
+    {
+      "relative_path": "experiments/astra-sol-20261004/reference/production-phone/walt-player.wasm",
+      "bytes": 6331412,
+      "sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+      "canonical_task2_exists": true,
+      "canonical_task2_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119"
+    },
+    {
+      "relative_path": "experiments/partnership/rules.py",
+      "bytes": 7685,
+      "sha256": "4393683bc431f868c6f20dc42a81124a8fee000ccfd848a021f8bafd85d109af",
+      "canonical_task2_exists": true,
+      "canonical_task2_sha256": "4393683bc431f868c6f20dc42a81124a8fee000ccfd848a021f8bafd85d109af"
+    }
+  ],
+  "production": {
+    "plunge_commit": "a0d9fa806166b0e63fe016bb49d93f91f47b1af8",
+    "rust_commit": "cb1ef3b23072e4c268f31f625f2b61d5facc1929",
+    "wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119"
+  },
+  "library_cloud_export": false,
+  "task10_touched": false,
+  "resource": {
+    "labels0": {
+      "batches": 16,
+      "roots": 4860,
+      "legal_action_vectors": 19622,
+      "root_world_samples": 622080,
+      "candidate_continuations": 2511616,
+      "summed_worker_generation_seconds": 3.4373782065231353,
+      "roots_per_summed_worker_second": 1413.868276344205,
+      "note": "generation includes exact sampler, native rollouts, hashes, compression. Sum is worker wall, not CPU time or parallel elapsed. At most two workers."
+    },
+    "labels1": {
+      "batches": 16,
+      "roots": 4860,
+      "legal_action_vectors": 19622,
+      "root_world_samples": 622080,
+      "candidate_continuations": 2511616,
+      "summed_worker_generation_seconds": 6.866213500965387,
+      "roots_per_summed_worker_second": 707.813702460124,
+      "note": "generation includes exact sampler, native rollouts, hashes, compression. Sum is worker wall, not CPU time or parallel elapsed. At most two workers."
+    },
+    "reference0": {
+      "batches": 4,
+      "roots": 1213,
+      "legal_action_vectors": 4927,
+      "root_world_samples": 4968448,
+      "candidate_continuations": 20180992,
+      "summed_worker_generation_seconds": 10.253227001056075,
+      "roots_per_summed_worker_second": 118.30421777212793,
+      "note": "generation includes exact sampler, native rollouts, hashes, compression. Sum is worker wall, not CPU time or parallel elapsed. At most two workers."
+    },
+    "reference1": {
+      "batches": 4,
+      "roots": 1213,
+      "legal_action_vectors": 4927,
+      "root_world_samples": 4968448,
+      "candidate_continuations": 20180992,
+      "summed_worker_generation_seconds": 34.183110791724175,
+      "roots_per_summed_worker_second": 35.48536022337881,
+      "note": "generation includes exact sampler, native rollouts, hashes, compression. Sum is worker wall, not CPU time or parallel elapsed. At most two workers."
+    },
+    "control": {
+      "batches": 1,
+      "roots": 96,
+      "legal_action_vectors": 400,
+      "root_world_samples": 393216,
+      "candidate_continuations": 1638400,
+      "summed_worker_generation_seconds": 0.7842866671271622,
+      "roots_per_summed_worker_second": 122.40422287382174,
+      "note": "generation includes exact sampler, native rollouts, hashes, compression. Sum is worker wall, not CPU time or parallel elapsed. At most two workers."
+    }
+  },
+  "watchdog": {
+    "receipts": 126,
+    "maximum_allowance": 295.0,
+    "maximum_observed_seconds": 11.835555,
+    "statuses": {
+      "completed": 123,
+      "failed": 3
+    }
+  },
+  "recovery": "original tiny source, archive, saved conversation provenance, current Drive packet and original accepted/contradicted files preserved; no external refetch/transmission. Issue100 remains separate."
+}

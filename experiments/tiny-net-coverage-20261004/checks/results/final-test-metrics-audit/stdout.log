@@ -1,0 +1,100 @@
+{
+  "frozen_models": {
+    "original_controls": 5,
+    "adaptive_controls": 2,
+    "adaptive_byte_identical": true,
+    "test_reference_started_after_freeze": true
+  },
+  "test-controls": {
+    "roots": 508,
+    "source_deals": 254,
+    "packed_Q_regret_arithmetic": "pass",
+    "independent_paired_bootstrap10000": {
+      "late32-minus-mixed32": {
+        "mean": 0.0069541630782480315,
+        "ci95": [
+          -0.002958174577848179,
+          0.017310315229761314
+        ]
+      },
+      "late64-minus-late32": {
+        "mean": -0.0055046982652559055,
+        "ci95": [
+          -0.01749160646453617,
+          0.006510769100639761
+        ]
+      },
+      "subset512-minus-subset128": {
+        "mean": 0.0005497969980314961,
+        "ci95": [
+          -0.0012567715382012796,
+          0.0025899691844549697
+        ]
+      },
+      "late32-minus-subset512": {
+        "mean": 0.0008131612942913385,
+        "ci95": [
+          -0.00892611526128814,
+          0.010916293887641485
+        ]
+      }
+    }
+  },
+  "test-generalization": {
+    "roots": 1020,
+    "source_deals": 256,
+    "packed_Q_regret_arithmetic": "pass",
+    "independent_paired_bootstrap10000": {
+      "late32-minus-mixed32": {
+        "mean": 0.004916191101074219,
+        "ci95": [
+          -0.00031026005744934056,
+          0.010366934537887573
+        ]
+      },
+      "late64-minus-late32": {
+        "mean": -0.004602909088134766,
+        "ci95": [
+          -0.01084667444229126,
+          0.001604872941970824
+        ]
+      }
+    }
+  },
+  "validation-controls": {
+    "roots": 512,
+    "source_deals": 256,
+    "packed_Q_regret_arithmetic": "pass",
+    "independent_paired_bootstrap10000": {
+      "late32-minus-mixed32": {
+        "mean": -0.0008244514465332031,
+        "ci95": [
+          -0.006978523731231689,
+          0.005050671100616455
+        ]
+      },
+      "late64-minus-late32": {
+        "mean": 0.0023717880249023438,
+        "ci95": [
+          -0.008482754230499268,
+          0.013011980056762695
+        ]
+      },
+      "subset512-minus-subset128": {
+        "mean": 0.0003414154052734375,
+        "ci95": [
+          -0.0011353731155395509,
+          0.002010369300842285
+        ]
+      },
+      "late32-minus-subset512": {
+        "mean": -0.011633872985839844,
+        "ci95": [
+          -0.021119725704193116,
+          -0.002804684638977052
+        ]
+      }
+    },
+    "primary_gate": false
+  }
+}

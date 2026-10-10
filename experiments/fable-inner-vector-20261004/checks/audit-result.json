@@ -1,0 +1,42 @@
+{
+ "sources": {
+  "train": 6656,
+  "test": 512,
+  "prior": 29188,
+  "disjoint": true
+ },
+ "information_sets": {
+  "train": 19752,
+  "test": 1521,
+  "disjoint": true
+ },
+ "receipts": {
+  "count": 37,
+  "statuses": {
+   "completed": 37
+  },
+  "largest_elapsed_seconds": 18.554027
+ },
+ "freeze": {
+  "models": 8,
+  "hashes_match": true,
+  "frozen_utc": "2026-10-04T18:13:56Z",
+  "earliest_test_receipt": "2026-10-04T18:14:19.344684+00:00",
+  "precedes_all_test_receipts": true
+ },
+ "label_replay": {
+  "roots": 42,
+  "exact_identical": 42,
+  "production_agree": 42,
+  "reference_build_identical": 42,
+  "ref_seed_identical": 42
+ },
+ "referee": {
+  "test_roots": 1521,
+  "legal_and_perspective_consistent": true
+ },
+ "metric_recomputed": {
+  "model": "inner-h32",
+  "mean": 0.04057566324869792
+ }
+}
