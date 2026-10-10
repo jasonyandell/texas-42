@@ -1,0 +1,39 @@
+{"t": 1791162992.3, "elapsed": 0.1, "event": "init", "train_rows": 5316602, "val_rows": 355185}
+{"t": 1791162992.3, "elapsed": 0.1, "event": "start", "args": {"name": "LAD1", "net": "models/L3c-mix-h128x2.w", "train_base": "data/labels2-all2-train.bin", "val_base": "data/labels2-all2-val.bin", "label_workers": 12, "h2h_workers": 4, "outer": 40, "inner": 8, "eps": "0.1", "seed_base": 9000000, "stop_at": 288, "hidden": 128, "hidden2": 128, "layers": 2, "updates": 30000, "batch": 1024, "enc": 4, "loss": "mix", "rounds": 12, "nets": 12, "h2h_deals": 4096, "h2h_seed": 5000, "no_h2h": false, "strict": false, "ladder": true, "h2h_search": true}, "binary": "/Users/jason/Documents/Codex/2026-10-04/task-15/fable-worktree/experiments/fable-rust-ladder-20261004/ladder/target-s/release/ladder", "state": {"rounds_started": 0, "nets": 0}}
+{"t": 1791162992.4, "elapsed": 0.1, "event": "round_start", "round": 0, "net": "models/L3c-mix-h128x2.w", "workers": 12, "teacher": "search+net"}
+{"t": 1791163281.6, "elapsed": 289.3, "event": "round_landed", "round": 0, "states": 550928, "wall": 289.2, "train_rows": 5821800, "val_rows": 400915, "added": [505198, 45730]}
+{"t": 1791163281.6, "elapsed": 289.3, "event": "train_start", "k": 0, "name": "LAD1-k0", "train_rows": 5821800, "val_rows": 400915, "rounds": [0]}
+{"t": 1791163283.6, "elapsed": 291.3, "event": "round_start", "round": 1, "net": "models/L3c-mix-h128x2.w", "workers": 12, "teacher": "search+net"}
+{"t": 1791163354.8, "elapsed": 362.5, "event": "net", "k": 0, "name": "LAD1-k0", "w": "models/LAD1-k0.w", "rounds": [0], "train_seconds": 72.2, "val_rmse": 0.1553758680820465, "val_agree": 0.6266789718518888, "selected_update": 28750, "train_rows": 5821800, "rust_agree": 0.626688949029096, "status": "ready"}
+{"t": 1791163354.8, "elapsed": 362.5, "event": "h2h_start", "k": 0, "arm": "np:models/LAD1-k0.w", "tag": "np-LAD1-k0-s5000-4096", "workers": 4}
+{"t": 1791163404.9, "elapsed": 412.7, "event": "h2h", "k": 0, "arm": "np", "tag": "np-LAD1-k0-s5000-4096", "wall": 50.1, "deals_paired": 4096, "adv": -0.109619140625, "ci": [-0.125732421875, -0.09423217773437509], "win": 0.4451904296875, "cached": 32159}
+{"t": 1791163407.0, "elapsed": 414.7, "event": "h2h_start", "k": 0, "arm": "l2n:40:models/LAD1-k0.w", "tag": "l2n-40-LAD1-k0-s5000-4096", "workers": 4}
+{"t": 1791163573.5, "elapsed": 581.2, "event": "round_landed", "round": 1, "states": 452120, "wall": 289.9, "train_rows": 6236199, "val_rows": 438636, "added": [414399, 37721]}
+{"t": 1791163573.5, "elapsed": 581.2, "event": "train_start", "k": 1, "name": "LAD1-k1", "train_rows": 6236199, "val_rows": 438636, "rounds": [1]}
+{"t": 1791163575.5, "elapsed": 583.3, "event": "round_start", "round": 2, "net": "models/LAD1-k0.w", "workers": 12, "teacher": "search+net"}
+{"t": 1791163589.6, "elapsed": 597.3, "event": "h2h", "k": 0, "arm": "l2n", "tag": "l2n-40-LAD1-k0-s5000-4096", "wall": 182.6, "deals_paired": 4096, "adv": 0.002197265625, "ci": [-0.012939453125, 0.017333984375], "win": 0.5010986328125, "cached": 21049}
+{"t": 1791163652.9, "elapsed": 660.6, "event": "net", "k": 1, "name": "LAD1-k1", "w": "models/LAD1-k1.w", "rounds": [1], "train_seconds": 78.3, "val_rmse": 0.15686222910881042, "val_agree": 0.625826425555586, "selected_update": 30000, "train_rows": 6236199, "rust_agree": 0.6258993789839411, "status": "ready"}
+{"t": 1791163652.9, "elapsed": 660.6, "event": "h2h_start", "k": 1, "arm": "np:models/LAD1-k1.w", "tag": "np-LAD1-k1-s5000-4096", "workers": 4}
+{"t": 1791163689.0, "elapsed": 696.7, "event": "h2h", "k": 1, "arm": "np", "tag": "np-LAD1-k1-s5000-4096", "wall": 36.1, "deals_paired": 4096, "adv": -0.09716796875, "ci": [-0.11279296875, -0.08154296875], "win": 0.451416015625, "cached": 39680}
+{"t": 1791163691.0, "elapsed": 698.7, "event": "h2h_start", "k": 1, "arm": "l2n:40:models/LAD1-k1.w", "tag": "l2n-40-LAD1-k1-s5000-4096", "workers": 4}
+{"t": 1791163853.5, "elapsed": 861.2, "event": "h2h", "k": 1, "arm": "l2n", "tag": "l2n-40-LAD1-k1-s5000-4096", "wall": 162.5, "deals_paired": 4096, "adv": 0.01123046875, "ci": [-0.004150390625, 0.02686157226562491], "win": 0.505615234375, "cached": 26537}
+{"t": 1791163865.6, "elapsed": 873.3, "event": "round_landed", "round": 2, "states": 458565, "wall": 290.0, "train_rows": 6656842, "val_rows": 476558, "added": [420643, 37922]}
+{"t": 1791163865.6, "elapsed": 873.3, "event": "train_start", "k": 2, "name": "LAD1-k2", "train_rows": 6656842, "val_rows": 476558, "rounds": [2]}
+{"t": 1791163867.6, "elapsed": 875.3, "event": "round_start", "round": 3, "net": "models/LAD1-k1.w", "workers": 12, "teacher": "search+net"}
+{"t": 1791163945.0, "elapsed": 952.7, "event": "net", "k": 2, "name": "LAD1-k2", "w": "models/LAD1-k2.w", "rounds": [2], "train_seconds": 78.3, "val_rmse": 0.1544203758239746, "val_agree": 0.6258713524901481, "selected_update": 30000, "train_rows": 6656842, "rust_agree": 0.6258461719245086, "status": "ready"}
+{"t": 1791163945.0, "elapsed": 952.7, "event": "h2h_start", "k": 2, "arm": "np:models/LAD1-k2.w", "tag": "np-LAD1-k2-s5000-4096", "workers": 4}
+{"t": 1791163977.1, "elapsed": 984.9, "event": "h2h", "k": 2, "arm": "np", "tag": "np-LAD1-k2-s5000-4096", "wall": 32.1, "deals_paired": 4096, "adv": -0.10107421875, "ci": [-0.116455078125, -0.085693359375], "win": 0.449462890625, "cached": 43762}
+{"t": 1791163979.1, "elapsed": 986.9, "event": "h2h_start", "k": 2, "arm": "l2n:40:models/LAD1-k2.w", "tag": "l2n-40-LAD1-k2-s5000-4096", "workers": 4}
+{"t": 1791164149.7, "elapsed": 1157.5, "event": "h2h", "k": 2, "arm": "l2n", "tag": "l2n-40-LAD1-k2-s5000-4096", "wall": 170.6, "deals_paired": 4096, "adv": 0.00732421875, "ci": [-0.007568359375, 0.02294921875], "win": 0.503662109375, "cached": 30324}
+{"t": 1791164157.8, "elapsed": 1165.5, "event": "round_landed", "round": 3, "states": 417550, "wall": 290.2, "train_rows": 7039634, "val_rows": 511316, "added": [382792, 34758]}
+{"t": 1791164157.8, "elapsed": 1165.5, "event": "train_start", "k": 3, "name": "LAD1-k3", "train_rows": 7039634, "val_rows": 511316, "rounds": [3]}
+{"t": 1791164159.8, "elapsed": 1167.5, "event": "round_start", "round": 4, "net": "models/LAD1-k2.w", "workers": 12, "teacher": "search+net"}
+{"t": 1791164165.8, "elapsed": 1173.6, "event": "train_failed", "k": 3, "name": "LAD1-k3", "w": "models/LAD1-k3.w", "rounds": [3], "train_seconds": 8.1, "status": "train_failed"}
+{"t": 1791164448.7, "elapsed": 1456.4, "event": "round_landed", "round": 4, "states": 498329, "wall": 288.9, "train_rows": 7496408, "val_rows": 552871, "added": [456774, 41555]}
+{"t": 1791164448.7, "elapsed": 1456.4, "event": "train_start", "k": 4, "name": "LAD1-k4", "train_rows": 7496408, "val_rows": 552871, "rounds": [4]}
+{"t": 1791164450.7, "elapsed": 1458.5, "event": "round_start", "round": 5, "net": "models/LAD1-k2.w", "workers": 12, "teacher": "search+net"}
+{"t": 1791164456.8, "elapsed": 1464.5, "event": "train_failed", "k": 4, "name": "LAD1-k4", "w": "models/LAD1-k4.w", "rounds": [4], "train_seconds": 8.1, "status": "train_failed"}
+{"t": 1791164739.7, "elapsed": 1747.4, "event": "round_landed", "round": 5, "states": 495724, "wall": 289.0, "train_rows": 7950725, "val_rows": 594278, "added": [454317, 41407]}
+{"t": 1791164739.7, "elapsed": 1747.4, "event": "train_start", "k": 5, "name": "LAD1-k5", "train_rows": 7950725, "val_rows": 594278, "rounds": [5]}
+{"t": 1791164741.7, "elapsed": 1749.5, "event": "round_start", "round": 6, "net": "models/LAD1-k2.w", "workers": 12, "teacher": "search+net"}
+{"t": 1791164747.7, "elapsed": 1755.5, "event": "train_failed", "k": 5, "name": "LAD1-k5", "w": "models/LAD1-k5.w", "rounds": [5], "train_seconds": 8.1, "status": "train_failed"}

@@ -1,0 +1,9 @@
+{
+ "kind": "test",
+ "batch": 3,
+ "positions": 384,
+ "seconds": 0.04924862482585013,
+ "nf": 32,
+ "ladder_sha256": "f825e364cc48866a44f3b97d3f291c4f1d34aa6cdb05f8851af061af617573b9",
+ "dataset_sha256": "1a0dc1f6268ccb52c3795afd35abe323bdad002993c15ed6c757acdb088b6c6f"
+}

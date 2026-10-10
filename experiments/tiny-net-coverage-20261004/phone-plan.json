@@ -1,0 +1,17 @@
+{
+  "schema": "tiny-late-phone-hybrid-v1",
+  "tier": "exploratory",
+  "post_test_smoke": true,
+  "variants": ["teacher0", "mixed32", "late32"],
+  "source_seeds": [61010731, 61010732],
+  "rotations": [0, 1, 2, 3],
+  "roles": ["declaring", "defending"],
+  "games": 48,
+  "bid": 30,
+  "trump": 6,
+  "candidate": "Override only candidate partnership live nonforced plies16..23; frozen uniform-policy T0-128 search or frozen raw862 net; ascending exact ties",
+  "other_turns": "Same pinned phone profile on all remaining turns including early, mid, forced, settled and after23",
+  "source_separation": "Reject overlap with both pilots and initial phone fixture, no performance-based resampling",
+  "uncertainty": "Two independent source deals, rotations and role swaps correlated. Conservative interval[-1,1], no strength claim or equal-cost inference speed ratio.",
+  "resources": "Two game workers maximum; each game100s internal and120s enforced process-group cap; outercampaign295s. Local pinned WASM only. No transmissions."
+}

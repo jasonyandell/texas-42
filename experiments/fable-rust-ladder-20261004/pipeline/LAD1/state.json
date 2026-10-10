@@ -1,0 +1,147 @@
+{
+ "rounds_started": 7,
+ "rounds_landed": [
+  {
+   "r": 0,
+   "net": "models/L3c-mix-h128x2.w",
+   "states": 550928,
+   "wall": 289.2
+  },
+  {
+   "r": 1,
+   "net": "models/L3c-mix-h128x2.w",
+   "states": 452120,
+   "wall": 289.9
+  },
+  {
+   "r": 2,
+   "net": "models/LAD1-k0.w",
+   "states": 458565,
+   "wall": 290.0
+  },
+  {
+   "r": 3,
+   "net": "models/LAD1-k1.w",
+   "states": 417550,
+   "wall": 290.2
+  },
+  {
+   "r": 4,
+   "net": "models/LAD1-k2.w",
+   "states": 498329,
+   "wall": 288.9
+  },
+  {
+   "r": 5,
+   "net": "models/LAD1-k2.w",
+   "states": 495724,
+   "wall": 289.0
+  }
+ ],
+ "nets": [
+  {
+   "k": 0,
+   "name": "LAD1-k0",
+   "w": "models/LAD1-k0.w",
+   "rounds": [
+    0
+   ],
+   "train_seconds": 72.2,
+   "val_rmse": 0.1553758680820465,
+   "val_agree": 0.6266789718518888,
+   "selected_update": 28750,
+   "train_rows": 5821800,
+   "rust_agree": 0.626688949029096,
+   "status": "ready"
+  },
+  {
+   "k": 1,
+   "name": "LAD1-k1",
+   "w": "models/LAD1-k1.w",
+   "rounds": [
+    1
+   ],
+   "train_seconds": 78.3,
+   "val_rmse": 0.15686222910881042,
+   "val_agree": 0.625826425555586,
+   "selected_update": 30000,
+   "train_rows": 6236199,
+   "rust_agree": 0.6258993789839411,
+   "status": "ready"
+  },
+  {
+   "k": 2,
+   "name": "LAD1-k2",
+   "w": "models/LAD1-k2.w",
+   "rounds": [
+    2
+   ],
+   "train_seconds": 78.3,
+   "val_rmse": 0.1544203758239746,
+   "val_agree": 0.6258713524901481,
+   "selected_update": 30000,
+   "train_rows": 6656842,
+   "rust_agree": 0.6258461719245086,
+   "status": "ready"
+  },
+  {
+   "k": 3,
+   "name": "LAD1-k3",
+   "w": "models/LAD1-k3.w",
+   "rounds": [
+    3
+   ],
+   "train_seconds": 8.1,
+   "status": "train_failed"
+  },
+  {
+   "k": 4,
+   "name": "LAD1-k4",
+   "w": "models/LAD1-k4.w",
+   "rounds": [
+    4
+   ],
+   "train_seconds": 8.1,
+   "status": "train_failed"
+  },
+  {
+   "k": 5,
+   "name": "LAD1-k5",
+   "w": "models/LAD1-k5.w",
+   "rounds": [
+    5
+   ],
+   "train_seconds": 8.1,
+   "status": "train_failed"
+  }
+ ],
+ "initial_net": "models/L3c-mix-h128x2.w",
+ "pending_rounds": [],
+ "h2h_queue": [],
+ "h2h_done": [
+  [
+   0,
+   "np"
+  ],
+  [
+   0,
+   "l2n"
+  ],
+  [
+   1,
+   "np"
+  ],
+  [
+   1,
+   "l2n"
+  ],
+  [
+   2,
+   "np"
+  ],
+  [
+   2,
+   "l2n"
+  ]
+ ]
+}

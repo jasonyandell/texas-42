@@ -1,0 +1,14 @@
+{
+  "tier": "exploratory",
+  "adaptive": true,
+  "reason": "After validation-only controls, the main3648-versus912root coverage comparison also differed in maximum optimizer updates1500versus400. Check whether matching maximum updates explains the result before opening test.",
+  "models": ["subset128updates1500", "subset512updates1500"],
+  "data": "Exactly the existing912subset roots and128/512prefix-paired labels; no new label generation or source deals.",
+  "architecture": "Same raw862->32ReLU->28, same optimizer and deterministic initialization",
+  "epochs": 375,
+  "maximum_optimizer_updates": 1500,
+  "checkpoint_selection": "Same512late128-world validation panel MSE, all375epochs; selected updates can still differ and must be reported",
+  "primary_gate": "Failed late32 primary gate remains failed; these adaptive diagnostic controls do not trigger or replace a rung.",
+  "holdout": "Both new weights frozen before generating/reading reserved test reference",
+  "resources": "Each375epoch invocation capped295seconds; localMetalGPU; no added data/no cloud/external/production"
+}

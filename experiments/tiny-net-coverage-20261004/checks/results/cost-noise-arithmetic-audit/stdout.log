@@ -1,0 +1,45 @@
+{
+  "budgets": {
+    "mixed128": {
+      "roots": 4160,
+      "root_worlds": 532480,
+      "candidate_continuations": 1905024,
+      "summed_worker_wall_seconds": 3.281729246955365
+    },
+    "late128": {
+      "roots": 4160,
+      "root_worlds": 532480,
+      "candidate_continuations": 1353984,
+      "summed_worker_wall_seconds": 2.3905542069114745
+    },
+    "subset128": {
+      "roots": 1424,
+      "root_worlds": 182272,
+      "candidate_continuations": 463488,
+      "summed_worker_wall_seconds": 0.6797201272565871
+    },
+    "subset512": {
+      "roots": 1424,
+      "root_worlds": 532480,
+      "candidate_continuations": 1356288,
+      "summed_worker_wall_seconds": 0.8717380007728934
+    },
+    "teacher128": {
+      "roots": 2044,
+      "root_worlds": 261632,
+      "candidate_continuations": 867072,
+      "summed_worker_wall_seconds": 1.2193588349036872
+    },
+    "reference0": {
+      "roots": 2044,
+      "root_worlds": 8372224,
+      "candidate_continuations": 27746304,
+      "summed_worker_wall_seconds": 11.736444958718494
+    }
+  },
+  "label_noise_unscaled_legal_centered_variances": [
+    0.0002488956028966003,
+    6.224632973501665e-05
+  ],
+  "maximum_vs_selected_updates_checked": true
+}

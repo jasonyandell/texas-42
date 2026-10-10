@@ -1,0 +1,7 @@
+; A public, mechanical candidate description. No outcome or solver label.
+; Partner is currently winning, and this legal count play leaves partner ahead
+; immediately after our move. A later opponent may still take the trick.
+(fix
+  (roles (domino offer))
+  (out offer)
+  (case (offer-count-to-partner offer)))

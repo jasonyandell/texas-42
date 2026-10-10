@@ -1,0 +1,17 @@
+{
+  "rule_pairs": 74088,
+  "sampler": {
+    "samples": 30000,
+    "exact_support_size": 30,
+    "chi_square": 33.412
+  },
+  "native_python": {
+    "roots": 120,
+    "paired_outcomes": 8636,
+    "net_encoding_choices": 120,
+    "bidder_parities": [
+      0,
+      1
+    ]
+  }
+}

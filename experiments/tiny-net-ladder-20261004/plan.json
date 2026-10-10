@@ -1,0 +1,37 @@
+{
+  "schema": "tiny-net-ladder-plan-v1",
+  "tier": "exploratory",
+  "source_base_commit": "92cc1ac3",
+  "source_deals": 2048,
+  "split_deals": {
+    "train": 1536,
+    "validation": 256,
+    "test": 256
+  },
+  "roots_per_deal_max": 3,
+  "root_strata": [
+    [
+      0,
+      7
+    ],
+    [
+      8,
+      15
+    ],
+    [
+      16,
+      23
+    ]
+  ],
+  "contract": "fixed bid30; trump uniform0..6; bidder uniform0..3 independent of hands; no bidding model",
+  "label_worlds": 128,
+  "reference_worlds": 4096,
+  "seed": 61010411,
+  "belief_model": "uniform over full deals compatible with own original hand and legal public history, ignores action likelihood and bidding; support-conditioned surrogate, not true gameplay posterior",
+  "rung_indexing": "P-1=uniform legal continuation for every actor; T0=all-action one-deviation Q under frozen P-1; N0=advantage regression of T0; P0=legal argmax N0; T1=one-deviation Q under frozen P0 for ALL actors; N1=regression T1",
+  "ties": "ascending physical tile id at exact argmax; random baseline expected uniform legal action",
+  "gate": "validation only: T0-128 teacher beats uniform random and ascending; N0 reduces mean reference regret >=20% vs uniform random, paired source-deal bootstrap upper95% net-minus-random <0, and net mean regret <= ascending; otherwise diagnostic capacity/noise control, no automatic rung",
+  "resources": "each command process-group watchdog <=295sec, native labels at most two workers, GPU MLX training; no cloud/no external sends; initial 2048deals, no test tuning",
+  "encoding": "862 raw inputs: tile x own-current/unseen/relative-seat-by-trick (30 states), trump7, bidder4, leader4, table-offset4, own/opp points and bid (3 scaled scalars); no hidden hands/source id/rng seed",
+  "architecture": "862->32 ReLU->28, masked centered action-advantage MSE per root; also linear and ascending/highest/random baselines"
+}

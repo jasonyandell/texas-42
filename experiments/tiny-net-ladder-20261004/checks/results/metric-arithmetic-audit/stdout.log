@@ -1,0 +1,46 @@
+{
+  "validation0": {
+    "verified_roots": 608,
+    "source_deals": 256,
+    "packed_Q_regret_arithmetic": "pass"
+  },
+  "validation1": {
+    "verified_roots": 608,
+    "source_deals": 256,
+    "packed_Q_regret_arithmetic": "pass",
+    "n1_minus_n0_same_reference_regret": {
+      "mean": -0.0008697509765624998,
+      "independent_bootstrap10000_ci95": [
+        -0.005486539999643962,
+        0.0037127733230590803
+      ],
+      "lower_is_better": true
+    }
+  },
+  "test0": {
+    "verified_roots": 605,
+    "source_deals": 256,
+    "packed_Q_regret_arithmetic": "pass",
+    "n1_minus_n0_same_reference_regret": {
+      "mean": 0.002209027608235677,
+      "independent_bootstrap10000_ci95": [
+        -0.002049962679545085,
+        0.006921454270680745
+      ],
+      "lower_is_better": true
+    }
+  },
+  "test1": {
+    "verified_roots": 605,
+    "source_deals": 256,
+    "packed_Q_regret_arithmetic": "pass",
+    "n1_minus_n0_same_reference_regret": {
+      "mean": -0.0013084411621093754,
+      "independent_bootstrap10000_ci95": [
+        -0.006174616018931071,
+        0.0038312713305155392
+      ],
+      "lower_is_better": true
+    }
+  }
+}

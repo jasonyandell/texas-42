@@ -1,0 +1,4109 @@
+{
+ "block": 12,
+ "deals": 512,
+ "rows": 1520,
+ "seconds": 3.9615995408967137,
+ "bands": [
+  512,
+  512,
+  496
+ ],
+ "mining": [
+  {
+   "source_index": 24576,
+   "unique_candidates_by_band": [
+    36,
+    37,
+    12
+   ]
+  },
+  {
+   "source_index": 24577,
+   "unique_candidates_by_band": [
+    40,
+    28,
+    25
+   ]
+  },
+  {
+   "source_index": 24578,
+   "unique_candidates_by_band": [
+    20,
+    14,
+    12
+   ]
+  },
+  {
+   "source_index": 24579,
+   "unique_candidates_by_band": [
+    17,
+    3,
+    5
+   ]
+  },
+  {
+   "source_index": 24580,
+   "unique_candidates_by_band": [
+    26,
+    28,
+    23
+   ]
+  },
+  {
+   "source_index": 24581,
+   "unique_candidates_by_band": [
+    42,
+    39,
+    22
+   ]
+  },
+  {
+   "source_index": 24582,
+   "unique_candidates_by_band": [
+    31,
+    42,
+    31
+   ]
+  },
+  {
+   "source_index": 24583,
+   "unique_candidates_by_band": [
+    31,
+    43,
+    32
+   ]
+  },
+  {
+   "source_index": 24584,
+   "unique_candidates_by_band": [
+    26,
+    32,
+    34
+   ]
+  },
+  {
+   "source_index": 24585,
+   "unique_candidates_by_band": [
+    33,
+    32,
+    10
+   ]
+  },
+  {
+   "source_index": 24586,
+   "unique_candidates_by_band": [
+    29,
+    20,
+    3
+   ]
+  },
+  {
+   "source_index": 24587,
+   "unique_candidates_by_band": [
+    28,
+    37,
+    25
+   ]
+  },
+  {
+   "source_index": 24588,
+   "unique_candidates_by_band": [
+    32,
+    38,
+    34
+   ]
+  },
+  {
+   "source_index": 24589,
+   "unique_candidates_by_band": [
+    24,
+    42,
+    20
+   ]
+  },
+  {
+   "source_index": 24590,
+   "unique_candidates_by_band": [
+    28,
+    47,
+    19
+   ]
+  },
+  {
+   "source_index": 24591,
+   "unique_candidates_by_band": [
+    29,
+    43,
+    26
+   ]
+  },
+  {
+   "source_index": 24592,
+   "unique_candidates_by_band": [
+    34,
+    25,
+    12
+   ]
+  },
+  {
+   "source_index": 24593,
+   "unique_candidates_by_band": [
+    32,
+    18,
+    7
+   ]
+  },
+  {
+   "source_index": 24594,
+   "unique_candidates_by_band": [
+    22,
+    32,
+    12
+   ]
+  },
+  {
+   "source_index": 24595,
+   "unique_candidates_by_band": [
+    43,
+    40,
+    10
+   ]
+  },
+  {
+   "source_index": 24596,
+   "unique_candidates_by_band": [
+    29,
+    24,
+    7
+   ]
+  },
+  {
+   "source_index": 24597,
+   "unique_candidates_by_band": [
+    22,
+    26,
+    18
+   ]
+  },
+  {
+   "source_index": 24598,
+   "unique_candidates_by_band": [
+    29,
+    37,
+    14
+   ]
+  },
+  {
+   "source_index": 24599,
+   "unique_candidates_by_band": [
+    34,
+    43,
+    28
+   ]
+  },
+  {
+   "source_index": 24600,
+   "unique_candidates_by_band": [
+    33,
+    35,
+    22
+   ]
+  },
+  {
+   "source_index": 24601,
+   "unique_candidates_by_band": [
+    34,
+    22,
+    11
+   ]
+  },
+  {
+   "source_index": 24602,
+   "unique_candidates_by_band": [
+    21,
+    22,
+    8
+   ]
+  },
+  {
+   "source_index": 24603,
+   "unique_candidates_by_band": [
+    39,
+    37,
+    41
+   ]
+  },
+  {
+   "source_index": 24604,
+   "unique_candidates_by_band": [
+    27,
+    37,
+    26
+   ]
+  },
+  {
+   "source_index": 24605,
+   "unique_candidates_by_band": [
+    43,
+    51,
+    38
+   ]
+  },
+  {
+   "source_index": 24606,
+   "unique_candidates_by_band": [
+    37,
+    31,
+    27
+   ]
+  },
+  {
+   "source_index": 24607,
+   "unique_candidates_by_band": [
+    31,
+    28,
+    24
+   ]
+  },
+  {
+   "source_index": 24608,
+   "unique_candidates_by_band": [
+    32,
+    17,
+    12
+   ]
+  },
+  {
+   "source_index": 24609,
+   "unique_candidates_by_band": [
+    26,
+    32,
+    14
+   ]
+  },
+  {
+   "source_index": 24610,
+   "unique_candidates_by_band": [
+    30,
+    31,
+    17
+   ]
+  },
+  {
+   "source_index": 24611,
+   "unique_candidates_by_band": [
+    33,
+    34,
+    14
+   ]
+  },
+  {
+   "source_index": 24612,
+   "unique_candidates_by_band": [
+    32,
+    42,
+    19
+   ]
+  },
+  {
+   "source_index": 24613,
+   "unique_candidates_by_band": [
+    40,
+    39,
+    26
+   ]
+  },
+  {
+   "source_index": 24614,
+   "unique_candidates_by_band": [
+    30,
+    26,
+    9
+   ]
+  },
+  {
+   "source_index": 24615,
+   "unique_candidates_by_band": [
+    25,
+    39,
+    19
+   ]
+  },
+  {
+   "source_index": 24616,
+   "unique_candidates_by_band": [
+    32,
+    40,
+    6
+   ]
+  },
+  {
+   "source_index": 24617,
+   "unique_candidates_by_band": [
+    29,
+    42,
+    20
+   ]
+  },
+  {
+   "source_index": 24618,
+   "unique_candidates_by_band": [
+    18,
+    18,
+    14
+   ]
+  },
+  {
+   "source_index": 24619,
+   "unique_candidates_by_band": [
+    32,
+    50,
+    34
+   ]
+  },
+  {
+   "source_index": 24620,
+   "unique_candidates_by_band": [
+    29,
+    36,
+    22
+   ]
+  },
+  {
+   "source_index": 24621,
+   "unique_candidates_by_band": [
+    29,
+    44,
+    18
+   ]
+  },
+  {
+   "source_index": 24622,
+   "unique_candidates_by_band": [
+    28,
+    32,
+    15
+   ]
+  },
+  {
+   "source_index": 24623,
+   "unique_candidates_by_band": [
+    37,
+    40,
+    22
+   ]
+  },
+  {
+   "source_index": 24624,
+   "unique_candidates_by_band": [
+    32,
+    28,
+    26
+   ]
+  },
+  {
+   "source_index": 24625,
+   "unique_candidates_by_band": [
+    37,
+    39,
+    24
+   ]
+  },
+  {
+   "source_index": 24626,
+   "unique_candidates_by_band": [
+    35,
+    33,
+    12
+   ]
+  },
+  {
+   "source_index": 24627,
+   "unique_candidates_by_band": [
+    31,
+    38,
+    22
+   ]
+  },
+  {
+   "source_index": 24628,
+   "unique_candidates_by_band": [
+    30,
+    45,
+    39
+   ]
+  },
+  {
+   "source_index": 24629,
+   "unique_candidates_by_band": [
+    32,
+    30,
+    13
+   ]
+  },
+  {
+   "source_index": 24630,
+   "unique_candidates_by_band": [
+    44,
+    53,
+    43
+   ]
+  },
+  {
+   "source_index": 24631,
+   "unique_candidates_by_band": [
+    27,
+    49,
+    30
+   ]
+  },
+  {
+   "source_index": 24632,
+   "unique_candidates_by_band": [
+    35,
+    45,
+    33
+   ]
+  },
+  {
+   "source_index": 24633,
+   "unique_candidates_by_band": [
+    25,
+    40,
+    21
+   ]
+  },
+  {
+   "source_index": 24634,
+   "unique_candidates_by_band": [
+    29,
+    46,
+    40
+   ]
+  },
+  {
+   "source_index": 24635,
+   "unique_candidates_by_band": [
+    34,
+    29,
+    16
+   ]
+  },
+  {
+   "source_index": 24636,
+   "unique_candidates_by_band": [
+    29,
+    40,
+    26
+   ]
+  },
+  {
+   "source_index": 24637,
+   "unique_candidates_by_band": [
+    30,
+    16,
+    0
+   ]
+  },
+  {
+   "source_index": 24638,
+   "unique_candidates_by_band": [
+    37,
+    30,
+    15
+   ]
+  },
+  {
+   "source_index": 24639,
+   "unique_candidates_by_band": [
+    28,
+    28,
+    15
+   ]
+  },
+  {
+   "source_index": 24640,
+   "unique_candidates_by_band": [
+    37,
+    44,
+    38
+   ]
+  },
+  {
+   "source_index": 24641,
+   "unique_candidates_by_band": [
+    38,
+    46,
+    26
+   ]
+  },
+  {
+   "source_index": 24642,
+   "unique_candidates_by_band": [
+    35,
+    27,
+    30
+   ]
+  },
+  {
+   "source_index": 24643,
+   "unique_candidates_by_band": [
+    36,
+    23,
+    15
+   ]
+  },
+  {
+   "source_index": 24644,
+   "unique_candidates_by_band": [
+    34,
+    32,
+    10
+   ]
+  },
+  {
+   "source_index": 24645,
+   "unique_candidates_by_band": [
+    41,
+    41,
+    26
+   ]
+  },
+  {
+   "source_index": 24646,
+   "unique_candidates_by_band": [
+    32,
+    33,
+    25
+   ]
+  },
+  {
+   "source_index": 24647,
+   "unique_candidates_by_band": [
+    24,
+    42,
+    38
+   ]
+  },
+  {
+   "source_index": 24648,
+   "unique_candidates_by_band": [
+    35,
+    37,
+    10
+   ]
+  },
+  {
+   "source_index": 24649,
+   "unique_candidates_by_band": [
+    22,
+    35,
+    15
+   ]
+  },
+  {
+   "source_index": 24650,
+   "unique_candidates_by_band": [
+    40,
+    31,
+    8
+   ]
+  },
+  {
+   "source_index": 24651,
+   "unique_candidates_by_band": [
+    30,
+    24,
+    12
+   ]
+  },
+  {
+   "source_index": 24652,
+   "unique_candidates_by_band": [
+    32,
+    42,
+    41
+   ]
+  },
+  {
+   "source_index": 24653,
+   "unique_candidates_by_band": [
+    34,
+    30,
+    10
+   ]
+  },
+  {
+   "source_index": 24654,
+   "unique_candidates_by_band": [
+    25,
+    38,
+    15
+   ]
+  },
+  {
+   "source_index": 24655,
+   "unique_candidates_by_band": [
+    24,
+    18,
+    7
+   ]
+  },
+  {
+   "source_index": 24656,
+   "unique_candidates_by_band": [
+    40,
+    37,
+    24
+   ]
+  },
+  {
+   "source_index": 24657,
+   "unique_candidates_by_band": [
+    22,
+    27,
+    5
+   ]
+  },
+  {
+   "source_index": 24658,
+   "unique_candidates_by_band": [
+    31,
+    24,
+    8
+   ]
+  },
+  {
+   "source_index": 24659,
+   "unique_candidates_by_band": [
+    25,
+    25,
+    4
+   ]
+  },
+  {
+   "source_index": 24660,
+   "unique_candidates_by_band": [
+    34,
+    26,
+    0
+   ]
+  },
+  {
+   "source_index": 24661,
+   "unique_candidates_by_band": [
+    37,
+    50,
+    44
+   ]
+  },
+  {
+   "source_index": 24662,
+   "unique_candidates_by_band": [
+    38,
+    31,
+    3
+   ]
+  },
+  {
+   "source_index": 24663,
+   "unique_candidates_by_band": [
+    26,
+    30,
+    20
+   ]
+  },
+  {
+   "source_index": 24664,
+   "unique_candidates_by_band": [
+    25,
+    29,
+    10
+   ]
+  },
+  {
+   "source_index": 24665,
+   "unique_candidates_by_band": [
+    27,
+    40,
+    34
+   ]
+  },
+  {
+   "source_index": 24666,
+   "unique_candidates_by_band": [
+    9,
+    6,
+    0
+   ]
+  },
+  {
+   "source_index": 24667,
+   "unique_candidates_by_band": [
+    24,
+    26,
+    19
+   ]
+  },
+  {
+   "source_index": 24668,
+   "unique_candidates_by_band": [
+    27,
+    23,
+    0
+   ]
+  },
+  {
+   "source_index": 24669,
+   "unique_candidates_by_band": [
+    26,
+    16,
+    0
+   ]
+  },
+  {
+   "source_index": 24670,
+   "unique_candidates_by_band": [
+    32,
+    35,
+    14
+   ]
+  },
+  {
+   "source_index": 24671,
+   "unique_candidates_by_band": [
+    26,
+    37,
+    20
+   ]
+  },
+  {
+   "source_index": 24672,
+   "unique_candidates_by_band": [
+    29,
+    37,
+    27
+   ]
+  },
+  {
+   "source_index": 24673,
+   "unique_candidates_by_band": [
+    36,
+    30,
+    22
+   ]
+  },
+  {
+   "source_index": 24674,
+   "unique_candidates_by_band": [
+    23,
+    37,
+    32
+   ]
+  },
+  {
+   "source_index": 24675,
+   "unique_candidates_by_band": [
+    28,
+    22,
+    0
+   ]
+  },
+  {
+   "source_index": 24676,
+   "unique_candidates_by_band": [
+    34,
+    44,
+    18
+   ]
+  },
+  {
+   "source_index": 24677,
+   "unique_candidates_by_band": [
+    35,
+    32,
+    31
+   ]
+  },
+  {
+   "source_index": 24678,
+   "unique_candidates_by_band": [
+    21,
+    37,
+    33
+   ]
+  },
+  {
+   "source_index": 24679,
+   "unique_candidates_by_band": [
+    37,
+    41,
+    34
+   ]
+  },
+  {
+   "source_index": 24680,
+   "unique_candidates_by_band": [
+    38,
+    38,
+    15
+   ]
+  },
+  {
+   "source_index": 24681,
+   "unique_candidates_by_band": [
+    38,
+    48,
+    15
+   ]
+  },
+  {
+   "source_index": 24682,
+   "unique_candidates_by_band": [
+    38,
+    33,
+    10
+   ]
+  },
+  {
+   "source_index": 24683,
+   "unique_candidates_by_band": [
+    26,
+    24,
+    4
+   ]
+  },
+  {
+   "source_index": 24684,
+   "unique_candidates_by_band": [
+    34,
+    17,
+    0
+   ]
+  },
+  {
+   "source_index": 24685,
+   "unique_candidates_by_band": [
+    26,
+    46,
+    40
+   ]
+  },
+  {
+   "source_index": 24686,
+   "unique_candidates_by_band": [
+    35,
+    22,
+    13
+   ]
+  },
+  {
+   "source_index": 24687,
+   "unique_candidates_by_band": [
+    41,
+    44,
+    16
+   ]
+  },
+  {
+   "source_index": 24688,
+   "unique_candidates_by_band": [
+    34,
+    28,
+    20
+   ]
+  },
+  {
+   "source_index": 24689,
+   "unique_candidates_by_band": [
+    35,
+    40,
+    32
+   ]
+  },
+  {
+   "source_index": 24690,
+   "unique_candidates_by_band": [
+    40,
+    25,
+    17
+   ]
+  },
+  {
+   "source_index": 24691,
+   "unique_candidates_by_band": [
+    31,
+    40,
+    29
+   ]
+  },
+  {
+   "source_index": 24692,
+   "unique_candidates_by_band": [
+    28,
+    35,
+    30
+   ]
+  },
+  {
+   "source_index": 24693,
+   "unique_candidates_by_band": [
+    19,
+    23,
+    6
+   ]
+  },
+  {
+   "source_index": 24694,
+   "unique_candidates_by_band": [
+    35,
+    26,
+    5
+   ]
+  },
+  {
+   "source_index": 24695,
+   "unique_candidates_by_band": [
+    31,
+    22,
+    8
+   ]
+  },
+  {
+   "source_index": 24696,
+   "unique_candidates_by_band": [
+    18,
+    20,
+    3
+   ]
+  },
+  {
+   "source_index": 24697,
+   "unique_candidates_by_band": [
+    20,
+    28,
+    26
+   ]
+  },
+  {
+   "source_index": 24698,
+   "unique_candidates_by_band": [
+    35,
+    51,
+    28
+   ]
+  },
+  {
+   "source_index": 24699,
+   "unique_candidates_by_band": [
+    21,
+    15,
+    3
+   ]
+  },
+  {
+   "source_index": 24700,
+   "unique_candidates_by_band": [
+    27,
+    45,
+    46
+   ]
+  },
+  {
+   "source_index": 24701,
+   "unique_candidates_by_band": [
+    39,
+    32,
+    25
+   ]
+  },
+  {
+   "source_index": 24702,
+   "unique_candidates_by_band": [
+    37,
+    33,
+    16
+   ]
+  },
+  {
+   "source_index": 24703,
+   "unique_candidates_by_band": [
+    26,
+    40,
+    22
+   ]
+  },
+  {
+   "source_index": 24704,
+   "unique_candidates_by_band": [
+    31,
+    34,
+    17
+   ]
+  },
+  {
+   "source_index": 24705,
+   "unique_candidates_by_band": [
+    42,
+    28,
+    13
+   ]
+  },
+  {
+   "source_index": 24706,
+   "unique_candidates_by_band": [
+    35,
+    38,
+    23
+   ]
+  },
+  {
+   "source_index": 24707,
+   "unique_candidates_by_band": [
+    32,
+    40,
+    23
+   ]
+  },
+  {
+   "source_index": 24708,
+   "unique_candidates_by_band": [
+    24,
+    40,
+    32
+   ]
+  },
+  {
+   "source_index": 24709,
+   "unique_candidates_by_band": [
+    26,
+    34,
+    22
+   ]
+  },
+  {
+   "source_index": 24710,
+   "unique_candidates_by_band": [
+    17,
+    33,
+    17
+   ]
+  },
+  {
+   "source_index": 24711,
+   "unique_candidates_by_band": [
+    38,
+    27,
+    7
+   ]
+  },
+  {
+   "source_index": 24712,
+   "unique_candidates_by_band": [
+    38,
+    30,
+    21
+   ]
+  },
+  {
+   "source_index": 24713,
+   "unique_candidates_by_band": [
+    32,
+    41,
+    44
+   ]
+  },
+  {
+   "source_index": 24714,
+   "unique_candidates_by_band": [
+    40,
+    19,
+    11
+   ]
+  },
+  {
+   "source_index": 24715,
+   "unique_candidates_by_band": [
+    45,
+    40,
+    13
+   ]
+  },
+  {
+   "source_index": 24716,
+   "unique_candidates_by_band": [
+    39,
+    41,
+    23
+   ]
+  },
+  {
+   "source_index": 24717,
+   "unique_candidates_by_band": [
+    43,
+    47,
+    15
+   ]
+  },
+  {
+   "source_index": 24718,
+   "unique_candidates_by_band": [
+    38,
+    35,
+    24
+   ]
+  },
+  {
+   "source_index": 24719,
+   "unique_candidates_by_band": [
+    36,
+    43,
+    21
+   ]
+  },
+  {
+   "source_index": 24720,
+   "unique_candidates_by_band": [
+    30,
+    34,
+    25
+   ]
+  },
+  {
+   "source_index": 24721,
+   "unique_candidates_by_band": [
+    22,
+    19,
+    9
+   ]
+  },
+  {
+   "source_index": 24722,
+   "unique_candidates_by_band": [
+    23,
+    33,
+    20
+   ]
+  },
+  {
+   "source_index": 24723,
+   "unique_candidates_by_band": [
+    30,
+    39,
+    48
+   ]
+  },
+  {
+   "source_index": 24724,
+   "unique_candidates_by_band": [
+    31,
+    36,
+    30
+   ]
+  },
+  {
+   "source_index": 24725,
+   "unique_candidates_by_band": [
+    34,
+    39,
+    40
+   ]
+  },
+  {
+   "source_index": 24726,
+   "unique_candidates_by_band": [
+    28,
+    29,
+    22
+   ]
+  },
+  {
+   "source_index": 24727,
+   "unique_candidates_by_band": [
+    35,
+    37,
+    37
+   ]
+  },
+  {
+   "source_index": 24728,
+   "unique_candidates_by_band": [
+    25,
+    38,
+    41
+   ]
+  },
+  {
+   "source_index": 24729,
+   "unique_candidates_by_band": [
+    27,
+    41,
+    36
+   ]
+  },
+  {
+   "source_index": 24730,
+   "unique_candidates_by_band": [
+    26,
+    30,
+    19
+   ]
+  },
+  {
+   "source_index": 24731,
+   "unique_candidates_by_band": [
+    23,
+    25,
+    4
+   ]
+  },
+  {
+   "source_index": 24732,
+   "unique_candidates_by_band": [
+    30,
+    32,
+    31
+   ]
+  },
+  {
+   "source_index": 24733,
+   "unique_candidates_by_band": [
+    26,
+    19,
+    20
+   ]
+  },
+  {
+   "source_index": 24734,
+   "unique_candidates_by_band": [
+    28,
+    33,
+    8
+   ]
+  },
+  {
+   "source_index": 24735,
+   "unique_candidates_by_band": [
+    45,
+    45,
+    32
+   ]
+  },
+  {
+   "source_index": 24736,
+   "unique_candidates_by_band": [
+    28,
+    17,
+    3
+   ]
+  },
+  {
+   "source_index": 24737,
+   "unique_candidates_by_band": [
+    33,
+    36,
+    33
+   ]
+  },
+  {
+   "source_index": 24738,
+   "unique_candidates_by_band": [
+    25,
+    26,
+    17
+   ]
+  },
+  {
+   "source_index": 24739,
+   "unique_candidates_by_band": [
+    39,
+    31,
+    0
+   ]
+  },
+  {
+   "source_index": 24740,
+   "unique_candidates_by_band": [
+    29,
+    38,
+    25
+   ]
+  },
+  {
+   "source_index": 24741,
+   "unique_candidates_by_band": [
+    27,
+    29,
+    18
+   ]
+  },
+  {
+   "source_index": 24742,
+   "unique_candidates_by_band": [
+    30,
+    37,
+    23
+   ]
+  },
+  {
+   "source_index": 24743,
+   "unique_candidates_by_band": [
+    34,
+    38,
+    25
+   ]
+  },
+  {
+   "source_index": 24744,
+   "unique_candidates_by_band": [
+    23,
+    32,
+    19
+   ]
+  },
+  {
+   "source_index": 24745,
+   "unique_candidates_by_band": [
+    29,
+    34,
+    20
+   ]
+  },
+  {
+   "source_index": 24746,
+   "unique_candidates_by_band": [
+    40,
+    26,
+    17
+   ]
+  },
+  {
+   "source_index": 24747,
+   "unique_candidates_by_band": [
+    15,
+    41,
+    36
+   ]
+  },
+  {
+   "source_index": 24748,
+   "unique_candidates_by_band": [
+    41,
+    33,
+    11
+   ]
+  },
+  {
+   "source_index": 24749,
+   "unique_candidates_by_band": [
+    34,
+    42,
+    41
+   ]
+  },
+  {
+   "source_index": 24750,
+   "unique_candidates_by_band": [
+    28,
+    35,
+    17
+   ]
+  },
+  {
+   "source_index": 24751,
+   "unique_candidates_by_band": [
+    31,
+    27,
+    3
+   ]
+  },
+  {
+   "source_index": 24752,
+   "unique_candidates_by_band": [
+    36,
+    32,
+    21
+   ]
+  },
+  {
+   "source_index": 24753,
+   "unique_candidates_by_band": [
+    16,
+    37,
+    38
+   ]
+  },
+  {
+   "source_index": 24754,
+   "unique_candidates_by_band": [
+    39,
+    35,
+    22
+   ]
+  },
+  {
+   "source_index": 24755,
+   "unique_candidates_by_band": [
+    32,
+    36,
+    19
+   ]
+  },
+  {
+   "source_index": 24756,
+   "unique_candidates_by_band": [
+    36,
+    37,
+    36
+   ]
+  },
+  {
+   "source_index": 24757,
+   "unique_candidates_by_band": [
+    34,
+    39,
+    26
+   ]
+  },
+  {
+   "source_index": 24758,
+   "unique_candidates_by_band": [
+    27,
+    36,
+    21
+   ]
+  },
+  {
+   "source_index": 24759,
+   "unique_candidates_by_band": [
+    33,
+    26,
+    1
+   ]
+  },
+  {
+   "source_index": 24760,
+   "unique_candidates_by_band": [
+    25,
+    17,
+    9
+   ]
+  },
+  {
+   "source_index": 24761,
+   "unique_candidates_by_band": [
+    30,
+    48,
+    28
+   ]
+  },
+  {
+   "source_index": 24762,
+   "unique_candidates_by_band": [
+    34,
+    26,
+    27
+   ]
+  },
+  {
+   "source_index": 24763,
+   "unique_candidates_by_band": [
+    33,
+    35,
+    19
+   ]
+  },
+  {
+   "source_index": 24764,
+   "unique_candidates_by_band": [
+    31,
+    46,
+    20
+   ]
+  },
+  {
+   "source_index": 24765,
+   "unique_candidates_by_band": [
+    34,
+    37,
+    24
+   ]
+  },
+  {
+   "source_index": 24766,
+   "unique_candidates_by_band": [
+    41,
+    16,
+    0
+   ]
+  },
+  {
+   "source_index": 24767,
+   "unique_candidates_by_band": [
+    29,
+    37,
+    29
+   ]
+  },
+  {
+   "source_index": 24768,
+   "unique_candidates_by_band": [
+    40,
+    20,
+    13
+   ]
+  },
+  {
+   "source_index": 24769,
+   "unique_candidates_by_band": [
+    24,
+    24,
+    21
+   ]
+  },
+  {
+   "source_index": 24770,
+   "unique_candidates_by_band": [
+    28,
+    14,
+    0
+   ]
+  },
+  {
+   "source_index": 24771,
+   "unique_candidates_by_band": [
+    34,
+    39,
+    33
+   ]
+  },
+  {
+   "source_index": 24772,
+   "unique_candidates_by_band": [
+    34,
+    37,
+    30
+   ]
+  },
+  {
+   "source_index": 24773,
+   "unique_candidates_by_band": [
+    33,
+    29,
+    8
+   ]
+  },
+  {
+   "source_index": 24774,
+   "unique_candidates_by_band": [
+    32,
+    37,
+    18
+   ]
+  },
+  {
+   "source_index": 24775,
+   "unique_candidates_by_band": [
+    39,
+    26,
+    15
+   ]
+  },
+  {
+   "source_index": 24776,
+   "unique_candidates_by_band": [
+    35,
+    36,
+    29
+   ]
+  },
+  {
+   "source_index": 24777,
+   "unique_candidates_by_band": [
+    39,
+    45,
+    31
+   ]
+  },
+  {
+   "source_index": 24778,
+   "unique_candidates_by_band": [
+    37,
+    44,
+    24
+   ]
+  },
+  {
+   "source_index": 24779,
+   "unique_candidates_by_band": [
+    17,
+    16,
+    9
+   ]
+  },
+  {
+   "source_index": 24780,
+   "unique_candidates_by_band": [
+    27,
+    24,
+    17
+   ]
+  },
+  {
+   "source_index": 24781,
+   "unique_candidates_by_band": [
+    31,
+    18,
+    10
+   ]
+  },
+  {
+   "source_index": 24782,
+   "unique_candidates_by_band": [
+    41,
+    39,
+    17
+   ]
+  },
+  {
+   "source_index": 24783,
+   "unique_candidates_by_band": [
+    34,
+    28,
+    15
+   ]
+  },
+  {
+   "source_index": 24784,
+   "unique_candidates_by_band": [
+    35,
+    37,
+    14
+   ]
+  },
+  {
+   "source_index": 24785,
+   "unique_candidates_by_band": [
+    32,
+    41,
+    18
+   ]
+  },
+  {
+   "source_index": 24786,
+   "unique_candidates_by_band": [
+    32,
+    21,
+    2
+   ]
+  },
+  {
+   "source_index": 24787,
+   "unique_candidates_by_band": [
+    27,
+    15,
+    17
+   ]
+  },
+  {
+   "source_index": 24788,
+   "unique_candidates_by_band": [
+    39,
+    33,
+    13
+   ]
+  },
+  {
+   "source_index": 24789,
+   "unique_candidates_by_band": [
+    23,
+    32,
+    7
+   ]
+  },
+  {
+   "source_index": 24790,
+   "unique_candidates_by_band": [
+    25,
+    42,
+    27
+   ]
+  },
+  {
+   "source_index": 24791,
+   "unique_candidates_by_band": [
+    18,
+    30,
+    12
+   ]
+  },
+  {
+   "source_index": 24792,
+   "unique_candidates_by_band": [
+    47,
+    43,
+    31
+   ]
+  },
+  {
+   "source_index": 24793,
+   "unique_candidates_by_band": [
+    26,
+    30,
+    40
+   ]
+  },
+  {
+   "source_index": 24794,
+   "unique_candidates_by_band": [
+    22,
+    40,
+    34
+   ]
+  },
+  {
+   "source_index": 24795,
+   "unique_candidates_by_band": [
+    21,
+    35,
+    14
+   ]
+  },
+  {
+   "source_index": 24796,
+   "unique_candidates_by_band": [
+    43,
+    23,
+    5
+   ]
+  },
+  {
+   "source_index": 24797,
+   "unique_candidates_by_band": [
+    33,
+    42,
+    20
+   ]
+  },
+  {
+   "source_index": 24798,
+   "unique_candidates_by_band": [
+    23,
+    27,
+    14
+   ]
+  },
+  {
+   "source_index": 24799,
+   "unique_candidates_by_band": [
+    33,
+    20,
+    2
+   ]
+  },
+  {
+   "source_index": 24800,
+   "unique_candidates_by_band": [
+    36,
+    27,
+    12
+   ]
+  },
+  {
+   "source_index": 24801,
+   "unique_candidates_by_band": [
+    35,
+    31,
+    14
+   ]
+  },
+  {
+   "source_index": 24802,
+   "unique_candidates_by_band": [
+    36,
+    39,
+    38
+   ]
+  },
+  {
+   "source_index": 24803,
+   "unique_candidates_by_band": [
+    38,
+    46,
+    29
+   ]
+  },
+  {
+   "source_index": 24804,
+   "unique_candidates_by_band": [
+    32,
+    31,
+    24
+   ]
+  },
+  {
+   "source_index": 24805,
+   "unique_candidates_by_band": [
+    30,
+    37,
+    23
+   ]
+  },
+  {
+   "source_index": 24806,
+   "unique_candidates_by_band": [
+    19,
+    38,
+    41
+   ]
+  },
+  {
+   "source_index": 24807,
+   "unique_candidates_by_band": [
+    34,
+    33,
+    19
+   ]
+  },
+  {
+   "source_index": 24808,
+   "unique_candidates_by_band": [
+    29,
+    33,
+    13
+   ]
+  },
+  {
+   "source_index": 24809,
+   "unique_candidates_by_band": [
+    25,
+    36,
+    26
+   ]
+  },
+  {
+   "source_index": 24810,
+   "unique_candidates_by_band": [
+    34,
+    26,
+    16
+   ]
+  },
+  {
+   "source_index": 24811,
+   "unique_candidates_by_band": [
+    26,
+    19,
+    3
+   ]
+  },
+  {
+   "source_index": 24812,
+   "unique_candidates_by_band": [
+    33,
+    50,
+    34
+   ]
+  },
+  {
+   "source_index": 24813,
+   "unique_candidates_by_band": [
+    30,
+    32,
+    9
+   ]
+  },
+  {
+   "source_index": 24814,
+   "unique_candidates_by_band": [
+    31,
+    29,
+    30
+   ]
+  },
+  {
+   "source_index": 24815,
+   "unique_candidates_by_band": [
+    37,
+    35,
+    16
+   ]
+  },
+  {
+   "source_index": 24816,
+   "unique_candidates_by_band": [
+    23,
+    19,
+    0
+   ]
+  },
+  {
+   "source_index": 24817,
+   "unique_candidates_by_band": [
+    29,
+    32,
+    11
+   ]
+  },
+  {
+   "source_index": 24818,
+   "unique_candidates_by_band": [
+    27,
+    25,
+    22
+   ]
+  },
+  {
+   "source_index": 24819,
+   "unique_candidates_by_band": [
+    32,
+    30,
+    13
+   ]
+  },
+  {
+   "source_index": 24820,
+   "unique_candidates_by_band": [
+    27,
+    30,
+    24
+   ]
+  },
+  {
+   "source_index": 24821,
+   "unique_candidates_by_band": [
+    33,
+    42,
+    18
+   ]
+  },
+  {
+   "source_index": 24822,
+   "unique_candidates_by_band": [
+    23,
+    28,
+    9
+   ]
+  },
+  {
+   "source_index": 24823,
+   "unique_candidates_by_band": [
+    42,
+    38,
+    22
+   ]
+  },
+  {
+   "source_index": 24824,
+   "unique_candidates_by_band": [
+    28,
+    11,
+    0
+   ]
+  },
+  {
+   "source_index": 24825,
+   "unique_candidates_by_band": [
+    22,
+    30,
+    22
+   ]
+  },
+  {
+   "source_index": 24826,
+   "unique_candidates_by_band": [
+    29,
+    20,
+    10
+   ]
+  },
+  {
+   "source_index": 24827,
+   "unique_candidates_by_band": [
+    43,
+    40,
+    16
+   ]
+  },
+  {
+   "source_index": 24828,
+   "unique_candidates_by_band": [
+    37,
+    32,
+    13
+   ]
+  },
+  {
+   "source_index": 24829,
+   "unique_candidates_by_band": [
+    36,
+    30,
+    9
+   ]
+  },
+  {
+   "source_index": 24830,
+   "unique_candidates_by_band": [
+    30,
+    36,
+    22
+   ]
+  },
+  {
+   "source_index": 24831,
+   "unique_candidates_by_band": [
+    16,
+    20,
+    2
+   ]
+  },
+  {
+   "source_index": 24832,
+   "unique_candidates_by_band": [
+    37,
+    29,
+    17
+   ]
+  },
+  {
+   "source_index": 24833,
+   "unique_candidates_by_band": [
+    32,
+    36,
+    15
+   ]
+  },
+  {
+   "source_index": 24834,
+   "unique_candidates_by_band": [
+    34,
+    43,
+    34
+   ]
+  },
+  {
+   "source_index": 24835,
+   "unique_candidates_by_band": [
+    32,
+    34,
+    18
+   ]
+  },
+  {
+   "source_index": 24836,
+   "unique_candidates_by_band": [
+    42,
+    50,
+    32
+   ]
+  },
+  {
+   "source_index": 24837,
+   "unique_candidates_by_band": [
+    33,
+    35,
+    29
+   ]
+  },
+  {
+   "source_index": 24838,
+   "unique_candidates_by_band": [
+    34,
+    38,
+    19
+   ]
+  },
+  {
+   "source_index": 24839,
+   "unique_candidates_by_band": [
+    25,
+    35,
+    24
+   ]
+  },
+  {
+   "source_index": 24840,
+   "unique_candidates_by_band": [
+    34,
+    38,
+    28
+   ]
+  },
+  {
+   "source_index": 24841,
+   "unique_candidates_by_band": [
+    36,
+    40,
+    31
+   ]
+  },
+  {
+   "source_index": 24842,
+   "unique_candidates_by_band": [
+    37,
+    23,
+    6
+   ]
+  },
+  {
+   "source_index": 24843,
+   "unique_candidates_by_band": [
+    32,
+    27,
+    12
+   ]
+  },
+  {
+   "source_index": 24844,
+   "unique_candidates_by_band": [
+    34,
+    45,
+    44
+   ]
+  },
+  {
+   "source_index": 24845,
+   "unique_candidates_by_band": [
+    36,
+    37,
+    11
+   ]
+  },
+  {
+   "source_index": 24846,
+   "unique_candidates_by_band": [
+    26,
+    36,
+    28
+   ]
+  },
+  {
+   "source_index": 24847,
+   "unique_candidates_by_band": [
+    36,
+    35,
+    29
+   ]
+  },
+  {
+   "source_index": 24848,
+   "unique_candidates_by_band": [
+    20,
+    24,
+    13
+   ]
+  },
+  {
+   "source_index": 24849,
+   "unique_candidates_by_band": [
+    29,
+    21,
+    0
+   ]
+  },
+  {
+   "source_index": 24850,
+   "unique_candidates_by_band": [
+    39,
+    39,
+    23
+   ]
+  },
+  {
+   "source_index": 24851,
+   "unique_candidates_by_band": [
+    32,
+    36,
+    17
+   ]
+  },
+  {
+   "source_index": 24852,
+   "unique_candidates_by_band": [
+    36,
+    38,
+    35
+   ]
+  },
+  {
+   "source_index": 24853,
+   "unique_candidates_by_band": [
+    39,
+    16,
+    7
+   ]
+  },
+  {
+   "source_index": 24854,
+   "unique_candidates_by_band": [
+    29,
+    32,
+    23
+   ]
+  },
+  {
+   "source_index": 24855,
+   "unique_candidates_by_band": [
+    33,
+    33,
+    13
+   ]
+  },
+  {
+   "source_index": 24856,
+   "unique_candidates_by_band": [
+    40,
+    30,
+    21
+   ]
+  },
+  {
+   "source_index": 24857,
+   "unique_candidates_by_band": [
+    29,
+    28,
+    23
+   ]
+  },
+  {
+   "source_index": 24858,
+   "unique_candidates_by_band": [
+    26,
+    29,
+    6
+   ]
+  },
+  {
+   "source_index": 24859,
+   "unique_candidates_by_band": [
+    34,
+    21,
+    11
+   ]
+  },
+  {
+   "source_index": 24860,
+   "unique_candidates_by_band": [
+    24,
+    40,
+    33
+   ]
+  },
+  {
+   "source_index": 24861,
+   "unique_candidates_by_band": [
+    33,
+    41,
+    18
+   ]
+  },
+  {
+   "source_index": 24862,
+   "unique_candidates_by_band": [
+    27,
+    30,
+    20
+   ]
+  },
+  {
+   "source_index": 24863,
+   "unique_candidates_by_band": [
+    38,
+    38,
+    22
+   ]
+  },
+  {
+   "source_index": 24864,
+   "unique_candidates_by_band": [
+    42,
+    41,
+    32
+   ]
+  },
+  {
+   "source_index": 24865,
+   "unique_candidates_by_band": [
+    32,
+    27,
+    8
+   ]
+  },
+  {
+   "source_index": 24866,
+   "unique_candidates_by_band": [
+    27,
+    44,
+    28
+   ]
+  },
+  {
+   "source_index": 24867,
+   "unique_candidates_by_band": [
+    24,
+    19,
+    6
+   ]
+  },
+  {
+   "source_index": 24868,
+   "unique_candidates_by_band": [
+    36,
+    39,
+    31
+   ]
+  },
+  {
+   "source_index": 24869,
+   "unique_candidates_by_band": [
+    30,
+    27,
+    10
+   ]
+  },
+  {
+   "source_index": 24870,
+   "unique_candidates_by_band": [
+    34,
+    42,
+    35
+   ]
+  },
+  {
+   "source_index": 24871,
+   "unique_candidates_by_band": [
+    35,
+    43,
+    31
+   ]
+  },
+  {
+   "source_index": 24872,
+   "unique_candidates_by_band": [
+    37,
+    24,
+    6
+   ]
+  },
+  {
+   "source_index": 24873,
+   "unique_candidates_by_band": [
+    37,
+    41,
+    26
+   ]
+  },
+  {
+   "source_index": 24874,
+   "unique_candidates_by_band": [
+    29,
+    30,
+    18
+   ]
+  },
+  {
+   "source_index": 24875,
+   "unique_candidates_by_band": [
+    38,
+    42,
+    29
+   ]
+  },
+  {
+   "source_index": 24876,
+   "unique_candidates_by_band": [
+    23,
+    52,
+    35
+   ]
+  },
+  {
+   "source_index": 24877,
+   "unique_candidates_by_band": [
+    32,
+    35,
+    28
+   ]
+  },
+  {
+   "source_index": 24878,
+   "unique_candidates_by_band": [
+    35,
+    47,
+    31
+   ]
+  },
+  {
+   "source_index": 24879,
+   "unique_candidates_by_band": [
+    29,
+    33,
+    13
+   ]
+  },
+  {
+   "source_index": 24880,
+   "unique_candidates_by_band": [
+    26,
+    42,
+    27
+   ]
+  },
+  {
+   "source_index": 24881,
+   "unique_candidates_by_band": [
+    27,
+    42,
+    23
+   ]
+  },
+  {
+   "source_index": 24882,
+   "unique_candidates_by_band": [
+    30,
+    39,
+    29
+   ]
+  },
+  {
+   "source_index": 24883,
+   "unique_candidates_by_band": [
+    32,
+    41,
+    13
+   ]
+  },
+  {
+   "source_index": 24884,
+   "unique_candidates_by_band": [
+    28,
+    15,
+    8
+   ]
+  },
+  {
+   "source_index": 24885,
+   "unique_candidates_by_band": [
+    24,
+    47,
+    1
+   ]
+  },
+  {
+   "source_index": 24886,
+   "unique_candidates_by_band": [
+    32,
+    24,
+    6
+   ]
+  },
+  {
+   "source_index": 24887,
+   "unique_candidates_by_band": [
+    32,
+    30,
+    19
+   ]
+  },
+  {
+   "source_index": 24888,
+   "unique_candidates_by_band": [
+    43,
+    35,
+    24
+   ]
+  },
+  {
+   "source_index": 24889,
+   "unique_candidates_by_band": [
+    40,
+    24,
+    15
+   ]
+  },
+  {
+   "source_index": 24890,
+   "unique_candidates_by_band": [
+    39,
+    46,
+    23
+   ]
+  },
+  {
+   "source_index": 24891,
+   "unique_candidates_by_band": [
+    27,
+    25,
+    17
+   ]
+  },
+  {
+   "source_index": 24892,
+   "unique_candidates_by_band": [
+    39,
+    44,
+    15
+   ]
+  },
+  {
+   "source_index": 24893,
+   "unique_candidates_by_band": [
+    26,
+    33,
+    26
+   ]
+  },
+  {
+   "source_index": 24894,
+   "unique_candidates_by_band": [
+    19,
+    10,
+    6
+   ]
+  },
+  {
+   "source_index": 24895,
+   "unique_candidates_by_band": [
+    36,
+    25,
+    17
+   ]
+  },
+  {
+   "source_index": 24896,
+   "unique_candidates_by_band": [
+    28,
+    40,
+    30
+   ]
+  },
+  {
+   "source_index": 24897,
+   "unique_candidates_by_band": [
+    33,
+    30,
+    13
+   ]
+  },
+  {
+   "source_index": 24898,
+   "unique_candidates_by_band": [
+    34,
+    23,
+    12
+   ]
+  },
+  {
+   "source_index": 24899,
+   "unique_candidates_by_band": [
+    16,
+    23,
+    0
+   ]
+  },
+  {
+   "source_index": 24900,
+   "unique_candidates_by_band": [
+    20,
+    39,
+    35
+   ]
+  },
+  {
+   "source_index": 24901,
+   "unique_candidates_by_band": [
+    33,
+    42,
+    18
+   ]
+  },
+  {
+   "source_index": 24902,
+   "unique_candidates_by_band": [
+    31,
+    23,
+    15
+   ]
+  },
+  {
+   "source_index": 24903,
+   "unique_candidates_by_band": [
+    36,
+    31,
+    24
+   ]
+  },
+  {
+   "source_index": 24904,
+   "unique_candidates_by_band": [
+    32,
+    51,
+    41
+   ]
+  },
+  {
+   "source_index": 24905,
+   "unique_candidates_by_band": [
+    44,
+    46,
+    46
+   ]
+  },
+  {
+   "source_index": 24906,
+   "unique_candidates_by_band": [
+    16,
+    27,
+    16
+   ]
+  },
+  {
+   "source_index": 24907,
+   "unique_candidates_by_band": [
+    24,
+    31,
+    12
+   ]
+  },
+  {
+   "source_index": 24908,
+   "unique_candidates_by_band": [
+    32,
+    37,
+    34
+   ]
+  },
+  {
+   "source_index": 24909,
+   "unique_candidates_by_band": [
+    35,
+    26,
+    29
+   ]
+  },
+  {
+   "source_index": 24910,
+   "unique_candidates_by_band": [
+    20,
+    24,
+    8
+   ]
+  },
+  {
+   "source_index": 24911,
+   "unique_candidates_by_band": [
+    40,
+    32,
+    21
+   ]
+  },
+  {
+   "source_index": 24912,
+   "unique_candidates_by_band": [
+    21,
+    10,
+    4
+   ]
+  },
+  {
+   "source_index": 24913,
+   "unique_candidates_by_band": [
+    31,
+    28,
+    23
+   ]
+  },
+  {
+   "source_index": 24914,
+   "unique_candidates_by_band": [
+    27,
+    22,
+    15
+   ]
+  },
+  {
+   "source_index": 24915,
+   "unique_candidates_by_band": [
+    28,
+    38,
+    19
+   ]
+  },
+  {
+   "source_index": 24916,
+   "unique_candidates_by_band": [
+    26,
+    21,
+    18
+   ]
+  },
+  {
+   "source_index": 24917,
+   "unique_candidates_by_band": [
+    38,
+    25,
+    26
+   ]
+  },
+  {
+   "source_index": 24918,
+   "unique_candidates_by_band": [
+    31,
+    36,
+    9
+   ]
+  },
+  {
+   "source_index": 24919,
+   "unique_candidates_by_band": [
+    33,
+    26,
+    21
+   ]
+  },
+  {
+   "source_index": 24920,
+   "unique_candidates_by_band": [
+    34,
+    40,
+    26
+   ]
+  },
+  {
+   "source_index": 24921,
+   "unique_candidates_by_band": [
+    37,
+    45,
+    37
+   ]
+  },
+  {
+   "source_index": 24922,
+   "unique_candidates_by_band": [
+    36,
+    40,
+    48
+   ]
+  },
+  {
+   "source_index": 24923,
+   "unique_candidates_by_band": [
+    24,
+    18,
+    6
+   ]
+  },
+  {
+   "source_index": 24924,
+   "unique_candidates_by_band": [
+    26,
+    29,
+    33
+   ]
+  },
+  {
+   "source_index": 24925,
+   "unique_candidates_by_band": [
+    40,
+    25,
+    6
+   ]
+  },
+  {
+   "source_index": 24926,
+   "unique_candidates_by_band": [
+    30,
+    38,
+    23
+   ]
+  },
+  {
+   "source_index": 24927,
+   "unique_candidates_by_band": [
+    43,
+    40,
+    37
+   ]
+  },
+  {
+   "source_index": 24928,
+   "unique_candidates_by_band": [
+    38,
+    26,
+    0
+   ]
+  },
+  {
+   "source_index": 24929,
+   "unique_candidates_by_band": [
+    23,
+    18,
+    0
+   ]
+  },
+  {
+   "source_index": 24930,
+   "unique_candidates_by_band": [
+    33,
+    39,
+    7
+   ]
+  },
+  {
+   "source_index": 24931,
+   "unique_candidates_by_band": [
+    31,
+    42,
+    34
+   ]
+  },
+  {
+   "source_index": 24932,
+   "unique_candidates_by_band": [
+    25,
+    37,
+    28
+   ]
+  },
+  {
+   "source_index": 24933,
+   "unique_candidates_by_band": [
+    29,
+    31,
+    8
+   ]
+  },
+  {
+   "source_index": 24934,
+   "unique_candidates_by_band": [
+    30,
+    35,
+    22
+   ]
+  },
+  {
+   "source_index": 24935,
+   "unique_candidates_by_band": [
+    26,
+    37,
+    34
+   ]
+  },
+  {
+   "source_index": 24936,
+   "unique_candidates_by_band": [
+    24,
+    48,
+    35
+   ]
+  },
+  {
+   "source_index": 24937,
+   "unique_candidates_by_band": [
+    27,
+    24,
+    13
+   ]
+  },
+  {
+   "source_index": 24938,
+   "unique_candidates_by_band": [
+    30,
+    38,
+    16
+   ]
+  },
+  {
+   "source_index": 24939,
+   "unique_candidates_by_band": [
+    44,
+    43,
+    22
+   ]
+  },
+  {
+   "source_index": 24940,
+   "unique_candidates_by_band": [
+    30,
+    31,
+    28
+   ]
+  },
+  {
+   "source_index": 24941,
+   "unique_candidates_by_band": [
+    34,
+    43,
+    33
+   ]
+  },
+  {
+   "source_index": 24942,
+   "unique_candidates_by_band": [
+    30,
+    43,
+    30
+   ]
+  },
+  {
+   "source_index": 24943,
+   "unique_candidates_by_band": [
+    37,
+    30,
+    15
+   ]
+  },
+  {
+   "source_index": 24944,
+   "unique_candidates_by_band": [
+    27,
+    30,
+    27
+   ]
+  },
+  {
+   "source_index": 24945,
+   "unique_candidates_by_band": [
+    30,
+    24,
+    8
+   ]
+  },
+  {
+   "source_index": 24946,
+   "unique_candidates_by_band": [
+    34,
+    41,
+    29
+   ]
+  },
+  {
+   "source_index": 24947,
+   "unique_candidates_by_band": [
+    41,
+    37,
+    6
+   ]
+  },
+  {
+   "source_index": 24948,
+   "unique_candidates_by_band": [
+    42,
+    29,
+    3
+   ]
+  },
+  {
+   "source_index": 24949,
+   "unique_candidates_by_band": [
+    38,
+    34,
+    24
+   ]
+  },
+  {
+   "source_index": 24950,
+   "unique_candidates_by_band": [
+    33,
+    35,
+    10
+   ]
+  },
+  {
+   "source_index": 24951,
+   "unique_candidates_by_band": [
+    39,
+    16,
+    4
+   ]
+  },
+  {
+   "source_index": 24952,
+   "unique_candidates_by_band": [
+    25,
+    36,
+    42
+   ]
+  },
+  {
+   "source_index": 24953,
+   "unique_candidates_by_band": [
+    43,
+    36,
+    29
+   ]
+  },
+  {
+   "source_index": 24954,
+   "unique_candidates_by_band": [
+    34,
+    32,
+    8
+   ]
+  },
+  {
+   "source_index": 24955,
+   "unique_candidates_by_band": [
+    22,
+    38,
+    21
+   ]
+  },
+  {
+   "source_index": 24956,
+   "unique_candidates_by_band": [
+    25,
+    30,
+    12
+   ]
+  },
+  {
+   "source_index": 24957,
+   "unique_candidates_by_band": [
+    37,
+    33,
+    3
+   ]
+  },
+  {
+   "source_index": 24958,
+   "unique_candidates_by_band": [
+    34,
+    33,
+    18
+   ]
+  },
+  {
+   "source_index": 24959,
+   "unique_candidates_by_band": [
+    40,
+    32,
+    13
+   ]
+  },
+  {
+   "source_index": 24960,
+   "unique_candidates_by_band": [
+    37,
+    38,
+    26
+   ]
+  },
+  {
+   "source_index": 24961,
+   "unique_candidates_by_band": [
+    38,
+    30,
+    20
+   ]
+  },
+  {
+   "source_index": 24962,
+   "unique_candidates_by_band": [
+    29,
+    37,
+    25
+   ]
+  },
+  {
+   "source_index": 24963,
+   "unique_candidates_by_band": [
+    26,
+    43,
+    10
+   ]
+  },
+  {
+   "source_index": 24964,
+   "unique_candidates_by_band": [
+    30,
+    40,
+    29
+   ]
+  },
+  {
+   "source_index": 24965,
+   "unique_candidates_by_band": [
+    28,
+    30,
+    5
+   ]
+  },
+  {
+   "source_index": 24966,
+   "unique_candidates_by_band": [
+    22,
+    30,
+    13
+   ]
+  },
+  {
+   "source_index": 24967,
+   "unique_candidates_by_band": [
+    32,
+    27,
+    7
+   ]
+  },
+  {
+   "source_index": 24968,
+   "unique_candidates_by_band": [
+    28,
+    43,
+    27
+   ]
+  },
+  {
+   "source_index": 24969,
+   "unique_candidates_by_band": [
+    35,
+    22,
+    9
+   ]
+  },
+  {
+   "source_index": 24970,
+   "unique_candidates_by_band": [
+    32,
+    18,
+    15
+   ]
+  },
+  {
+   "source_index": 24971,
+   "unique_candidates_by_band": [
+    32,
+    44,
+    29
+   ]
+  },
+  {
+   "source_index": 24972,
+   "unique_candidates_by_band": [
+    38,
+    45,
+    24
+   ]
+  },
+  {
+   "source_index": 24973,
+   "unique_candidates_by_band": [
+    35,
+    35,
+    6
+   ]
+  },
+  {
+   "source_index": 24974,
+   "unique_candidates_by_band": [
+    34,
+    34,
+    22
+   ]
+  },
+  {
+   "source_index": 24975,
+   "unique_candidates_by_band": [
+    36,
+    31,
+    12
+   ]
+  },
+  {
+   "source_index": 24976,
+   "unique_candidates_by_band": [
+    31,
+    35,
+    26
+   ]
+  },
+  {
+   "source_index": 24977,
+   "unique_candidates_by_band": [
+    40,
+    42,
+    12
+   ]
+  },
+  {
+   "source_index": 24978,
+   "unique_candidates_by_band": [
+    25,
+    32,
+    31
+   ]
+  },
+  {
+   "source_index": 24979,
+   "unique_candidates_by_band": [
+    39,
+    30,
+    16
+   ]
+  },
+  {
+   "source_index": 24980,
+   "unique_candidates_by_band": [
+    33,
+    32,
+    15
+   ]
+  },
+  {
+   "source_index": 24981,
+   "unique_candidates_by_band": [
+    18,
+    37,
+    20
+   ]
+  },
+  {
+   "source_index": 24982,
+   "unique_candidates_by_band": [
+    37,
+    45,
+    20
+   ]
+  },
+  {
+   "source_index": 24983,
+   "unique_candidates_by_band": [
+    36,
+    38,
+    19
+   ]
+  },
+  {
+   "source_index": 24984,
+   "unique_candidates_by_band": [
+    34,
+    23,
+    3
+   ]
+  },
+  {
+   "source_index": 24985,
+   "unique_candidates_by_band": [
+    37,
+    43,
+    36
+   ]
+  },
+  {
+   "source_index": 24986,
+   "unique_candidates_by_band": [
+    40,
+    44,
+    36
+   ]
+  },
+  {
+   "source_index": 24987,
+   "unique_candidates_by_band": [
+    38,
+    49,
+    30
+   ]
+  },
+  {
+   "source_index": 24988,
+   "unique_candidates_by_band": [
+    35,
+    45,
+    31
+   ]
+  },
+  {
+   "source_index": 24989,
+   "unique_candidates_by_band": [
+    29,
+    53,
+    32
+   ]
+  },
+  {
+   "source_index": 24990,
+   "unique_candidates_by_band": [
+    25,
+    36,
+    18
+   ]
+  },
+  {
+   "source_index": 24991,
+   "unique_candidates_by_band": [
+    40,
+    36,
+    22
+   ]
+  },
+  {
+   "source_index": 24992,
+   "unique_candidates_by_band": [
+    16,
+    22,
+    3
+   ]
+  },
+  {
+   "source_index": 24993,
+   "unique_candidates_by_band": [
+    33,
+    36,
+    22
+   ]
+  },
+  {
+   "source_index": 24994,
+   "unique_candidates_by_band": [
+    38,
+    38,
+    16
+   ]
+  },
+  {
+   "source_index": 24995,
+   "unique_candidates_by_band": [
+    24,
+    37,
+    35
+   ]
+  },
+  {
+   "source_index": 24996,
+   "unique_candidates_by_band": [
+    24,
+    26,
+    21
+   ]
+  },
+  {
+   "source_index": 24997,
+   "unique_candidates_by_band": [
+    25,
+    42,
+    22
+   ]
+  },
+  {
+   "source_index": 24998,
+   "unique_candidates_by_band": [
+    35,
+    41,
+    15
+   ]
+  },
+  {
+   "source_index": 24999,
+   "unique_candidates_by_band": [
+    30,
+    47,
+    32
+   ]
+  },
+  {
+   "source_index": 25000,
+   "unique_candidates_by_band": [
+    30,
+    31,
+    21
+   ]
+  },
+  {
+   "source_index": 25001,
+   "unique_candidates_by_band": [
+    28,
+    30,
+    12
+   ]
+  },
+  {
+   "source_index": 25002,
+   "unique_candidates_by_band": [
+    36,
+    41,
+    12
+   ]
+  },
+  {
+   "source_index": 25003,
+   "unique_candidates_by_band": [
+    33,
+    46,
+    29
+   ]
+  },
+  {
+   "source_index": 25004,
+   "unique_candidates_by_band": [
+    17,
+    27,
+    16
+   ]
+  },
+  {
+   "source_index": 25005,
+   "unique_candidates_by_band": [
+    35,
+    35,
+    35
+   ]
+  },
+  {
+   "source_index": 25006,
+   "unique_candidates_by_band": [
+    34,
+    38,
+    16
+   ]
+  },
+  {
+   "source_index": 25007,
+   "unique_candidates_by_band": [
+    29,
+    32,
+    13
+   ]
+  },
+  {
+   "source_index": 25008,
+   "unique_candidates_by_band": [
+    30,
+    36,
+    15
+   ]
+  },
+  {
+   "source_index": 25009,
+   "unique_candidates_by_band": [
+    23,
+    50,
+    37
+   ]
+  },
+  {
+   "source_index": 25010,
+   "unique_candidates_by_band": [
+    37,
+    46,
+    27
+   ]
+  },
+  {
+   "source_index": 25011,
+   "unique_candidates_by_band": [
+    33,
+    31,
+    14
+   ]
+  },
+  {
+   "source_index": 25012,
+   "unique_candidates_by_band": [
+    37,
+    42,
+    23
+   ]
+  },
+  {
+   "source_index": 25013,
+   "unique_candidates_by_band": [
+    32,
+    43,
+    19
+   ]
+  },
+  {
+   "source_index": 25014,
+   "unique_candidates_by_band": [
+    34,
+    30,
+    3
+   ]
+  },
+  {
+   "source_index": 25015,
+   "unique_candidates_by_band": [
+    34,
+    33,
+    20
+   ]
+  },
+  {
+   "source_index": 25016,
+   "unique_candidates_by_band": [
+    34,
+    40,
+    20
+   ]
+  },
+  {
+   "source_index": 25017,
+   "unique_candidates_by_band": [
+    42,
+    21,
+    8
+   ]
+  },
+  {
+   "source_index": 25018,
+   "unique_candidates_by_band": [
+    39,
+    34,
+    14
+   ]
+  },
+  {
+   "source_index": 25019,
+   "unique_candidates_by_band": [
+    24,
+    44,
+    34
+   ]
+  },
+  {
+   "source_index": 25020,
+   "unique_candidates_by_band": [
+    34,
+    22,
+    9
+   ]
+  },
+  {
+   "source_index": 25021,
+   "unique_candidates_by_band": [
+    32,
+    43,
+    28
+   ]
+  },
+  {
+   "source_index": 25022,
+   "unique_candidates_by_band": [
+    40,
+    46,
+    19
+   ]
+  },
+  {
+   "source_index": 25023,
+   "unique_candidates_by_band": [
+    36,
+    34,
+    19
+   ]
+  },
+  {
+   "source_index": 25024,
+   "unique_candidates_by_band": [
+    28,
+    46,
+    28
+   ]
+  },
+  {
+   "source_index": 25025,
+   "unique_candidates_by_band": [
+    34,
+    42,
+    25
+   ]
+  },
+  {
+   "source_index": 25026,
+   "unique_candidates_by_band": [
+    27,
+    38,
+    15
+   ]
+  },
+  {
+   "source_index": 25027,
+   "unique_candidates_by_band": [
+    31,
+    21,
+    15
+   ]
+  },
+  {
+   "source_index": 25028,
+   "unique_candidates_by_band": [
+    22,
+    29,
+    3
+   ]
+  },
+  {
+   "source_index": 25029,
+   "unique_candidates_by_band": [
+    25,
+    25,
+    26
+   ]
+  },
+  {
+   "source_index": 25030,
+   "unique_candidates_by_band": [
+    43,
+    30,
+    23
+   ]
+  },
+  {
+   "source_index": 25031,
+   "unique_candidates_by_band": [
+    22,
+    27,
+    13
+   ]
+  },
+  {
+   "source_index": 25032,
+   "unique_candidates_by_band": [
+    26,
+    19,
+    4
+   ]
+  },
+  {
+   "source_index": 25033,
+   "unique_candidates_by_band": [
+    36,
+    34,
+    3
+   ]
+  },
+  {
+   "source_index": 25034,
+   "unique_candidates_by_band": [
+    33,
+    24,
+    7
+   ]
+  },
+  {
+   "source_index": 25035,
+   "unique_candidates_by_band": [
+    32,
+    26,
+    16
+   ]
+  },
+  {
+   "source_index": 25036,
+   "unique_candidates_by_band": [
+    22,
+    34,
+    31
+   ]
+  },
+  {
+   "source_index": 25037,
+   "unique_candidates_by_band": [
+    30,
+    41,
+    30
+   ]
+  },
+  {
+   "source_index": 25038,
+   "unique_candidates_by_band": [
+    40,
+    35,
+    29
+   ]
+  },
+  {
+   "source_index": 25039,
+   "unique_candidates_by_band": [
+    40,
+    38,
+    13
+   ]
+  },
+  {
+   "source_index": 25040,
+   "unique_candidates_by_band": [
+    24,
+    38,
+    17
+   ]
+  },
+  {
+   "source_index": 25041,
+   "unique_candidates_by_band": [
+    38,
+    44,
+    35
+   ]
+  },
+  {
+   "source_index": 25042,
+   "unique_candidates_by_band": [
+    29,
+    34,
+    29
+   ]
+  },
+  {
+   "source_index": 25043,
+   "unique_candidates_by_band": [
+    29,
+    23,
+    2
+   ]
+  },
+  {
+   "source_index": 25044,
+   "unique_candidates_by_band": [
+    32,
+    40,
+    28
+   ]
+  },
+  {
+   "source_index": 25045,
+   "unique_candidates_by_band": [
+    33,
+    39,
+    20
+   ]
+  },
+  {
+   "source_index": 25046,
+   "unique_candidates_by_band": [
+    35,
+    32,
+    21
+   ]
+  },
+  {
+   "source_index": 25047,
+   "unique_candidates_by_band": [
+    35,
+    49,
+    23
+   ]
+  },
+  {
+   "source_index": 25048,
+   "unique_candidates_by_band": [
+    33,
+    39,
+    20
+   ]
+  },
+  {
+   "source_index": 25049,
+   "unique_candidates_by_band": [
+    33,
+    22,
+    16
+   ]
+  },
+  {
+   "source_index": 25050,
+   "unique_candidates_by_band": [
+    34,
+    41,
+    17
+   ]
+  },
+  {
+   "source_index": 25051,
+   "unique_candidates_by_band": [
+    38,
+    36,
+    31
+   ]
+  },
+  {
+   "source_index": 25052,
+   "unique_candidates_by_band": [
+    31,
+    16,
+    3
+   ]
+  },
+  {
+   "source_index": 25053,
+   "unique_candidates_by_band": [
+    35,
+    30,
+    18
+   ]
+  },
+  {
+   "source_index": 25054,
+   "unique_candidates_by_band": [
+    21,
+    19,
+    18
+   ]
+  },
+  {
+   "source_index": 25055,
+   "unique_candidates_by_band": [
+    29,
+    23,
+    9
+   ]
+  },
+  {
+   "source_index": 25056,
+   "unique_candidates_by_band": [
+    46,
+    30,
+    11
+   ]
+  },
+  {
+   "source_index": 25057,
+   "unique_candidates_by_band": [
+    29,
+    27,
+    12
+   ]
+  },
+  {
+   "source_index": 25058,
+   "unique_candidates_by_band": [
+    27,
+    35,
+    34
+   ]
+  },
+  {
+   "source_index": 25059,
+   "unique_candidates_by_band": [
+    24,
+    28,
+    13
+   ]
+  },
+  {
+   "source_index": 25060,
+   "unique_candidates_by_band": [
+    21,
+    33,
+    26
+   ]
+  },
+  {
+   "source_index": 25061,
+   "unique_candidates_by_band": [
+    31,
+    27,
+    16
+   ]
+  },
+  {
+   "source_index": 25062,
+   "unique_candidates_by_band": [
+    41,
+    37,
+    21
+   ]
+  },
+  {
+   "source_index": 25063,
+   "unique_candidates_by_band": [
+    38,
+    35,
+    12
+   ]
+  },
+  {
+   "source_index": 25064,
+   "unique_candidates_by_band": [
+    37,
+    30,
+    16
+   ]
+  },
+  {
+   "source_index": 25065,
+   "unique_candidates_by_band": [
+    45,
+    40,
+    18
+   ]
+  },
+  {
+   "source_index": 25066,
+   "unique_candidates_by_band": [
+    22,
+    39,
+    36
+   ]
+  },
+  {
+   "source_index": 25067,
+   "unique_candidates_by_band": [
+    42,
+    28,
+    2
+   ]
+  },
+  {
+   "source_index": 25068,
+   "unique_candidates_by_band": [
+    29,
+    32,
+    14
+   ]
+  },
+  {
+   "source_index": 25069,
+   "unique_candidates_by_band": [
+    35,
+    34,
+    33
+   ]
+  },
+  {
+   "source_index": 25070,
+   "unique_candidates_by_band": [
+    34,
+    43,
+    36
+   ]
+  },
+  {
+   "source_index": 25071,
+   "unique_candidates_by_band": [
+    37,
+    34,
+    18
+   ]
+  },
+  {
+   "source_index": 25072,
+   "unique_candidates_by_band": [
+    28,
+    30,
+    13
+   ]
+  },
+  {
+   "source_index": 25073,
+   "unique_candidates_by_band": [
+    36,
+    38,
+    29
+   ]
+  },
+  {
+   "source_index": 25074,
+   "unique_candidates_by_band": [
+    31,
+    43,
+    23
+   ]
+  },
+  {
+   "source_index": 25075,
+   "unique_candidates_by_band": [
+    29,
+    23,
+    7
+   ]
+  },
+  {
+   "source_index": 25076,
+   "unique_candidates_by_band": [
+    26,
+    43,
+    28
+   ]
+  },
+  {
+   "source_index": 25077,
+   "unique_candidates_by_band": [
+    28,
+    11,
+    5
+   ]
+  },
+  {
+   "source_index": 25078,
+   "unique_candidates_by_band": [
+    29,
+    30,
+    19
+   ]
+  },
+  {
+   "source_index": 25079,
+   "unique_candidates_by_band": [
+    32,
+    43,
+    33
+   ]
+  },
+  {
+   "source_index": 25080,
+   "unique_candidates_by_band": [
+    33,
+    38,
+    24
+   ]
+  },
+  {
+   "source_index": 25081,
+   "unique_candidates_by_band": [
+    37,
+    31,
+    5
+   ]
+  },
+  {
+   "source_index": 25082,
+   "unique_candidates_by_band": [
+    27,
+    44,
+    40
+   ]
+  },
+  {
+   "source_index": 25083,
+   "unique_candidates_by_band": [
+    33,
+    42,
+    30
+   ]
+  },
+  {
+   "source_index": 25084,
+   "unique_candidates_by_band": [
+    33,
+    34,
+    12
+   ]
+  },
+  {
+   "source_index": 25085,
+   "unique_candidates_by_band": [
+    36,
+    45,
+    21
+   ]
+  },
+  {
+   "source_index": 25086,
+   "unique_candidates_by_band": [
+    36,
+    35,
+    22
+   ]
+  },
+  {
+   "source_index": 25087,
+   "unique_candidates_by_band": [
+    30,
+    29,
+    6
+   ]
+  }
+ ]
+}

@@ -1,0 +1,60 @@
+{
+  "tier": "exploratory",
+  "phase": "design only; no label/train/build/benchmark/test run started",
+  "owner": "Claude Fable 5.1 (claude-fable-5-1)",
+  "repository_head": "cbca64ebc97cd3f0cd3b59ea07eab98a5d817301",
+  "pinned_production_player": {
+    "player": "walt-table-v2",
+    "source_commit": "cb1ef3b23072e4c268f31f625f2b61d5facc1929",
+    "source_sha256": "5bedf14af0e5a5ef354acca4765f67843469d074d163e8e4786631aa23436e32",
+    "wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+    "plunge_commit": "a0d9fa806166b0e63fe016bb49d93f91f47b1af8",
+    "head_source_identical_to_pinned": "git diff --stat cb1ef3b2 HEAD -- walt/walt-player walt/walt/src walt/walt-wasm is empty",
+    "profile": {"ordinary": {"worlds": 40, "n0": 8, "n1": 2, "partner": true, "budget_ms": 14000}, "opening": {"worlds": 160, "n0": 8, "n1": 2, "partner": false, "budget_ms": 20000}, "fallback": {"worlds": 8, "n0": 2}}
+  },
+  "inspected_files_sha256_prefix_and_blob": {
+    "walt/walt-player/src/lib.rs": ["079caf5a3103b464", "3d6528367cb9"],
+    "walt/walt-player/src/played.rs": ["43372a7109c8983e", "9e65cc7c7d12"],
+    "walt/walt-player/src/bin/walt-table.rs": ["1913cc33159ae66c", "afb91d6ef957"],
+    "walt/walt/src/solver/mod.rs": ["3e93d9878309bc0c", "0cfae78e9208"],
+    "walt/walt/src/solver/partnership.rs": ["66f90da885bf8790", "e28aa278969c"],
+    "walt/walt/src/solver/partnership_wire.rs": ["84f7ce16a0071515", "ad0e18fd51e0"],
+    "walt/walt/src/solver/selection.rs": ["555e88af421b2465", "c3aa33260a42"],
+    "walt/walt/src/solver/contract.rs": ["c5c5636d8725454c", "f5f60991f0a9"],
+    "walt/walt/src/policy_search/partner_rollout.rs": ["514ef4847bb54b95", "c5752f5c03bb"],
+    "experiments/astra-sol-20261004/tools/arena.py": ["653928d3e532cb01", "c4a5586a2224"],
+    "experiments/astra-sol-20261004/tools/phone_worker.mjs": ["1e965dd5f9274186", "8d92fec30d4f"],
+    "experiments/astra-sol-20261004/reference/production-phone/manifest.json": ["e15bc53ef6fa923e", "a9e70db8671a"],
+    "experiments/astra-sol-20261004/reference/production-phone/walt-player.wasm": ["40d7a1eea658627f", "b6a1aec0a8fd"],
+    "experiments/astra-sol-20261004/reference/production-phone/native.ts": ["681e5f983688919f", "3a91f0d59cef"],
+    "experiments/native-policy-check-20261004/adapter/src/lib.rs": ["11cf8c59e8f4a1a1", "4cb48ad60d80"],
+    "experiments/tiny-net-coverage-20261004/match.py": ["60c70289c241133d", "b92757caa15a"],
+    "experiments/tiny-net-ladder-20261004/match.py": ["29a86fca7d7cee2e", "4414a3c01d5a"],
+    "experiments/tiny-net-ladder-20261004/kernel.c": ["f905d0a349273d01", "da9977dfa2ab"],
+    "experiments/partnership/rules.py": ["4393683bc431f868", "8114b8a52721"]
+  },
+  "not_the_pinned_player": {
+    "archived_august_phone": {"sha256": "af0200af8dc99d5a95ac898cded12861ca4a36c38b336dbbd6a33a515c071d59", "source_commit": "9a056f20461fbe951544e4145ee49b726e0f6852", "procedure": "race/refine; experiments/partnership/reference/phone"},
+    "late_l3_adapter": {"route": "late-l3-native-40-4-2-2", "field": "Level(2)", "where": "experiments/native-policy-check-20261004/adapter"},
+    "historical_walt_decide": "fused comparator, ruled out in the ladder pilot",
+    "T0_kernel": "uniform-play all-actor rollouts, experiments/tiny-net-ladder-20261004/kernel.c"
+  },
+  "proposed_teacher": "PLUNGE-HINT-ESTIMATES-walt-table-v2-partner_false-n40-n0_8-n1_2-VOIDLESS-FIXED-BID30-STRAIGHT-v1 (and n160 level); supersedes the DESIGN.md section 4 name; see HINT-TARGET.md",
+  "hint_path": {
+    "ui": "Plunge src/ui/MoveHint.tsx -> src/ai/hint.ts getHint(g, sessionId, 40|160) -> api('estimates') -> runPlayer({request, worlds, partner:false, budget_ms:20000 if worlds>40}) -> worker.ts -> pinned WASM walt_player::decide -> partnership_wire baseline n40/n0 8/n1 2 voidless fixed; rows via src/ai/decision-stats.ts decisionStats",
+    "displayed_fields": "evaluation.options [[tile, numerator, denominator]] and evaluation.outer_worlds; declaring = seat%2==bidder%2 -> 'make', numerator as is; defending -> 'set', denominator-numerator; chance=n/d; successes=n*worlds/d; best = all rows tied at the top; Suggested = response.choice (lowest tile among exact ties); fallback route l1-fallback shows the 8-world fallback_evaluation with a 'requested' note",
+    "partner_check_omitted_because": "estimates call passes partner:false, so walt_player::decide never runs the partner_rollout review (lib.rs:241)",
+    "seed": "nativeSeed(sessionId, handNumber) = FNV-1a('sunshine/{gameId}/{handNumber}'), public",
+    "plunge_blobs": {
+      "pinned_tree_listing_entries": 15,
+      "pinned_verified": {"src/ai/native.ts": "3a91f0d59cef5c9fc5ec0f5d0977a1c4407a7c7a", "src/ui/store.ts": "86b4622039a42c37ac1f80ba0ef5d8b64f993f59", "src/ai/phone/manifest.json": "a9e70db8671a4957ebc7ffbe9a81b6d4392a682b"},
+      "closest_verifiable_origin_main_3efd218_2026-09-26": {"src/ai/hint.ts": "ed00debdfcd6", "src/ai/decision-stats.ts": "f255ccde51b2", "src/ui/MoveScores.tsx": "1bd2ef2b0ca1", "src/ui/MoveHint.tsx": "26fdfc32e0d8", "src/ui/SavedHint.tsx": "961bd8dfeb46", "src/ai/phone/client.ts": "790cae32e567", "src/ai/phone/worker.ts": "47c29a0055f3", "manifest_matches_pinned": true, "native_ts_differs_from_pinned": "two estimate-persistence lines only"},
+      "local_plunge_head_aff966d_2026-09-20": {"src/ai/hint.ts": "ac6c4b3b6c89", "src/ai/decision-stats.ts": "624bc47c5ab0", "src/ui/MoveScores.tsx": "1bd2ef2b0ca1", "src/ui/MoveHint.tsx": "2ac3d4520392", "manifest_source_commit": "1dfd0e22 (older, not pinned)"},
+      "pinned_commit_locally_available": false,
+      "resolution_not_performed": "read-only git fetch of a0d9fa80 into a Plunge checkout"
+    },
+    "unknown_from_screenshot": ["deal", "seat", "trump", "bid", "public plays", "game id/hand number", "request seed", "whether Highest estimate tags were abbreviated in forwarding"]
+  },
+  "exposed_per_action_values": "evaluation.options = [[tile, numerator, denominator], ...] exact rationals with denominator 40 at the ordinary profile; P(declaring partnership makes bid) from the acting seat's support-uniform belief; argmax for T1 seats, argmin for T0 seats; ascending-tile exact ties; partner-rollout review may override choice but not the vector",
+  "toolchain_available_offline": {"cargo": "1.95.0 (f2d3ce0bd 2026-03-21)", "targets": ["aarch64-apple-darwin", "wasm32-unknown-unknown", "wasm32-wasip1"], "built_native_player_present": false, "adapter_build_seconds_recorded": 28.0}
+}

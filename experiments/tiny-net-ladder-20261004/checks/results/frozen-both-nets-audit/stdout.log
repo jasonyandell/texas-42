@@ -1,0 +1,27 @@
+{
+  "rule_pairs": 74088,
+  "sampler": {
+    "samples": 30000,
+    "exact_support_size": 30,
+    "chi_square": 33.412
+  },
+  "native_python": {
+    "roots": 120,
+    "paired_outcomes": 8636,
+    "net_encoding_choices": 120,
+    "bidder_parities": [
+      0,
+      1
+    ]
+  },
+  "actual_frozen_n0-32": {
+    "source_sha256": "70c37e26d80bfb9f3cd393f62d07a9be74f5849f3731db7bfa8f5cb4cf57174c",
+    "all_position_choices": 4860,
+    "hidden_hand_inputs": 0
+  },
+  "actual_frozen_n1-32": {
+    "source_sha256": "7877c11c7e70e871151987700ae23c19ddb74bbc87cfa7ebd01db919efe3ea1e",
+    "all_position_choices": 4860,
+    "hidden_hand_inputs": 0
+  }
+}
