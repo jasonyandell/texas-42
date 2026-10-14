@@ -13,12 +13,41 @@ for recompute rather than holding old versions).
   the crate tree 2026-08-24. sha256 manifest beside it
   (`manifest.sha256`).
 - **HuggingFace**: dataset `jasonyandell/texas-42-walt-archive`
-  (private until Jason rules otherwise) — the curated citable set:
-  everything EXCEPT the two exclusions below. *Status (2026-09-13):*
-  the upload is tracked by [[hf-archive-upload]] (`kanban/doing/`) and
-  is **not confirmed in-tree** — no manifest, receipt or log in the
-  repository records a completed upload; treat the HF home as the
-  target, not the fact, until that card closes.
+  (public since 2026-09-21) — the curated citable set: everything
+  EXCEPT the two exclusions below. *Confirmed 2026-10-14* by the mk5
+  Archive desk against the Hub's file metadata: `results/`, `store/`
+  and `manifest.sha256` are there (1.9 GB, 183 files), beside the
+  kiln snapshots (`kiln/snapshots/<stamp>/`, the same bytes as
+  `~/data/texas-42/backups/<stamp>/`) and the tiny-net ladder tarballs.
+  The [[hf-archive-upload]] card can close on that.
+- **HuggingFace, the other homes** (recovered 2026-10-14 by the mk5
+  Archive desk; all public, CC0, each with a card and `SHA256SUMS`):
+  - `jasonyandell/texas-42-walt-lanes-2026-08-09` — the rest of
+    `~/data/texas-42/`: the partnership gym and its Scheme campaigns
+    (`relational-*`, `policy-synthesis-*`, `scheme-discovery-v1`,
+    `gym-spec-v1`, `bid-making-v1`), the sunshine cycles
+    (`sunshine-count-*`, `-rollout-v1`, `-gym-replay-v1`,
+    `-recipes-v1`, `-biclusters-v1`, `plunge-sunshine`), the kiln run
+    records, the Plunge phone-build lanes, `gran-anchors-2026-08-24`,
+    `releases/`. Lanes with thousands of files ship as
+    `<lane>.tar.gz` + `<lane>.files.txt`. Explained by
+    `experiments/partnership/` and `experiments/kiln/` on
+    `codex/walt-cpu-speedups` (3cf2536d).
+  - `jasonyandell/texas-42-walt-speed-2026-09` — the untracked
+    `experiments/` of this repo: `full-game-speed/` (results, docs,
+    reference, tools, gpu-replay), `response-ladder/` (results,
+    reference, tools), `walt42x-intake/`. Build output left out.
+  - `jasonyandell/texas-42-walt-response-ladder`,
+    `jasonyandell/texas-42-walt-ladder-labels`,
+    `jasonyandell/texas-42-walt-tiny-net-ladder` (model) — the
+    September ladder, as already cited.
+- **Still local only** (Jason's call, asked in the feed): the
+  `~/data/texas-42/seed-survey` companion and checkpoints (8.6 GB; a
+  deterministic, SHA-pinned function of committed inputs by its own
+  header) and the raw `~/data/texas-42/walt-response-ladder` run
+  (5.9 GB; its curated export is the dataset above). `kiln-v1/` and
+  `kiln-played-v1/` are the live campaign directories; the kiln's
+  `backup.py` snapshots them to the archive, a folder upload does not.
 
 ## Exclusions from HF (kept local only)
 
